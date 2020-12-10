@@ -5,13 +5,15 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
+  computed: {
+    ...mapState(["profile", "quays"]),
+    ...mapGetters(["exampleGetter"]),
   },
+  data: () => ({
+    sheet: false,
+  }),
 };
 </script>
