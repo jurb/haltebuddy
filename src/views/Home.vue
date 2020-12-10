@@ -5,8 +5,16 @@
       >Whaaaaat <br /><br /><br /><br /><br />
       iets</v-bottom-sheet
     >
+    <ul></ul>
 
-    {{ quays.filter((el) => el.stopplacename.publicname.includes("James")) }}
+    <li
+      v-for="(item, index) in quays
+        .filter((el) => el.stopplacename.publicname.includes('plein'))
+        .map((el) => el.stopplacename.publicname)"
+      :key="index"
+    >
+      {{ item }}
+    </li>
   </div>
 </template>
 
