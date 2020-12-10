@@ -22,12 +22,13 @@
 </template>
 
 <script>
+// @ is an alias to /src
+import BottomNavigation from "@/components/BottomNavigation.vue";
+
 export default {
   name: "App",
-
-  components: {},
-  data: () => ({
-    //
-  }),
+  components: {
+    BottomNavigation,
+  },
 };
 </script>
