@@ -1,25 +1,27 @@
 <template>
-  <v-bottom-navigation v-model="value" color="primary" grow absolute>
-    <v-btn value="profile">
+  <v-bottom-navigation
+    v-model="value"
+    background-color="#009ee3"
+    dark
+    grow
+    absolute
+  >
+    <v-btn value="profile" to="/profiel">
       <span>Reisprofiel</span>
-
       <v-icon>mdi-account</v-icon>
     </v-btn>
 
-    <v-btn value="stops">
+    <v-btn value="stops" to="/haltes">
       <span>Haltes</span>
-
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <v-btn value="map">
+    <v-btn value="map" to="/kaart">
       <span>Kaart</span>
-
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
-    <v-btn value="halteknop">
-      <span>Instapknop</span>
-
+    <v-btn value="halteknop" to="/halteknop">
+      <span>Halteknop</span>
       <v-icon>mdi-lifebuoy</v-icon>
     </v-btn>
   </v-bottom-navigation>
