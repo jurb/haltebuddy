@@ -11,7 +11,7 @@
       <v-icon>mdi-account</v-icon>
     </v-btn>
 
-    <v-btn value="stops" to="/haltes">
+    <v-btn value="stops" to="/">
       <span>Haltes</span>
       <v-icon>mdi-heart</v-icon>
     </v-btn>
