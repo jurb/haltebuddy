@@ -1,37 +1,72 @@
 <template>
-  <v-card flat color="transparent">
-    <v-subheader>Hoe breed is je rolstoel?</v-subheader>
-    <v-card-text>
-      <v-slider
-        v-model="width"
-        prepend-icon=" mdi-chevron-double-left"
-        append-icon=" mdi-chevron-double-right"
-        thumb-label="always"
-        @click:prepend="width--"
-        @click:append="width++"
-      >
-        <template v-slot:thumb-label="{ value }"> {{ value }}m </template>
-      </v-slider>
-    </v-card-text>
-
-    <!-- <v-subheader>Alarm volume</v-subheader>
-
-    <v-card-text>
-      <v-slider v-model="alarm" append-icon="mdi-alarm"></v-slider>
-    </v-card-text>
-
-    <v-subheader>Icon click callback</v-subheader>
-
-    <v-card-text>
-      <v-slider
-        v-model="zoom"
-        append-icon="mdi-magnify-plus-outline"
-        prepend-icon="mdi-magnify-minus-outline"
-        @click:append="zoomIn"
-        @click:prepend="zoomOut"
-      ></v-slider>
-    </v-card-text> -->
-  </v-card>
+  <div>
+    <h1>Profiel</h1>
+    <v-form>
+      <v-card>
+        <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
+        <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
+        <v-card-text
+          ><v-radio-group v-model="modality">
+            <v-radio
+              v-for="n in modalities"
+              :key="n"
+              :label="`${n}`"
+              :value="n"
+            ></v-radio> </v-radio-group
+        ></v-card-text>
+      </v-card>
+      <div><br /></div>
+      <v-card>
+        <v-card-title class="pb-0">Hoe breed is je rolstoel?</v-card-title>
+        <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
+        <v-card-text>
+          <v-slider
+            class="mt-14"
+            v-model="width"
+            prepend-icon=" mdi-chevron-double-left"
+            append-icon=" mdi-chevron-double-right"
+            thumb-label="always"
+            @click:prepend="width--"
+            @click:append="width++"
+            min="30"
+            max="150"
+            thumb-size="40"
+          >
+            <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
+          </v-slider>
+        </v-card-text>
+      </v-card>
+      <div><br /></div>
+      <v-card>
+        <v-card-title class="pb-0">Hoe hoog mag een drempel zijn?</v-card-title>
+        <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
+        <v-card-text>
+          <v-slider
+            class="mt-14"
+            v-model="threshold"
+            prepend-icon=" mdi-chevron-double-down"
+            append-icon=" mdi-chevron-double-up"
+            thumb-label="always"
+            @click:prepend="threshold--"
+            @click:append="threshold++"
+            :disabled="ramp"
+            min="0"
+            max="15"
+            thumb-size="40"
+          >
+            <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
+          </v-slider>
+          <v-checkbox
+            v-model="ramp"
+            :label="
+              `Ik wil drempelloos reizen (en met de plank het voertuig in)`
+            "
+          ></v-checkbox> </v-card-text
+      ></v-card>
+    </v-form>
+    <div><br /></div>
+    <div><br /></div>
+  </div>
 </template>
 
 <script>
@@ -53,6 +88,14 @@ export default {
       this.width = this.width + 10 || 100;
     },
   },
+  data: () => ({
+    width: 90,
+    threshold: 2,
+    ramp: false,
+    modalities: ["Electrische rolstoel", "Handrolstoel", "Rollator"],
+    modality: "",
+  }),
+  methods: {},
 };
 </script>
 
