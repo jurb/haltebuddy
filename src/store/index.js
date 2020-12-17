@@ -3,6 +3,8 @@ import Vuex from "vuex";
 
 import quays from "@/assets/ExportCHBLatest-amsterdam.json";
 
+import * as d3 from "d3-scale";
+
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
