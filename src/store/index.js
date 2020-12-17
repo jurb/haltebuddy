@@ -17,6 +17,12 @@ export const store = new Vuex.Store({
     exampleGetter: (state, getters) => (el) => {
       return state;
     },
+    stopRatingRange: () => ["🔴", "🟠", "🤔", "🟢"],
+    stopRatingScaleAsc: (state, getters) => (domain) =>
+      d3
+        .scaleThreshold()
+        .domain(domain)
+        .range(getters.stopRatingRange),
   },
   actions: {
     changeProfile({ commit }) {
