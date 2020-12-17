@@ -49,7 +49,7 @@
             thumb-label="always"
             @click:prepend="profileLocal.threshold--"
             @click:append="profileLocal.threshold++"
-            :disabled="ramp"
+            :disabled="profileLocal.ramp"
             min="0"
             max="15"
             thumb-size="40"
