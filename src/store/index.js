@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    profile: { width: 50, height: 2 },
+    profile: { width: 90, threshold: 2, ramp: false },
     quays: quays,
   },
   getters: {
@@ -17,12 +17,12 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    actionExample({ commit }) {
-      commit("mutationExample", null);
+    changeProfile({ commit }) {
+      commit("changeProfile", null);
     },
   },
   mutations: {
-    mutationExample(state, val) {
+    changeProfile(state, val) {
       state.profile = val;
     },
   },

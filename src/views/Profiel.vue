@@ -22,12 +22,12 @@
         <v-card-text>
           <v-slider
             class="mt-14"
-            v-model="width"
+            v-model="profileLocal.width"
             prepend-icon=" mdi-chevron-double-left"
             append-icon=" mdi-chevron-double-right"
             thumb-label="always"
-            @click:prepend="width--"
-            @click:append="width++"
+            @click:prepend="profileLocal.width--"
+            @click:append="profileLocal.width++"
             min="30"
             max="150"
             thumb-size="40"
@@ -43,12 +43,12 @@
         <v-card-text>
           <v-slider
             class="mt-14"
-            v-model="threshold"
+            v-model="profileLocal.threshold"
             prepend-icon=" mdi-chevron-double-down"
             append-icon=" mdi-chevron-double-up"
             thumb-label="always"
-            @click:prepend="threshold--"
-            @click:append="threshold++"
+            @click:prepend="profileLocal.threshold--"
+            @click:append="profileLocal.threshold++"
             :disabled="ramp"
             min="0"
             max="15"
@@ -57,7 +57,7 @@
             <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
           </v-slider>
           <v-checkbox
-            v-model="ramp"
+            v-model="profileLocal.ramp"
             :label="
               `Ik wil drempelloos reizen (en met de plank het voertuig in)`
             "
@@ -76,16 +76,13 @@ export default {
   computed: {
     ...mapState(["profile", "quays"]),
     ...mapGetters(["exampleGetter"]),
-  },
-  data: () => ({
-    width: 0,
-  }),
-  methods: {
-    dec(d) {
-      d = d - 10 || 0;
-    },
-    inc(d) {
-      this.width = this.width + 10 || 100;
+    profileLocal: {
+      get() {
+        return this.profile;
+      },
+      set(value) {
+        this.changeProfile(value);
+      },
     },
   },
   data: () => ({
