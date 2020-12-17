@@ -40,7 +40,7 @@ export default {
   name: "Home",
   computed: {
     ...mapState(["profile", "quays"]),
-    ...mapGetters(["exampleGetter"]),
+    ...mapGetters(["filterQuays"]),
   },
   data: () => ({
     sheet: false,

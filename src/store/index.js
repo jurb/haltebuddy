@@ -13,9 +13,10 @@ export const store = new Vuex.Store({
     quays: quays,
   },
   getters: {
-    // put values from filter data in one array so we can filter the steps on them
-    exampleGetter: (state, getters) => (el) => {
-      return state;
+    filterQuays: (state, getters) => {
+      return state.quays
+        .filter((el) => el.stopplacename.publicname.includes("plein"))
+        .map((el) => el.stopplacename.publicname);
     },
     stopRatingRange: () => ["🔴", "🟠", "🤔", "🟢"],
     stopRatingScaleAsc: (state, getters) => (domain) =>

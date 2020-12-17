@@ -8,7 +8,7 @@ export default {
   name: "Kaart",
   computed: {
     ...mapState(["profile", "quays"]),
-    ...mapGetters(["exampleGetter"]),
+    ...mapGetters(["filterQuays"]),
   },
   data: () => ({
     test: false,
