@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Profiel</h1>
+    <!-- <h1>Profiel</h1> -->
     <v-form>
       <v-card>
         <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
