@@ -1,7 +1,6 @@
 <template>
   <div>
     <!-- <h1>Haltes</h1> -->
-    {{ profile }}
     <search-bar />
     <quay-list-item
       v-for="(quay, index) in filteredQuays
