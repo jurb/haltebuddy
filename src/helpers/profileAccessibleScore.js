@@ -15,12 +15,12 @@ function profileAccessibleScore(quay, profile) {
     adaptations.heightwithenvironment > 0;
   const transportMode = quay.quaytransportmodes.transportmodedata.transportmode;
 
-  const stopTresholdProfile = profile.threshold / 100;
-  const stopTreshold = threshold ? adaptations.heightwithenvironment : null;
-  const stopTresholdDifference = stopTresholdProfile - stopTreshold;
+  const stopThresholdProfile = profile.threshold / 100;
+  const stopThreshold = threshold ? adaptations.heightwithenvironment : null;
+  const stopThresholdDifference = stopThresholdProfile - stopThreshold;
   // voorbeeld: profiel: maxdrempel is 5, situatie: drempel is 6 => difference 5-6= -1
-  const stopTresholdRating = stopRatingScaleAsc([-0.01, 0, 0.01])(
-    stopTresholdDifference
+  const stopThresholdRating = stopRatingScaleAsc([-0.01, 0, 0.01])(
+    stopThresholdDifference
   );
 
   const stopNarrowestWidthProfile = profile.width;
@@ -31,16 +31,16 @@ function profileAccessibleScore(quay, profile) {
     stopNarrowestWidthDifference
   );
 
-  const vehicleTresholdProfile = profile.threshold / 100;
-  const vehicleTreshold =
+  const vehicleThresholdProfile = profile.threshold / 100;
+  const vehicleThreshold =
     transportMode === "tram"
       ? 0.29 - adaptations.kerbheight
       : transportMode === "bus"
       ? 0.23 - adaptations.kerbheight
       : null;
-  const vehicleTresholdDifference = vehicleTresholdProfile - vehicleTreshold;
-  const vehicleTresholdRating = stopRatingScaleAsc([-0.01, 0, 0.01])(
-    vehicleTresholdDifference
+  const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
+  const vehicleThresholdRating = stopRatingScaleAsc([-0.01, 0, 0.01])(
+    vehicleThresholdDifference
   );
 
   const plankRoomWidthProfile = 1.5;
@@ -76,20 +76,20 @@ function profileAccessibleScore(quay, profile) {
   return {
     transportMode,
 
-    stopTresholdProfile,
-    stopTreshold,
-    stopTresholdDifference,
-    stopTresholdRating,
+    stopThresholdProfile,
+    stopThreshold,
+    stopThresholdDifference,
+    stopThresholdRating,
 
     stopNarrowestWidthProfile,
     stopNarrowestWidth,
     stopNarrowestWidthDifference,
     stopNarrowestWidthRating,
 
-    vehicleTresholdProfile,
-    vehicleTreshold,
-    vehicleTresholdDifference,
-    vehicleTresholdRating,
+    vehicleThresholdProfile,
+    vehicleThreshold,
+    vehicleThresholdDifference,
+    vehicleThresholdRating,
 
     plankRoomWidthProfile,
     plankRoomWidth,

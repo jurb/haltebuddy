@@ -21,7 +21,7 @@
         :key="index"
       >
         {{ item.stopplace.stopplacename.publicname }} ({{
-          item.profileAccessibleScore.stopTresholdRating
+          item.profileAccessibleScore.stopThresholdRating
         }})
       </li>
     </ul>
