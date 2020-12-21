@@ -7,11 +7,12 @@
           .filter((el) => el.stopplace.stopplacename.publicname)
           .filter((el) =>
             el.stopplace.stopplacename.publicname.includes('plein')
-          )
-          .map((el) => el.stopplace.stopplacename.publicname)"
+          )"
         :key="index"
       >
-        {{ item }}
+        {{ item.stopplace.stopplacename.publicname }} ({{
+          item.profileAccessibleScore.stopTresholdRating
+        }})
       </li>
     </ul>
   </div>
