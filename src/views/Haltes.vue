@@ -11,20 +11,6 @@
       :key="index"
       :quay="quay"
     />
-    <ul>
-      <li
-        v-for="(item, index) in filteredQuays
-          .filter((el) => el.stopplace.stopplacename.publicname)
-          .filter((el) =>
-            el.stopplace.stopplacename.publicname.includes('plein')
-          )"
-        :key="index"
-      >
-        {{ item.stopplace.stopplacename.publicname }} ({{
-          item.profileAccessibleScore.stopThresholdRating
-        }})
-      </li>
-    </ul>
   </div>
 </template>
 
