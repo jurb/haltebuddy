@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Haltes</h1>
+    <search-bar />
     <ul>
       <li
         v-for="(item, index) in filteredQuays
@@ -20,6 +20,7 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   name: "Haltes",
   computed: {
@@ -29,6 +30,7 @@ export default {
   data: () => ({
     test: false,
   }),
+    SearchBar,
 };
 </script>
 
