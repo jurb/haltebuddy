@@ -74,8 +74,8 @@ import { mapGetters, mapState } from "vuex";
 export default {
   name: "Profiel",
   computed: {
-    ...mapState(["profile", "quays"]),
-    ...mapGetters(["filterQuays"]),
+    ...mapState(["profile"]),
+    ...mapGetters(["filteredQuays"]),
     profileLocal: {
       get() {
         return this.profile;

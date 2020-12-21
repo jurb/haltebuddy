@@ -2,7 +2,15 @@
   <div>
     <h1>Haltes</h1>
     <ul>
-      <li v-for="(item, index) in filterQuays" :key="index">
+      <li
+        v-for="(item, index) in filteredQuays
+          .filter((el) => el.stopplace.stopplacename.publicname)
+          .filter((el) =>
+            el.stopplace.stopplacename.publicname.includes('plein')
+          )
+          .map((el) => el.stopplace.stopplacename.publicname)"
+        :key="index"
+      >
         {{ item }}
       </li>
     </ul>
@@ -15,7 +23,7 @@ export default {
   name: "Haltes",
   computed: {
     ...mapState(["profile", "quays"]),
-    ...mapGetters(["filterQuays"]),
+    ...mapGetters(["filteredQuays"]),
   },
   data: () => ({
     test: false,
