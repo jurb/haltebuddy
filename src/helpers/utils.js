@@ -1,4 +1,4 @@
-const rdToWgs84 = (x, y) => {
+function rdToWgs84(x, y) {
   /**
    * Converts the Dutch coordinate system to standard WGS84 (GPS) coordinates
    *
@@ -94,7 +94,6 @@ const rdToWgs84 = (x, y) => {
    * @param y
    * @return {{lon: *, error: null, lat: *}|{lon: null, error: string, lat: null}}
    */
-
   x = parseFloat(x);
   y = parseFloat(y);
   if (x < 1000) x *= 1000;
@@ -117,6 +116,34 @@ const rdToWgs84 = (x, y) => {
   }
 
   return convert(x, y);
-};
+}
 
-export { rdToWgs84 };
+function getCardinalDirectionShort(angle) {
+  const directionsShort = ["↑", "↗", "→", "↘", "↓", "↙", "←", "↖"];
+  return directionsShort[Math.round(angle / 45) % 8];
+}
+
+function getCardinalDirectionFull(angle) {
+  const directionsFull = [
+    "↑ Noord",
+    "↗ Noordoost",
+    "→ Oost",
+    "↘ Zuidoost",
+    "↓ Zuid",
+    "↙ Zuidwest",
+    "← West",
+    "↖ Noordwest",
+  ];
+  return directionsFull[Math.round(angle / 45) % 8];
+}
+
+function chunk(a, n) {
+  return [...Array(-~(a.length / n))].map((_, i) => a.slice(n * i, n + n * i));
+}
+
+export {
+  rdToWgs84,
+  getCardinalDirectionShort,
+  getCardinalDirectionFull,
+  chunk,
+};

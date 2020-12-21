@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { rdToWgs84 } from "@/helpers/utils";
+import { rdToWgs84, getCardinalDirectionShort } from "@/helpers/utils";
 import { profileAccessibleScore } from "@/helpers/profileAccessibleScore";
 
 import stops from "@/assets/data/ExportCHBLatest-amsterdam.json";
@@ -14,9 +14,10 @@ export const store = new Vuex.Store({
   },
   getters: {
     filteredQuays: (state, getters) => {
-      return quays.map((el) => ({
-        ...el,
-        profileAccessibleScore: profileAccessibleScore(el, state.profile),
+      return quays.map((quay) => ({
+        ...quay,
+        profileAccessibleScore: profileAccessibleScore(quay, state.profile),
+        direction: getCardinalDirectionShort(quay.quaybearing.compassdirection),
       }));
     },
   },
