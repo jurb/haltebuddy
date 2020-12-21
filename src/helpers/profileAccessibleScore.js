@@ -23,7 +23,7 @@ function profileAccessibleScore(quay, profile) {
     stopThresholdDifference
   );
 
-  const stopNarrowestWidthProfile = profile.width;
+  const stopNarrowestWidthProfile = profile.width / 100;
   const stopNarrowestWidth = adaptations.narrowestpassagewidth;
   const stopNarrowestWidthDifference =
     stopNarrowestWidth - stopNarrowestWidthProfile;
