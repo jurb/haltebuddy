@@ -28,6 +28,7 @@ export default {
     ...mapGetters(["filteredQuays"]),
   },
   data: () => ({
+    // TODO: move data to store
     test: false,
     searchTerm: "",
     location: null,
