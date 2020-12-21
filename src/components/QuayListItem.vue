@@ -3,12 +3,16 @@
 </template>
 
 <script>
+import IconQuayHeight from "@/assets/icons/quayHeight.svg";
+import IconQuayWidth from "@/assets/icons/quayWidth.svg";
+
 export default {
   data: () => ({
     value: "",
     //
   }),
   props: ["quay"],
+  components: { IconQuayWidth, IconQuayHeight },
 };
 </script>
 
