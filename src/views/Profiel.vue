@@ -6,7 +6,10 @@
         <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
         <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
         <v-card-text
-          ><v-radio-group v-model="modality">
+          ><v-radio-group
+            v-model="profileLocal.modality"
+            @change="changeProfileModality"
+          >
             <v-radio
               v-for="n in modalities"
               :key="n"
@@ -31,6 +34,7 @@
             min="30"
             max="150"
             thumb-size="40"
+            @change="changeProfileWidth"
           >
             <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
           </v-slider>
@@ -53,6 +57,7 @@
             min="0"
             max="15"
             thumb-size="40"
+            @change="changeProfileThreshold"
           >
             <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
           </v-slider>
@@ -61,6 +66,7 @@
             :label="
               `Ik wil drempelloos reizen (en met de plank het voertuig in)`
             "
+            @change="changeProfileRamp"
           ></v-checkbox> </v-card-text
       ></v-card>
     </v-form>
@@ -70,19 +76,14 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   name: "Profiel",
   computed: {
     ...mapState(["profile"]),
     ...mapGetters(["filteredQuays"]),
-    profileLocal: {
-      get() {
-        return this.profile;
-      },
-      set(value) {
-        this.changeProfile(value);
-      },
+    profileLocal() {
+      return this.profile;
     },
   },
   data: () => ({
@@ -92,7 +93,14 @@ export default {
     modalities: ["Electrische rolstoel", "Handrolstoel", "Rollator"],
     modality: "",
   }),
-  methods: {},
+  methods: {
+    ...mapActions([
+      "changeProfileWidth",
+      "changeProfileThreshold",
+      "changeProfileRamp",
+      "changeProfileModality",
+    ]),
+  },
 };
 </script>
 

@@ -10,7 +10,12 @@ Vue.use(Vuex);
 
 export const store = new Vuex.Store({
   state: {
-    profile: { width: 90, threshold: 2, ramp: false },
+    profile: {
+      width: 90,
+      threshold: 2,
+      ramp: false,
+      modality: "Electrische rolstoel",
+    },
   },
   getters: {
     filteredQuays: (state, getters) => {
@@ -22,13 +27,37 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    changeProfile({ commit }) {
-      commit("changeProfile", null);
+    changeProfile({ commit }, e) {
+      commit("changeProfile", e);
+    },
+    changeProfileWidth({ commit }, e) {
+      commit("changeProfileWidth", e);
+    },
+    changeProfileThreshold({ commit }, e) {
+      commit("changeProfileThreshold", e);
+    },
+    changeProfileRamp({ commit }, e) {
+      commit("changeProfileRamp", e);
+    },
+    changeProfileModality({ commit }, e) {
+      commit("changeProfileModality", e);
     },
   },
   mutations: {
     changeProfile(state, val) {
       state.profile = val;
+    },
+    changeProfileWidth(state, val) {
+      state.profile.width = val;
+    },
+    changeProfileThreshold(state, val) {
+      state.profile.threshold = val;
+    },
+    changeProfileRamp(state, val) {
+      state.profile.ramp = val;
+    },
+    changeProfileModality(state, val) {
+      state.profile.modality = val;
     },
   },
 });
