@@ -12,4 +12,9 @@ module.exports = {
       .use("vue-svg-loader")
       .loader("vue-svg-loader");
   },
+  pwa: {
+    workboxOptions: {
+      skipWaiting: true,
+    },
+  },
 };
