@@ -73,10 +73,35 @@
                 }}
               </p>
             </v-col>
-            <v-col align-self="start" class="px-0" align="center">
+            <v-col
+              v-if="profile.ramp"
+              align-self="start"
+              class="px-0"
+              align="center"
+            >
               <icon-quay-ramp class="icon" />
               <p class="caption">
-                Plank {{ ratingSymbol(quay.profileAccessibleScore.rampRating) }}
+                {{ ratingSymbol(quay.profileAccessibleScore.rampRating) }} Plank
+              </p>
+            </v-col>
+            <v-col
+              v-if="!profile.ramp"
+              align-self="start"
+              class="px-0"
+              align="center"
+            >
+              <icon-quay-threshold-to-vehicle class="icon" />
+              <p class="caption">
+                {{
+                  ratingSymbol(
+                    quay.profileAccessibleScore.vehicleThresholdRating
+                  )
+                }}
+                {{
+                  Math.round(
+                    quay.profileAccessibleScore.vehicleThreshold * 100
+                  )
+                }}cm
               </p>
             </v-col>
           </v-row>
