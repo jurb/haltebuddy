@@ -103,6 +103,7 @@ import IconQuayThreshold from "@/assets/icons/quayThreshold.svg";
 import IconQuayNoThreshold from "@/assets/icons/quayNoThreshold.svg";
 import IconQuayWidth from "@/assets/icons/quayWidth.svg";
 import IconQuayRamp from "@/assets/icons/quayRamp.svg";
+import IconQuayThresholdToVehicle from "@/assets/icons/quayThresholdToVehicle.svg";
 
 export default {
   name: "QuayListItem",
@@ -121,6 +122,7 @@ export default {
     IconQuayNoThreshold,
     IconQuayWidth,
     IconQuayRamp,
+    IconQuayThresholdToVehicle,
   },
 };
 </script>
