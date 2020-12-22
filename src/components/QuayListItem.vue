@@ -20,12 +20,13 @@
         </v-list-item-title>
         <v-list-item-subtitle>
           <v-rating
-            color="gvb-yellow"
+            color="secondary"
+            background-color="secondary lighten-1"
             dense
             hover
-            length="4"
+            length="3"
             size="16"
-            :value="quay.profileAccessibleScore.overallRating + 1"
+            :value="quay.profileAccessibleScore.overallRating"
           ></v-rating>
         </v-list-item-subtitle>
         <v-container fluid class="px-0">
