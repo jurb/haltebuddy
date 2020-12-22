@@ -13,8 +13,9 @@ export const store = new Vuex.Store({
     profile: {
       width: 90,
       threshold: 2,
-      ramp: false,
       modality: "Electrische rolstoel",
+      ramp: false,
+      thresholdLess: false,
     },
   },
   getters: {
