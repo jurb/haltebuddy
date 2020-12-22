@@ -28,33 +28,72 @@
             :value="quay.profileAccessibleScore.overallRating + 1"
           ></v-rating>
         </v-list-item-subtitle>
-        <v-container>
+        <v-container fluid class="px-0">
           <v-row no-gutters>
-            <v-col align-self="end">
-              <icon-quay-height class="icon" />
+            <v-col
+              v-if="!quay.profileAccessibleScore.threshold"
+              align-self="start"
+              class="px-0"
+              align="center"
+            >
+              <icon-quay-no-threshold class="icon" />
+              <p class="caption">Opgang {{ ratingSymbol(3) }}</p></v-col
+            >
+            <v-col
+              v-if="quay.profileAccessibleScore.threshold"
+              align-self="start"
+              class="px-0"
+              align="center"
+            >
+              <icon-quay-threshold class="icon" />
               <p class="caption">
-                Hoogte
-                {{ quay.profileAccessibleScore.stopThresholdRating || "？" }}
+                Drempel<br />
+                {{
+                  Math.round(quay.profileAccessibleScore.stopThreshold * 100)
+                }}cm
+                {{
+                  ratingSymbol(
+                    quay.profileAccessibleScore.stopThresholdRating
+                  ) || "?"
+                }}
               </p></v-col
             >
-            <v-col align-self="end">
+            <v-col align-self="start" class="px-0" align="center">
               <icon-quay-width class="icon" />
               <p class="caption">
-                Breedte
                 {{
-                  quay.profileAccessibleScore.stopNarrowestWidthRating || "？"
+                  quay.profileAccessibleScore.stopNarrowestWidth
+                    ? `Breedte
+                ${quay.profileAccessibleScore.stopNarrowestWidth}m
+                  ${ratingSymbol(
+                    quay.profileAccessibleScore.stopNarrowestWidthRating
+                  )}`
+                    : "Breedte onbekend"
                 }}
               </p>
             </v-col>
-            <v-col align-self="end"> </v-col>
+            <v-col align-self="start" class="px-0" align="center">
+              <icon-quay-ramp class="icon" />
+              <p class="caption">
+                Plank {{ ratingSymbol(quay.profileAccessibleScore.rampRating) }}
+              </p>
+            </v-col>
           </v-row>
         </v-container>
-
-        <!-- {{ quay.profileAccessibleScore.vehicleThresholdRating }} -->
-        <!-- {{ quay.profileAccessibleScore.plankRoomWidthRating }} -->
-        <!-- {{ quay.profileAccessibleScore.plankRoomMinHeightRating }} -->
       </v-list-item-content>
     </v-list-item>
+    <!-- {{ profile }} -->
+    <!-- {{ quay.profileAccessibleScore.allRatings }} -->
+
+    hoogte:{{ quay.quayaccessibilityadaptions.kerbheight }} <br />
+    vehicleThresholdProfile:
+    {{ quay.profileAccessibleScore.vehicleThresholdProfile }}<br />
+    vehicleThreshold: {{ quay.profileAccessibleScore.vehicleThreshold }}<br />
+    vehicleThresholdDifference:
+    {{ quay.profileAccessibleScore.vehicleThresholdDifference }}<br />
+    vehicleThresholdRating:
+    {{ quay.profileAccessibleScore.vehicleThresholdRating }}<br />
+
     <v-divider></v-divider>
   </div>
 </template>
@@ -66,6 +105,7 @@ import IconQuayWidth from "@/assets/icons/quayWidth.svg";
 import IconQuayRamp from "@/assets/icons/quayRamp.svg";
 
 export default {
+  name: "QuayListItem",
   data: () => ({
     value: "",
     //
@@ -75,6 +115,7 @@ export default {
       return ["🔴", "🟠", "🤔", "🟢"][i];
     },
   },
+  props: ["quay", "profile"],
   components: {
     IconQuayThreshold,
     IconQuayNoThreshold,
