@@ -37,24 +37,23 @@ export default {
   }),
   created() {
     //do we support geolocation
-    if (!("geolocation" in navigator)) {
-      this.errorStr = "Geolocation is not available.";
-      return;
-    }
-
-    this.gettingLocation = true;
-    // get position
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        console.log(pos);
-        this.gettingLocation = false;
-        this.location = pos;
-      },
-      (err) => {
-        this.gettingLocation = false;
-        this.errorStr = err.message;
-      }
-    );
+    // if (!("geolocation" in navigator)) {
+    //   this.errorStr = "Geolocation is not available.";
+    //   return;
+    // }
+    // this.gettingLocation = true;
+    // // get position
+    // navigator.geolocation.getCurrentPosition(
+    //   (pos) => {
+    //     console.log(pos);
+    //     this.gettingLocation = false;
+    //     this.location = pos;
+    //   },
+    //   (err) => {
+    //     this.gettingLocation = false;
+    //     this.errorStr = err.message;
+    //   }
+    // );
   },
 };
 </script>
