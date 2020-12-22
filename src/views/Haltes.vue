@@ -10,6 +10,7 @@
         )"
       :key="index"
       :quay="quay"
+      :profile="profile"
     />
   </div>
 </template>
