@@ -3,6 +3,7 @@ import * as d3 from "d3-scale";
 function profileAccessibleScore(quay, profile) {
   const stopRatingRange = [0, 1, 2, 3];
 
+  const stopRatingScale = (domain) =>
     d3
       .scaleThreshold()
       .domain(domain)
