@@ -20,7 +20,7 @@
       </v-card>
       <div><br /></div>
       <v-card>
-        <v-card-title class="pb-0">Hoe breed is je rolstoel?</v-card-title>
+        <v-card-title class="pb-0">Hoeveel breedte heb je nodig?</v-card-title>
         <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
         <v-card-text>
           <v-slider
