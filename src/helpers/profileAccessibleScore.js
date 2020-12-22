@@ -78,16 +78,29 @@ function profileAccessibleScore(quay, profile) {
     ? stopRatingScale([-0.01, 0, 0])(rampRoomMinHeightDifference)
     : 3;
 
-  const plankRoomKerbHeight = adaptations.kerbheight;
-  const plankRoomMinHeightDifference =
-    plankRoomKerbHeight - plankRoomMinHeightProfile;
-  // TODO: zie hierboven, ratingschaal moet rekening houden met bus en tram, dit is nog te kort door de bocht
-  const plankRoomMinHeightRating = stopRatingScaleAsc([-0.01, 0, 0])(
-    plankRoomMinHeightDifference
+  const rampRating = Math.min(rampRoomMinHeightRating, rampRoomWidthRating);
+
+  const allRatings = [
+    stopThresholdRating,
+    stopNarrowestWidthRating,
+    vehicleThresholdRating,
+    rampRoomWidthRating,
+    rampRoomMinHeightRating,
+    rampRating,
+  ];
+
+  const overallRating = Math.min(
+    stopThresholdRating,
+    stopNarrowestWidthRating,
+    vehicleThresholdRating,
+    rampRoomWidthRating,
+    rampRoomMinHeightRating,
+    rampRating
   );
 
   return {
     transportMode,
+    threshold,
 
     stopThresholdProfile,
     stopThreshold,
@@ -114,11 +127,10 @@ function profileAccessibleScore(quay, profile) {
     rampRoomMinHeightDifference,
     rampRoomMinHeightRating,
 
+    rampRating,
 
-    plankRoomMinHeightProfile,
-    plankRoomKerbHeight,
-    plankRoomMinHeightDifference,
-    plankRoomMinHeightRating,
+    allRatings,
+    overallRating,
   };
 }
 
