@@ -38,7 +38,7 @@
               align="center"
             >
               <icon-quay-no-threshold class="icon" />
-              <p class="caption">Opgang {{ ratingSymbol(3) }}</p></v-col
+              <p class="caption">{{ ratingSymbol(3) }} Opgang</p></v-col
             >
             <v-col
               v-if="quay.profileAccessibleScore.threshold"
@@ -48,15 +48,15 @@
             >
               <icon-quay-threshold class="icon" />
               <p class="caption">
-                Drempel<br />
-                {{
-                  Math.round(quay.profileAccessibleScore.stopThreshold * 100)
-                }}cm
                 {{
                   ratingSymbol(
                     quay.profileAccessibleScore.stopThresholdRating
                   ) || "?"
                 }}
+                Drempel<br />
+                {{
+                  Math.round(quay.profileAccessibleScore.stopThreshold * 100)
+                }}cm
               </p></v-col
             >
             <v-col align-self="start" class="px-0" align="center">
@@ -64,11 +64,11 @@
               <p class="caption">
                 {{
                   quay.profileAccessibleScore.stopNarrowestWidth
-                    ? `Breedte
+                    ? `${ratingSymbol(
+                        quay.profileAccessibleScore.stopNarrowestWidthRating
+                      )}
                 ${quay.profileAccessibleScore.stopNarrowestWidth}m
-                  ${ratingSymbol(
-                    quay.profileAccessibleScore.stopNarrowestWidthRating
-                  )}`
+                 `
                     : "Breedte onbekend"
                 }}
               </p>
