@@ -85,4 +85,4 @@ const quays = stops
     return quaysWithStop;
   })
   .flat()
-  .filter((d) => d.quaystatusdata.quaystatus == "available"); // flaten nested quay arrays
+  .filter((d) => d.quaystatusdata.quaystatus == "available"); // flatten nested quay arrays
