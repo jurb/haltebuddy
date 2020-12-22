@@ -3,11 +3,7 @@
     <!-- <h1>Haltes</h1> -->
     <search-bar />
     <quay-list-item
-      v-for="(quay, index) in filteredQuays
-        .filter((el) => el.stopplace.stopplacename.publicname)
-        .filter((el) =>
-          el.stopplace.stopplacename.publicname.includes('plein')
-        )"
+      v-for="(quay, index) in localQuays"
       :key="index"
       :quay="quay"
       :profile="profile"
@@ -25,6 +21,13 @@ export default {
   computed: {
     ...mapState(["profile", "quays"]),
     ...mapGetters(["filteredQuays"]),
+    localQuays: function() {
+      return this.filteredQuays
+        .filter((el) => el.stopplace.stopplacename.publicname)
+        .filter((el) =>
+          el.stopplace.stopplacename.publicname.includes("plein")
+        );
+    },
   },
   data: () => ({
     test: false,
