@@ -23,9 +23,9 @@
             color="gvb-yellow"
             dense
             hover
-            length="5"
+            length="4"
             size="16"
-            :value="3"
+            :value="quay.profileAccessibleScore.overallRating + 1"
           ></v-rating>
         </v-list-item-subtitle>
         <v-container>
