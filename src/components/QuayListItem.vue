@@ -60,16 +60,22 @@
 </template>
 
 <script>
-import IconQuayHeight from "@/assets/icons/quayHeight.svg";
+import IconQuayThreshold from "@/assets/icons/quayThreshold.svg";
+import IconQuayNoThreshold from "@/assets/icons/quayNoThreshold.svg";
 import IconQuayWidth from "@/assets/icons/quayWidth.svg";
+import IconQuayRamp from "@/assets/icons/quayRamp.svg";
 
 export default {
   data: () => ({
     value: "",
     //
   }),
-  props: ["quay"],
-  components: { IconQuayWidth, IconQuayHeight },
+  components: {
+    IconQuayThreshold,
+    IconQuayNoThreshold,
+    IconQuayWidth,
+    IconQuayRamp,
+  },
 };
 </script>
 
