@@ -42,16 +42,21 @@ function profileAccessibleScore(quay, profile) {
       ? 0.23 - adaptations.kerbheight
       : null;
   const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
+  // give this the highest rating if user needs a ramp
   const vehicleThresholdRating = profile.ramp
     ? 3
     : stopRatingScale([-0.02, 0, 0.01])(vehicleThresholdDifference);
 
+  const rampRoomWidthProfile = 1.5;
+  const rampRoomWidth = adaptations.boardingpositionwidth;
+  const rampRoomWidthDifference = rampRoomWidth - rampRoomWidthProfile;
+  // give this the highest rating if user does not need a ramp
   const rampRoomWidthRating = profile.ramp
     ? stopRatingScale([-0.2, 0, 0.05])(rampRoomWidthDifference)
     : 3;
 
-  // TODO: plankRoomMinHeight lostrekken in tram en bus variant, en nog rekening houden met afmetingen plank bus, dat doen we nu nog niet
-  const plankRoomMinHeightProfile =
+  // TODO: rampRoomMinHeight lostrekken in tram en bus variant, en nog rekening houden met afmetingen ramp bus, dat doen we nu nog niet
+  const rampRoomMinHeightProfile =
     profile.profileModality === "wheelchairManual" && transportMode === "bus"
       ? 0.161
       : profile.profileModality === "wheelchairElectric" &&
@@ -64,6 +69,11 @@ function profileAccessibleScore(quay, profile) {
         transportMode === "tram"
       ? 0.186
       : null;
+  const rampRoomKerbHeight = adaptations.kerbheight;
+  const rampRoomMinHeightDifference =
+    rampRoomKerbHeight - rampRoomMinHeightProfile;
+  // TODO: zie hierboven, ratingschaal moet rekening houden met bus en tram, dit is nog te kort door de bocht
+  // give this the highest rating if user does not need a ramp
   const rampRoomMinHeightRating = profile.ramp
     ? stopRatingScale([-0.01, 0, 0])(rampRoomMinHeightDifference)
     : 3;
@@ -94,10 +104,16 @@ function profileAccessibleScore(quay, profile) {
     vehicleThresholdDifference,
     vehicleThresholdRating,
 
-    plankRoomWidthProfile,
-    plankRoomWidth,
-    plankRoomWidthDifference,
-    plankRoomWidthRating,
+    rampRoomWidthProfile,
+    rampRoomWidth,
+    rampRoomWidthDifference,
+    rampRoomWidthRating,
+
+    rampRoomMinHeightProfile,
+    rampRoomKerbHeight,
+    rampRoomMinHeightDifference,
+    rampRoomMinHeightRating,
+
 
     plankRoomMinHeightProfile,
     plankRoomKerbHeight,
