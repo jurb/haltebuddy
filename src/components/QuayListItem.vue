@@ -85,14 +85,14 @@
     <!-- {{ profile }} -->
     <!-- {{ quay.profileAccessibleScore.allRatings }} -->
 
-    hoogte:{{ quay.quayaccessibilityadaptions.kerbheight }} <br />
+    <!-- hoogte:{{ quay.quayaccessibilityadaptions.kerbheight }} <br />
     vehicleThresholdProfile:
     {{ quay.profileAccessibleScore.vehicleThresholdProfile }}<br />
     vehicleThreshold: {{ quay.profileAccessibleScore.vehicleThreshold }}<br />
     vehicleThresholdDifference:
     {{ quay.profileAccessibleScore.vehicleThresholdDifference }}<br />
     vehicleThresholdRating:
-    {{ quay.profileAccessibleScore.vehicleThresholdRating }}<br />
+    {{ quay.profileAccessibleScore.vehicleThresholdRating }}<br /> -->
 
     <v-divider></v-divider>
   </div>
