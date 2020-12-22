@@ -70,6 +70,11 @@ export default {
     value: "",
     //
   }),
+  methods: {
+    ratingSymbol: function(i) {
+      return ["🔴", "🟠", "🤔", "🟢"][i];
+    },
+  },
   components: {
     IconQuayThreshold,
     IconQuayNoThreshold,
