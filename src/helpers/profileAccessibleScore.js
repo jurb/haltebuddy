@@ -10,25 +10,27 @@ function profileAccessibleScore(quay, profile) {
       .range(stopRatingRange);
 
   const adaptations = quay.quayaccessibilityadaptions || {};
+
   const threshold =
     !adaptations.ramp &&
     !adaptations.stopplaceaccessroute &&
-    adaptations.heightwithenvironment > 0;
+    adaptations.kerbheight > 0;
+
   const transportMode = quay.quaytransportmodes.transportmodedata.transportmode;
 
   const stopThresholdProfile = profile.threshold / 100;
-  const stopThreshold = threshold ? adaptations.heightwithenvironment : null;
+  const stopThreshold = threshold ? adaptations.kerbheight : null;
   const stopThresholdDifference = stopThresholdProfile - stopThreshold;
   // voorbeeld: profiel: maxdrempel is 5, situatie: drempel is 6 => difference 5-6= -1
-  const stopThresholdRating = stopRatingScaleAsc([-0.01, 0, 0.01])(
-    stopThresholdDifference
-  );
+  const stopThresholdRating = threshold
+    ? stopRatingScale([-0.01, 0, 0.01])(stopThresholdDifference)
+    : 3;
 
   const stopNarrowestWidthProfile = profile.width / 100;
   const stopNarrowestWidth = adaptations.narrowestpassagewidth;
   const stopNarrowestWidthDifference =
     stopNarrowestWidth - stopNarrowestWidthProfile;
-  const stopNarrowestWidthRating = stopRatingScaleAsc([-0.05, 0, 0.05])(
+  const stopNarrowestWidthRating = stopRatingScale([-0.05, 0, 0.05])(
     stopNarrowestWidthDifference
   );
 
@@ -40,16 +42,13 @@ function profileAccessibleScore(quay, profile) {
       ? 0.23 - adaptations.kerbheight
       : null;
   const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
-  const vehicleThresholdRating = stopRatingScaleAsc([-0.01, 0, 0.01])(
-    vehicleThresholdDifference
-  );
+  const vehicleThresholdRating = profile.ramp
+    ? 3
+    : stopRatingScale([-0.02, 0, 0.01])(vehicleThresholdDifference);
 
-  const plankRoomWidthProfile = 1.5;
-  const plankRoomWidth = adaptations.boardingpositionwidth;
-  const plankRoomWidthDifference = plankRoomWidth - plankRoomWidthProfile;
-  const plankRoomWidthRating = stopRatingScaleAsc([-0.2, 0, 0.05])(
-    plankRoomWidthDifference
-  );
+  const rampRoomWidthRating = profile.ramp
+    ? stopRatingScale([-0.2, 0, 0.05])(rampRoomWidthDifference)
+    : 3;
 
   // TODO: plankRoomMinHeight lostrekken in tram en bus variant, en nog rekening houden met afmetingen plank bus, dat doen we nu nog niet
   const plankRoomMinHeightProfile =
@@ -65,6 +64,9 @@ function profileAccessibleScore(quay, profile) {
         transportMode === "tram"
       ? 0.186
       : null;
+  const rampRoomMinHeightRating = profile.ramp
+    ? stopRatingScale([-0.01, 0, 0])(rampRoomMinHeightDifference)
+    : 3;
 
   const plankRoomKerbHeight = adaptations.kerbheight;
   const plankRoomMinHeightDifference =
