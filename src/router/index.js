@@ -17,24 +17,39 @@ const routes = [
   {
     path: "/profiel",
     name: "Profiel",
-    // route level code-splitting
-    // this generates a separate chunk (profiel.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () =>
-      import(/* webpackChunkName: "profiel" */ "../views/Profiel.vue"),
+    component: Profiel,
   },
   {
     path: "/kaart",
     name: "Kaart",
-    component: () =>
-      import(/* webpackChunkName: "kaart" */ "../views/Kaart.vue"),
+    component: Kaart,
   },
   {
     path: "/halteknop",
     name: "Halteknop",
-    component: () =>
-      import(/* webpackChunkName: "halteknop" */ "../views/Halteknop.vue"),
+    component: Halteknop,
   },
+  // {
+  //   path: "/profiel",
+  //   name: "Profiel",
+  //   // route level code-splitting
+  //   // this generates a separate chunk (profiel.[hash].js) for this route
+  //   // which is lazy-loaded when the route is visited.
+  //   component: () =>
+  //     import(/* webpackChunkName: "profiel" */ "../views/Profiel.vue"),
+  // },
+  // {
+  //   path: "/kaart",
+  //   name: "Kaart",
+  //   component: () =>
+  //     import(/* webpackChunkName: "kaart" */ "../views/Kaart.vue"),
+  // },
+  // {
+  //   path: "/halteknop",
+  //   name: "Halteknop",
+  //   component: () =>
+  //     import(/* webpackChunkName: "halteknop" */ "../views/Halteknop.vue"),
+  // },
 ];
 
 const router = new VueRouter({
