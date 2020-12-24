@@ -37,7 +37,7 @@
               class="px-0"
               align="center"
             >
-              <icon-quay-no-threshold class="icon" />
+              <img :src="require('@/assets/icons/quayNoThreshold.svg')" />
               <p class="caption">{{ ratingSymbol(3) }} Opgang</p></v-col
             >
             <v-col
@@ -46,7 +46,7 @@
               class="px-0"
               align="center"
             >
-              <icon-quay-threshold class="icon" />
+              <img :src="require('@/assets/icons/quayThreshold.svg')" />
               <p class="caption">
                 {{
                   ratingSymbol(
@@ -60,7 +60,7 @@
               </p></v-col
             >
             <v-col align-self="start" class="px-0" align="center">
-              <icon-quay-width class="icon" />
+              <img :src="require('@/assets/icons/quayWidth.svg')" />
               <p class="caption">
                 {{
                   quay.profileAccessibleScore.stopNarrowestWidth
@@ -79,7 +79,7 @@
               class="px-0"
               align="center"
             >
-              <icon-quay-ramp class="icon" />
+              <img :src="require('@/assets/icons/quayRamp.svg')" />
               <p class="caption">
                 {{ ratingSymbol(quay.profileAccessibleScore.rampRating) }} Plank
               </p>
@@ -90,7 +90,9 @@
               class="px-0"
               align="center"
             >
-              <icon-quay-threshold-to-vehicle class="icon" />
+              <img
+                :src="require('@/assets/icons/quayThresholdToVehicle.svg')"
+              />
               <p class="caption">
                 {{
                   ratingSymbol(
@@ -108,48 +110,25 @@
         </v-container>
       </v-list-item-content>
     </v-list-item>
-    <!-- {{ profile }} -->
-    <!-- {{ quay.profileAccessibleScore.allRatings }} -->
-
-    <!-- hoogte:{{ quay.quayaccessibilityadaptions.kerbheight }} <br />
-    vehicleThresholdProfile:
-    {{ quay.profileAccessibleScore.vehicleThresholdProfile }}<br />
-    vehicleThreshold: {{ quay.profileAccessibleScore.vehicleThreshold }}<br />
-    vehicleThresholdDifference:
-    {{ quay.profileAccessibleScore.vehicleThresholdDifference }}<br />
-    vehicleThresholdRating:
-    {{ quay.profileAccessibleScore.vehicleThresholdRating }}<br /> -->
-
     <v-divider></v-divider>
   </div>
 </template>
 
 <script>
-import IconQuayThreshold from "@/assets/icons/quayThreshold.svg";
-import IconQuayNoThreshold from "@/assets/icons/quayNoThreshold.svg";
-import IconQuayWidth from "@/assets/icons/quayWidth.svg";
-import IconQuayRamp from "@/assets/icons/quayRamp.svg";
-import IconQuayThresholdToVehicle from "@/assets/icons/quayThresholdToVehicle.svg";
-
 export default {
   name: "QuayListItem",
   data: () => ({
     value: "",
     //
   }),
+  computed: {},
   methods: {
     ratingSymbol: function(i) {
       return ["🔴", "🟠", "🤔", "🟢"][i];
     },
   },
   props: ["quay", "profile"],
-  components: {
-    IconQuayThreshold,
-    IconQuayNoThreshold,
-    IconQuayWidth,
-    IconQuayRamp,
-    IconQuayThresholdToVehicle,
-  },
+  components: {},
 };
 </script>
 
