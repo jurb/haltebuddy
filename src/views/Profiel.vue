@@ -34,7 +34,7 @@
             min="30"
             max="150"
             thumb-size="40"
-            @change="changeProfileWidth"
+            @end="changeProfileWidth"
           >
             <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
           </v-slider>
@@ -57,7 +57,7 @@
             min="0"
             max="15"
             thumb-size="40"
-            @change="changeProfileThreshold"
+            @end="changeProfileThreshold"
           >
             <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
           </v-slider>
