@@ -1,12 +1,21 @@
 <template>
   <div>
     <v-toolbar dense>
-      <v-text-field
+      <!-- <v-text-field
         v-model="searchTerm"
         hide-details
         prepend-icon="mdi-magnify"
         single-line
-      ></v-text-field>
+      ></v-text-field> -->
+
+      <!-- TODO: you can't remove your search term yet, which is not a great experience -->
+      <!-- TODO: load in all quays from store, not just filtered ones -->
+      <v-autocomplete
+        v-model="searchTerm"
+        dense
+        :items="quays"
+        item-text="quaynamedata.quayname"
+      ></v-autocomplete>
 
       <v-btn icon>
         <v-icon>mdi-crosshairs-gps</v-icon>
