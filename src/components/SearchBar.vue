@@ -13,7 +13,7 @@
       <v-autocomplete
         v-model="searchTerm"
         dense
-        :items="quays"
+        :items="quaysAll"
         item-text="quaynamedata.quayname"
       ></v-autocomplete>
 
@@ -29,11 +29,11 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   name: "SearchBar",
   computed: {
-    ...mapState(["profile", "quays"]),
+    ...mapState(["profile", "quaysAll"]),
     ...mapGetters(["filteredQuays"]),
   },
   data: () => ({
@@ -44,6 +44,23 @@ export default {
     gettingLocation: false,
     errorStr: null,
   }),
+  methods: {
+    ...mapActions(["changeQuays"]),
+  },
+  watch: {
+    searchTerm: function() {
+      if (this.searchTerm.length) {
+        this.changeQuays(
+          this.quaysAll.filter((el) =>
+            el.quaynamedata.quayname.includes(this.searchTerm)
+          )
+        );
+      }
+      if (!this.searchTerm.length) {
+        this.changeQuays(this.quaysAll);
+      }
+    },
+  },
   created() {
     //do we support geolocation
     // if (!("geolocation" in navigator)) {
