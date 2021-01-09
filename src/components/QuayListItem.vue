@@ -89,9 +89,7 @@
               >
                 <img :src="require('@/assets/icons/quayRamp.svg')" />
                 <p class="caption">
-                  {{
-                    ratingSymbol(quay.profileAccessibleScore.rampRating)
-                  }}
+                  {{ ratingSymbol(quay.profileAccessibleScore.rampRating) }}
                   Plank
                 </p>
               </v-col>
