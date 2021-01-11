@@ -22,11 +22,9 @@ export default {
     ...mapState(["profile", "quays"]),
     ...mapGetters(["filteredQuays"]),
     localQuays: function() {
-      return this.filteredQuays
-        .filter((el) => el.stopplace.stopplacename.publicname)
-        .filter((el) =>
-          el.stopplace.stopplacename.publicname.includes("plein")
-        );
+      return this.filteredQuays.filter(
+        (el) => el.stopplace.stopplacename.publicname
+      );
     },
   },
   data: () => ({
