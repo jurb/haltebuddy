@@ -38,7 +38,7 @@ export const store = new Vuex.Store({
   state: {
     profile: {
       width: 90,
-      threshold: 2,
+      threshold: 12,
       modality: "Electrische rolstoel",
       ramp: false,
       thresholdLess: false,
@@ -102,7 +102,7 @@ export const store = new Vuex.Store({
     changeProfileRamp(state, val) {
       state.profile.ramp = val;
       state.profile.thresholdLess = val;
-      state.profile.threshold = 0;
+      state.profile.threshold = 12;
     },
     changeProfileModality(state, val) {
       state.profile.modality = val;
