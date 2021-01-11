@@ -37,7 +37,7 @@ export const store = new Vuex.Store({
           }))
           // I'm filtering the initial results for now, performance of the Halte
           // component isn't great if we show all quays
-          .filter((el) => el.quaynamedata.quayname.includes("kade"))
+          // .filter((el) => el.quaynamedata.quayname.includes("kade"))
           .sort((a, b) =>
             a.quaynamedata.quayname.localeCompare(b.quaynamedata.quayname)
           )
