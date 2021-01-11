@@ -48,8 +48,9 @@ export default {
     ...mapActions(["changeQuays"]),
   },
   watch: {
+    // TODO: we can still search for only the first letter, but then we need to implement debouncing
     searchTerm: function() {
-      if (this.searchTerm.length) {
+      if (this.searchTerm.length > 1) {
         this.changeQuays(
           this.quaysAll.filter((el) =>
             el.quaynamedata.quayname
