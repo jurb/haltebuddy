@@ -5,7 +5,7 @@
     <!-- TODO: dynamically adjust height of virtualscroller to viewport height -->
     <v-virtual-scroll :items="localQuays" height="600" item-height="165">
       <template v-slot:default="{ item }">
-        <quay-list-item :key="index" :quay="item" :profile="profile" />
+        <quay-list-item :key="item.quaycode" :quay="item" :profile="profile" />
       </template>
     </v-virtual-scroll>
   </div>
