@@ -1,10 +1,16 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
-import { rdToWgs84, getCardinalDirectionShort } from "@/helpers/utils";
+import distance from "@turf/distance";
+import * as turf from "@turf/helpers";
+
+// TODO: moved these calculations to external script, review if we need these somewhere else and if not remove the file and import
+// import { rdToWgs84, getCardinalDirectionShort } from "@/helpers/utils";
+
 import { profileAccessibleScore } from "@/helpers/profileAccessibleScore";
 
-import stops from "@/assets/data/ExportCHBLatest-amsterdam.json";
+// TODO: review if we can safely remove this line
+// import stops from "@/assets/data/ExportCHBLatest-amsterdam.json";
 
 import quaysImport from "@/assets/data/ExportCHBLatest-quays-selection-amsterdam.json";
 
@@ -24,6 +30,7 @@ export const store = new Vuex.Store({
       ramp: false,
       thresholdLess: false,
     },
+    currentLocation: [52.3676, 4.9041],
     quaysAll: quays,
     quaysFiltered: quays,
   },
@@ -32,15 +39,17 @@ export const store = new Vuex.Store({
       return (
         state.quaysFiltered
           .map((quay) => ({
+            distance: distance(
+              turf.point(state.currentLocation),
+              turf.point([quay.geo.lat, quay.geo.lon])
+            ),
             ...quay,
             profileAccessibleScore: profileAccessibleScore(quay, state.profile),
           }))
-          // I'm filtering the initial results for now, performance of the Halte
-          // component isn't great if we show all quays
-          // .filter((el) => el.quaynamedata.quayname.includes("kade"))
-          .sort((a, b) =>
-            a.quaynamedata.quayname.localeCompare(b.quaynamedata.quayname)
-          )
+          // .sort((a, b) =>
+          //   a.quaynamedata.quayname.localeCompare(b.quaynamedata.quayname)
+          // )
+          .sort((a, b) => a.distance - b.distance)
       );
     },
   },
