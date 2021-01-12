@@ -19,6 +19,7 @@
           >
         </v-list-item-title>
         <v-list-item-subtitle>
+          {{ Number.parseFloat(quay.distance).toPrecision(2) }}km
           <v-rating
             color="secondary"
             background-color="secondary lighten-1"
