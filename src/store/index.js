@@ -57,6 +57,9 @@ export const store = new Vuex.Store({
     changeQuays({ commit }, e) {
       commit("changeQuays", e);
     },
+    changeCurrentLocation({ commit }, e) {
+      commit("changeCurrentLocation", e);
+    },
     changeProfile({ commit }, e) {
       commit("changeProfile", e);
     },
@@ -76,6 +79,9 @@ export const store = new Vuex.Store({
   mutations: {
     changeQuays(state, val) {
       state.quaysFiltered = val;
+    },
+    changeCurrentLocation(state, val) {
+      state.currentLocation = val;
     },
     changeProfile(state, val) {
       state.profile = val;
