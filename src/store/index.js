@@ -30,19 +30,23 @@ export const store = new Vuex.Store({
       ramp: false,
       thresholdLess: false,
     },
-    currentLocation: [52.3676, 4.9041],
+    currentLocation: [],
     quaysAll: quays,
     quaysFiltered: quays,
   },
   getters: {
+    // TODO: build in better error handling than putting in a fake number for distance, probably
     filteredQuays: (state, getters) => {
+      console.log(state.currentLocation);
       return (
         state.quaysFiltered
           .map((quay) => ({
-            distance: distance(
-              turf.point(state.currentLocation),
-              turf.point([quay.geo.lat, quay.geo.lon])
-            ),
+            distance: state.currentLocation.length
+              ? distance(
+                  turf.point(state.currentLocation),
+                  turf.point([quay.geo.lat, quay.geo.lon])
+                )
+              : -1,
             ...quay,
             profileAccessibleScore: profileAccessibleScore(quay, state.profile),
           }))
