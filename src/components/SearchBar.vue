@@ -7,17 +7,7 @@
         prepend-icon="mdi-magnify"
         single-line
       ></v-text-field>
-
-      <!-- TODO: you can't remove your search term yet, which is not a great experience -->
-      <!-- TODO: load in all quays from store, not just filtered ones -->
-      <!-- <v-autocomplete
-        v-model="searchTerm"
-        dense
-        :items="quaysAll"
-        item-text="quaynamedata.quayname"
-      ></v-autocomplete> -->
-
-      <v-btn icon>
+      <v-btn icon @click="setLocation">
         <v-icon>mdi-crosshairs-gps</v-icon>
       </v-btn>
 
@@ -33,7 +23,7 @@ import { mapGetters, mapState, mapActions } from "vuex";
 export default {
   name: "SearchBar",
   computed: {
-    ...mapState(["profile", "quaysAll"]),
+    ...mapState(["profile", "quaysAll", "currentLocation"]),
     ...mapGetters(["filteredQuays"]),
   },
   data: () => ({
@@ -45,7 +35,33 @@ export default {
     errorStr: null,
   }),
   methods: {
-    ...mapActions(["changeQuays"]),
+    ...mapActions(["changeQuays", "changeCurrentLocation"]),
+    setLocation: function() {
+      //do we support geolocation
+      if (!("geolocation" in navigator)) {
+        this.errorStr = "Geolocation is not available.";
+        return;
+      }
+      console.log("setLocation fired");
+      this.gettingLocation = true;
+      // get position
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          console.log(pos.coords);
+          this.gettingLocation = false;
+          this.location = [pos.coords.latitude, pos.coords.longitude];
+          this.changeCurrentLocation(this.location);
+          console.log("current location changed");
+        },
+        (err) => {
+          console.log("error location fired");
+          console.log(err.message);
+          this.gettingLocation = false;
+          this.errorStr = err.message;
+        },
+        { enableHighAccuracy: false, maximumAge: Infinity, timeout: 60000 }
+      );
+    },
   },
   watch: {
     // TODO: we can still search for only the first letter, but then we need to implement debouncing
@@ -63,26 +79,6 @@ export default {
         this.changeQuays(this.quaysAll);
       }
     },
-  },
-  created() {
-    // //do we support geolocation
-    // if (!("geolocation" in navigator)) {
-    //   this.errorStr = "Geolocation is not available.";
-    //   return;
-    // }
-    // this.gettingLocation = true;
-    // // get position
-    // navigator.geolocation.getCurrentPosition(
-    //   (pos) => {
-    //     console.log(pos);
-    //     this.gettingLocation = false;
-    //     this.location = pos;
-    //   },
-    //   (err) => {
-    //     this.gettingLocation = false;
-    //     this.errorStr = err.message;
-    //   }
-    // );
   },
 };
 </script>
