@@ -19,7 +19,11 @@
           >
         </v-list-item-title>
         <v-list-item-subtitle>
-          {{ Number.parseFloat(quay.distance).toPrecision(2) }}km
+          {{
+            quay.distance >= 0
+              ? `${Number.parseFloat(quay.distance).toPrecision(2)}km`
+              : `Onbekende afstand`
+          }}
           <v-rating
             color="secondary"
             background-color="secondary lighten-1"
