@@ -48,17 +48,16 @@ export default {
       // get position
       navigator.geolocation.getCurrentPosition(
         (pos) => {
-          console.log(pos.coords);
           this.gettingLocation = false;
           this.location = [pos.coords.latitude, pos.coords.longitude];
           this.changeCurrentLocation(this.location);
           console.log("current location changed");
         },
         (err) => {
-          console.log("error location fired");
           console.log(err.message);
           this.gettingLocation = false;
           this.errorStr = err.message;
+          // TODO: the geolocation settings can probably be improved
         },
         { enableHighAccuracy: false, maximumAge: Infinity, timeout: 60000 }
       );
