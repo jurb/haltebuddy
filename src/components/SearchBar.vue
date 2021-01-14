@@ -8,7 +8,9 @@
         single-line
       ></v-text-field>
       <v-btn icon @click="setLocation">
-        <v-icon>mdi-crosshairs-gps</v-icon>
+        <v-icon :color="currentLocation.length > 0 ? 'primary' : null"
+          >mdi-crosshairs-gps</v-icon
+        >
       </v-btn>
 
       <v-btn icon>
@@ -28,7 +30,6 @@ export default {
   },
   data: () => ({
     // TODO: move data to store
-    test: false,
     searchTerm: "",
     location: null,
     gettingLocation: false,
