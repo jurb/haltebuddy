@@ -37,7 +37,6 @@ export const store = new Vuex.Store({
   getters: {
     // TODO: build in better error handling than putting in a fake number for distance, probably
     filteredQuays: (state, getters) => {
-      console.log(state.currentLocation);
       return (
         state.quaysFiltered
           .map((quay) => ({
