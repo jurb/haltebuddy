@@ -4,9 +4,7 @@ import Vuex from "vuex";
 import distance from "@turf/distance";
 import * as turf from "@turf/helpers";
 
-// TODO: moved these calculations to external script, review if we need these somewhere else and if not remove the file and import
-// import { rdToWgs84, getCardinalDirectionShort } from "@/helpers/utils";
-
+// calculations for accessibility and filter options in seperate scripts
 import { profileAccessibleScore } from "@/helpers/profileAccessibleScore";
 
 // TODO: review if we can safely remove this line
