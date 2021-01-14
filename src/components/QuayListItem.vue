@@ -136,7 +136,7 @@ export default {
   props: ["quay", "profile"],
   components: {},
   created() {
-    fetch("https://api.agify.io/?name=michael")
+    fetch("http://v0.ovapi.nl/tpc/30000030/departures")
       .then((res) => res.json())
       .then((data) => console.log(data));
   },
