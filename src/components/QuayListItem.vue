@@ -135,6 +135,11 @@ export default {
   },
   props: ["quay", "profile"],
   components: {},
+  created() {
+    fetch("https://api.agify.io/?name=michael")
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  },
 };
 </script>
 
