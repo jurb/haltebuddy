@@ -136,9 +136,10 @@ export default {
   props: ["quay", "profile"],
   components: {},
   created() {
-    fetch("http://v0.ovapi.nl/tpc/30000030/departures")
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    // TODO: I think we need to only fetch halte details on the haltedetail pagina
+    // fetch("https://v0.ovapi.nl/tpc/30000030/departures")
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
   },
 };
 </script>
