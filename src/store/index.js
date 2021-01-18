@@ -11,11 +11,16 @@ import { profileAccessibleScore } from "@/helpers/profileAccessibleScore";
 // import stops from "@/assets/data/ExportCHBLatest-amsterdam.json";
 
 import quaysImport from "@/assets/data/ExportCHBLatest-quays-selection-amsterdam.json";
+import quayRouteNames from "@/assets/data/quay_route_names.json";
 
 // TODO: we might want to alter the quays in the node script for performance and seperation of concerns
-const quays = quaysImport.filter(
-  (d) => d.quaystatusdata.quaystatus == "available"
-); // flatten nested quay arrays
+const quays = quaysImport
+  .filter((d) => d.quaystatusdata.quaystatus == "available") // flatten nested quay arrays
+  .map((quay) => ({
+    ...quay,
+    // add routenames gathered from gtfs set (python notebook available on request)
+    routes: quayRouteNames["route_short_name"][quay.quaycode],
+  }));
 
 Vue.use(Vuex);
 
@@ -35,6 +40,7 @@ export const store = new Vuex.Store({
   getters: {
     // TODO: build in better error handling than putting in a fake number for distance, probably
     filteredQuays: (state, getters) => {
+      console.log(state.quaysAll);
       return (
         state.quaysFiltered
           .map((quay) => ({
