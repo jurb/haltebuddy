@@ -21,17 +21,7 @@
             class="text--secondary text-body-2"
             v-if="quay.distance"
           >
-            <!-- TODO: computed properties for line 23-32 -->
-            <span v-if="quay.distance >= 0 && quay.distance < 1">
-              {{
-                Math.round(
-                  Number.parseFloat(quay.distance).toPrecision(2) * 100
-                )
-              }}m
-            </span>
-            <span v-else-if="quay.distance >= 0 && quay.distance >= 1">
-              {{ Number.parseFloat(quay.distance).toPrecision(2) }}km
-            </span>
+            {{ distanceText }}
           </span>
         </v-list-item-title>
         <v-list-item-subtitle>
@@ -85,6 +75,15 @@
 export default {
   name: "QuayListItem",
   props: ["quay"],
+    distanceText: function() {
+      const distancePrecision = Number.parseFloat(
+        this.quay.distance
+      ).toPrecision(2);
+      return this.quay.distance < 1
+        ? `${Math.round(distancePrecision * 1000)}m`
+        : `${distancePrecision}km`;
+    },
+  },
 };
 </script>
 
