@@ -1,11 +1,16 @@
 <template>
-  <div>
-    <!-- <h1>Haltes</h1> -->
+  <div class="quays">
     <search-bar />
     <!-- TODO: dynamically adjust height of virtualscroller to viewport height -->
-    <v-virtual-scroll :items="localQuays" height="600" item-height="135">
+    <v-virtual-scroll
+      :items="localQuays"
+      max-height="100vh"
+      item-height="142"
+      bench="2"
+    >
       <template v-slot:default="{ item }">
         <quay-list-item :key="item.quaycode" :quay="item" />
+        <div class="py-12"></div>
       </template>
     </v-virtual-scroll>
   </div>
@@ -36,4 +41,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.quays {
+  height: 100vh;
+}
+</style>
