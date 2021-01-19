@@ -3,20 +3,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="mb-1">
-          <!-- TODO: use a computed property to calculate the require string -->
-          <img
-            v-if="
-              quay.quaytransportmodes.transportmodedata.transportmode === 'tram'
-            "
-            :src="require('@/assets/icons/vehicleTram.svg')"
-          />
-          <img
-            v-else-if="
-              quay.quaytransportmodes.transportmodedata.transportmode === 'bus'
-            "
-            :src="require('@/assets/icons/vehicleBus.svg')"
-          />
-
+          <img :src="vehicleIcon" class="vehicle-icon" />
           Halte {{ quay.stopplace.stopplacename.publicname }} &nbsp;<span
             class="text--secondary text-body-2"
             v-if="quay.distance"
@@ -44,16 +31,6 @@
             Toegankelijkheid:
             <span class="px-1" :class="scoreColor"
               ><strong>{{ scoreText }}</strong></span
-            >
-            <span
-              v-if="quay.profileAccessibleScore.overallRating === 2"
-              class="gvb-yellow px-1"
-              ><strong>Redelijk</strong></span
-            >
-            <span
-              v-if="quay.profileAccessibleScore.overallRating === 3"
-              class="gvb-green white--text px-1"
-              ><strong>Zeer goed</strong></span
             >
           </div>
         </v-list-item-subtitle>
@@ -92,6 +69,18 @@ export default {
         ? "Zeer goed"
         : "Fout in beoordeling";
     },
+    vehicleIcon: function() {
+      const tmode = this.quay.quaytransportmodes.transportmodedata
+        .transportmode;
+      return tmode === "tram"
+        ? require("@/assets/icons/vehicleCircleTram.svg")
+        : tmode === "metro"
+        ? require("@/assets/icons/vehicleCircleMetro.svg")
+        : tmode === "bus"
+        ? require("@/assets/icons/vehicleCircleBus.svg")
+        : tmode === "ferry"
+        ? require("@/assets/icons/vehicleCircleFerry.svg")
+        : require("@/assets/icons/vehicleCircleTram.svg");
     },
     distanceText: function() {
       const distancePrecision = Number.parseFloat(
@@ -113,8 +102,12 @@ export default {
 .v-list-item__subtitle {
   color: rgba(0, 0, 0, 0.87) !important;
 }
-
 .v-chip {
   padding: 0 6px;
+}
+.vehicle-icon {
+  height: 25px;
+  width: 25px;
+  vertical-align: middle;
 }
 </style>
