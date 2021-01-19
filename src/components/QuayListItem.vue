@@ -43,6 +43,7 @@
 <script>
 export default {
   name: "QuayListItem",
+  // TODO: don't pass the whole quay, but only the data you need as props
   props: ["quay"],
   computed: {
     scoreColor: function() {
