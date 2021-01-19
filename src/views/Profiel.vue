@@ -81,7 +81,6 @@ export default {
   name: "Profiel",
   computed: {
     ...mapState(["profile"]),
-    ...mapGetters(["filteredQuays"]),
     profileLocal() {
       return this.profile;
     },
