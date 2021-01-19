@@ -3,9 +3,9 @@
     <!-- <h1>Haltes</h1> -->
     <search-bar />
     <!-- TODO: dynamically adjust height of virtualscroller to viewport height -->
-    <v-virtual-scroll :items="localQuays" height="600" item-height="175">
+    <v-virtual-scroll :items="localQuays" height="600" item-height="135">
       <template v-slot:default="{ item }">
-        <quay-list-item :key="item.quaycode" :quay="item" :profile="profile" />
+        <quay-list-item :key="item.quaycode" :quay="item" />
       </template>
     </v-virtual-scroll>
   </div>
