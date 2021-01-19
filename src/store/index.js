@@ -56,8 +56,7 @@ export const store = new Vuex.Store({
                   turf.point(state.currentLocation),
                   turf.point([quay.geo.lat, quay.geo.lon])
                 )
-              : //TODO: M&E: change -1 to undefined (and also check for that in the listitem component)
-                -1,
+              : undefined,
             ...quay,
             profileAccessibleScore: profileAccessibleScore(quay, state.profile),
           }))

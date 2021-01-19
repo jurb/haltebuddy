@@ -19,6 +19,7 @@
 
           Halte {{ quay.stopplace.stopplacename.publicname }} &nbsp;<span
             class="text--secondary text-body-2"
+            v-if="quay.distance"
           >
             <!-- TODO: computed properties for line 23-32 -->
             <span v-if="quay.distance >= 0 && quay.distance < 1">
