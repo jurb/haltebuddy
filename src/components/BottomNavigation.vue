@@ -6,7 +6,7 @@
     grow
     absolute
   >
-    <v-btn value="profile" to="/profiel">
+    <v-btn value="profile" to="/profile">
       <span>Reisprofiel</span>
       <v-icon>mdi-account</v-icon>
     </v-btn>
