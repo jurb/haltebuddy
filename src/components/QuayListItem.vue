@@ -42,16 +42,8 @@
           </div>
           <div class="my-1 content">
             Toegankelijkheid:
-            <!-- TODO: add a computed property for the class names, and one for the text string -->
-            <span
-              v-if="quay.profileAccessibleScore.overallRating === 0"
-              class="error px-1 white--text"
-              ><strong>Niet toegankelijk</strong></span
-            >
-            <span
-              v-if="quay.profileAccessibleScore.overallRating === 1"
-              class="accent white--text px-1"
-              ><strong>Misschien</strong></span
+            <span class="px-1" :class="scoreColor"
+              ><strong>{{ scoreText }}</strong></span
             >
             <span
               v-if="quay.profileAccessibleScore.overallRating === 2"
@@ -75,6 +67,32 @@
 export default {
   name: "QuayListItem",
   props: ["quay"],
+  computed: {
+    scoreColor: function() {
+      const rating = this.quay.profileAccessibleScore.overallRating;
+      return rating === 0
+        ? "error white--text"
+        : rating === 1
+        ? "accent white--text"
+        : rating === 2
+        ? "gvb-yellow"
+        : rating === 3
+        ? "gvb-green white--text"
+        : "error";
+    },
+    scoreText: function() {
+      const rating = this.quay.profileAccessibleScore.overallRating;
+      return rating === 0
+        ? "Niet toegankelijk"
+        : rating === 1
+        ? "Misschien"
+        : rating === 2
+        ? "Redelijk"
+        : rating === 3
+        ? "Zeer goed"
+        : "Fout in beoordeling";
+    },
+    },
     distanceText: function() {
       const distancePrecision = Number.parseFloat(
         this.quay.distance
