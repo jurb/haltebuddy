@@ -3,8 +3,24 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="mb-1">
-          {{ quay.stopplace.stopplacename.publicname }}
-          &nbsp;<span class="text--secondary text-body-2">
+          <!-- TODO: use a computed property to calculate the require string -->
+          <img
+            v-if="
+              quay.quaytransportmodes.transportmodedata.transportmode === 'tram'
+            "
+            :src="require('@/assets/icons/vehicleTram.svg')"
+          />
+          <img
+            v-else-if="
+              quay.quaytransportmodes.transportmodedata.transportmode === 'bus'
+            "
+            :src="require('@/assets/icons/vehicleBus.svg')"
+          />
+
+          Halte {{ quay.stopplace.stopplacename.publicname }} &nbsp;<span
+            class="text--secondary text-body-2"
+          >
+            <!-- TODO: computed properties for line 23-32 -->
             <span v-if="quay.distance >= 0 && quay.distance < 1">
               {{
                 Math.round(
@@ -12,7 +28,7 @@
                 )
               }}m
             </span>
-            <span v-if="quay.distance >= 0 && quay.distance >= 1">
+            <span v-else-if="quay.distance >= 0 && quay.distance >= 1">
               {{ Number.parseFloat(quay.distance).toPrecision(2) }}km
             </span>
           </span>
@@ -35,6 +51,7 @@
           </div>
           <div class="my-1 content">
             Toegankelijkheid:
+            <!-- TODO: add a computed property for the class names, and one for the text string -->
             <span
               v-if="quay.profileAccessibleScore.overallRating === 0"
               class="error px-1 white--text"

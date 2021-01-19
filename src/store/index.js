@@ -14,6 +14,7 @@ import quaysImport from "@/assets/data/ExportCHBLatest-quays-selection-amsterdam
 // Current date: 2021-01-14
 import quayRouteNames from "@/assets/data/quay_route_names.json";
 
+// TODO: M&E: move logic like this into a seperate module OR NOT
 const quays = quaysImport
   .filter(
     (quay) =>
@@ -46,26 +47,25 @@ export const store = new Vuex.Store({
   getters: {
     // TODO: build in better error handling than putting in a fake number for distance, probably
     filteredQuays: (state, getters) => {
-      console.log(state.quaysAll);
       return (
         state.quaysFiltered
+          // TODO: M&E: add a filter function here, look if you want to use a helper filter and filter object or something else (lookup filtering on multiple conditions)
           .map((quay) => ({
             distance: state.currentLocation.length
               ? distance(
                   turf.point(state.currentLocation),
                   turf.point([quay.geo.lat, quay.geo.lon])
                 )
-              : -1,
+              : //TODO: M&E: change -1 to undefined (and also check for that in the listitem component)
+                -1,
             ...quay,
             profileAccessibleScore: profileAccessibleScore(quay, state.profile),
           }))
-          // .sort((a, b) =>
-          //   a.quaynamedata.quayname.localeCompare(b.quaynamedata.quayname)
-          // )
           .sort((a, b) => a.distance - b.distance)
       );
     },
   },
+  //TODO: use $store.commit to call the mutations, so you can remove these actions
   actions: {
     changeQuays({ commit }, e) {
       commit("changeQuays", e);

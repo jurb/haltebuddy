@@ -1,5 +1,7 @@
 import * as d3 from "d3-scale";
 
+// TODO: M&E: move all constants on top
+
 function profileAccessibleScore(quay, profile) {
   const stopRatingRange = [0, 1, 2, 3];
 
