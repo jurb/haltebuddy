@@ -19,7 +19,6 @@ import QuayListItem from "@/components/QuayListItem.vue";
 export default {
   name: "Haltes",
   computed: {
-    ...mapState(["profile", "quays"]),
     ...mapGetters(["filteredQuays"]),
     localQuays: function() {
       return this.filteredQuays.filter(
