@@ -7,18 +7,24 @@ import * as turf from "@turf/helpers";
 // calculations for accessibility and filter options in seperate scripts
 import { profileAccessibleScore } from "@/helpers/profileAccessibleScore";
 
-// TODO: review if we can safely remove this line
-// import stops from "@/assets/data/ExportCHBLatest-amsterdam.json";
-
 import quaysImport from "@/assets/data/ExportCHBLatest-quays-selection-amsterdam.json";
+
+// manually generated file from GTFS dump to show lines for each quay
+// GTFS downloaded from https://transitfeeds.com/p/ov/814/latest (python notebook available on request)
+// Current date: 2021-01-14
 import quayRouteNames from "@/assets/data/quay_route_names.json";
 
-// TODO: we might want to alter the quays in the node script for performance and seperation of concerns
 const quays = quaysImport
-  .filter((d) => d.quaystatusdata.quaystatus == "available") // flatten nested quay arrays
+  .filter(
+    (quay) =>
+      // filter out quays with no current line information
+      // TODO: this is tricky, since the quayRouteNames file is manually generated and gets outdated easily
+      quay.quaystatusdata.quaystatus == "available" &&
+      quayRouteNames["route_short_name"][quay.quaycode]
+  ) // flatten nested quay arrays
   .map((quay) => ({
     ...quay,
-    // add routenames gathered from gtfs set (python notebook available on request)
+    // add routenames gathered from gtfs set
     routes: quayRouteNames["route_short_name"][quay.quaycode],
   }));
 
