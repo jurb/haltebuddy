@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import Profiel from "../views/Profiel.vue";
-import Haltes from "../views/Haltes.vue";
-import Kaart from "../views/Kaart.vue";
+import Profile from "../views/Profile.vue";
+import Quays from "../views/Quays.vue";
+import QuayMap from "../views/QuayMap.vue";
 import Halteknop from "../views/Halteknop.vue";
 
 Vue.use(VueRouter);
@@ -11,45 +11,24 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Haltes",
-    component: Haltes,
+    name: "Quays",
+    component: Quays,
   },
   {
-    path: "/profiel",
-    name: "Profiel",
-    component: Profiel,
+    path: "/profile",
+    name: "Profile",
+    component: Profile,
   },
   {
-    path: "/kaart",
-    name: "Kaart",
-    component: Kaart,
+    path: "/quay-map",
+    name: "QuayMap",
+    component: QuayMap,
   },
   {
     path: "/halteknop",
     name: "Halteknop",
     component: Halteknop,
   },
-  // {
-  //   path: "/profiel",
-  //   name: "Profiel",
-  //   // route level code-splitting
-  //   // this generates a separate chunk (profiel.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: () =>
-  //     import(/* webpackChunkName: "profiel" */ "../views/Profiel.vue"),
-  // },
-  // {
-  //   path: "/kaart",
-  //   name: "Kaart",
-  //   component: () =>
-  //     import(/* webpackChunkName: "kaart" */ "../views/Kaart.vue"),
-  // },
-  // {
-  //   path: "/halteknop",
-  //   name: "Halteknop",
-  //   component: () =>
-  //     import(/* webpackChunkName: "halteknop" */ "../views/Halteknop.vue"),
-  // },
 ];
 
 const router = new VueRouter({
