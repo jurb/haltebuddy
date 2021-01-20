@@ -1,7 +1,5 @@
 import * as d3 from "d3-scale";
 
-// TODO: M&E: move all constants on top
-
 function profileAccessibleScore(quay, profile) {
   // our rating range (higher is better) and a derived maximum score
   const RATINGRANGE = [0, 1, 2, 3];
