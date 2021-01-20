@@ -45,18 +45,18 @@ export const store = new Vuex.Store({
     quaysFiltered: quays,
   },
   getters: {
-    // TODO: build in better error handling than putting in a fake number for distance, probably
     filteredQuays: (state, getters) => {
       return (
         state.quaysFiltered
           // TODO: M&E: add a filter function here, look if you want to use a helper filter and filter object or something else (lookup filtering on multiple conditions)
           .map((quay) => ({
-            distance: state.currentLocation.length
-              ? distance(
-                  turf.point(state.currentLocation),
-                  turf.point([quay.geo.lat, quay.geo.lon])
-                )
-              : undefined,
+            distance:
+              state.currentLocation.length && quay.geo && !quay.geo.error
+                ? distance(
+                    turf.point(state.currentLocation),
+                    turf.point([quay.geo.lat, quay.geo.lon])
+                  )
+                : undefined,
             ...quay,
             profileAccessibleScore: profileAccessibleScore(quay, state.profile),
           }))
