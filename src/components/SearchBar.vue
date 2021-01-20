@@ -43,7 +43,6 @@ export default {
         this.errorStr = "Geolocation is not available.";
         return;
       }
-      console.log("setLocation fired");
       this.gettingLocation = true;
       // get position
       navigator.geolocation.getCurrentPosition(
@@ -51,10 +50,9 @@ export default {
           this.gettingLocation = false;
           this.location = [pos.coords.latitude, pos.coords.longitude];
           this.changeCurrentLocation(this.location);
-          console.log("current location changed");
         },
         (err) => {
-          console.log(err.message);
+          console.error(err.message);
           this.gettingLocation = false;
           this.errorStr = err.message;
           // TODO: the geolocation settings can probably be improved
