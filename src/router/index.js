@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Profile from "../views/Profile.vue";
 import Quays from "../views/Quays.vue";
+import QuayDetail from "../views/QuayDetail.vue";
 import QuayMap from "../views/QuayMap.vue";
 import Halteknop from "../views/Halteknop.vue";
 
@@ -23,6 +24,11 @@ const routes = [
     path: "/quay-map",
     name: "QuayMap",
     component: QuayMap,
+  },
+  {
+    path: "/quay/:quaycode",
+    component: QuayDetail,
+    name: "QuayDetail",
   },
   {
     path: "/halteknop",
