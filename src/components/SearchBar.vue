@@ -69,9 +69,7 @@ export default {
       if (this.searchTerm.length > 1) {
         this.changeQuays(
           this.quaysAll.filter((el) =>
-            el.quaynamedata.quayname
-              .toLowerCase()
-              .includes(this.searchTerm.toLowerCase())
+            el.quayname.toLowerCase().includes(this.searchTerm.toLowerCase())
           )
         );
       }
