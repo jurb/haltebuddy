@@ -4,10 +4,11 @@
       <v-list-item-content>
         <v-list-item-title class="mb-1">
           <img :src="vehicleIcon" class="vehicle-icon" />
-          Halte {{ quay.quayname }} &nbsp;<span
-            class="text--secondary text-body-2"
-            v-if="quay.distance"
-          >
+          Halte
+          <router-link :to="`quay/${quay.quaycode}`">{{
+            quay.quayname
+          }}</router-link>
+          &nbsp;<span class="text--secondary text-body-2" v-if="quay.distance">
             {{ distanceText }}
           </span>
         </v-list-item-title>
