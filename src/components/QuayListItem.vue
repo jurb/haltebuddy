@@ -4,7 +4,7 @@
       <v-list-item-content>
         <v-list-item-title class="mb-1">
           <img :src="vehicleIcon" class="vehicle-icon" />
-          Halte {{ quay.stopplace.stopplacename.publicname }} &nbsp;<span
+          Halte {{ quay.quaynamedata.quayname }} &nbsp;<span
             class="text--secondary text-body-2"
             v-if="quay.distance"
           >
