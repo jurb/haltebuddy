@@ -4,7 +4,7 @@
       <v-list-item-content>
         <v-list-item-title class="mb-1">
           <img :src="vehicleIcon" class="vehicle-icon" />
-          Halte {{ quay.quaynamedata.quayname }} &nbsp;<span
+          Halte {{ quay.quayname }} &nbsp;<span
             class="text--secondary text-body-2"
             v-if="quay.distance"
           >
@@ -71,8 +71,7 @@ export default {
         : "Fout in beoordeling";
     },
     vehicleIcon: function() {
-      const tmode = this.quay.quaytransportmodes.transportmodedata
-        .transportmode;
+      const tmode = this.quay.transportmode;
       return tmode === "tram"
         ? require("@/assets/icons/vehicleCircleTram.svg")
         : tmode === "metro"

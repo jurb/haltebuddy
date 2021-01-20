@@ -26,9 +26,7 @@ export default {
   computed: {
     ...mapGetters(["filteredQuays"]),
     localQuays: function() {
-      return this.filteredQuays.filter(
-        (el) => el.stopplace.stopplacename.publicname
-      );
+      return this.filteredQuays.filter((quay) => quay.quayname);
     },
   },
   data: () => ({

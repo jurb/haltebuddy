@@ -11,17 +11,13 @@ function profileAccessibleScore(quay, profile) {
       .domain(domain)
       .range(stopRatingRange);
 
-  const adaptations = quay.quayaccessibilityadaptions || {};
-
   const threshold =
-    !adaptations.ramp &&
-    !adaptations.stopplaceaccessroute &&
-    adaptations.kerbheight > 0;
+    !quay.ramp && !quay.stopplaceaccessroute && quay.kerbheight > 0;
 
-  const transportMode = quay.quaytransportmodes.transportmodedata.transportmode;
+  const transportMode = quay.transportmode;
 
   const stopThresholdProfile = profile.threshold / 100;
-  const stopThreshold = threshold ? adaptations.kerbheight : null;
+  const stopThreshold = threshold ? quay.kerbheight : null;
   const stopThresholdDifference = stopThresholdProfile - stopThreshold;
   // voorbeeld: profiel: maxdrempel is 5, situatie: drempel is 6 => difference 5-6= -1
   const stopThresholdRating = threshold
@@ -29,7 +25,7 @@ function profileAccessibleScore(quay, profile) {
     : 3;
 
   const stopNarrowestWidthProfile = profile.width / 100;
-  const stopNarrowestWidth = adaptations.narrowestpassagewidth;
+  const stopNarrowestWidth = quay.narrowestpassagewidth;
   const stopNarrowestWidthDifference =
     stopNarrowestWidth - stopNarrowestWidthProfile;
   const stopNarrowestWidthRating = stopRatingScale([-0.05, 0, 0.05])(
@@ -39,9 +35,9 @@ function profileAccessibleScore(quay, profile) {
   const vehicleThresholdProfile = profile.threshold / 100;
   const vehicleThreshold =
     transportMode === "tram"
-      ? 0.29 - adaptations.kerbheight
+      ? 0.29 - quay.kerbheight
       : transportMode === "bus"
-      ? 0.23 - adaptations.kerbheight
+      ? 0.23 - quay.kerbheight
       : null;
   const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
   // give this the highest rating if user needs a ramp
@@ -50,7 +46,7 @@ function profileAccessibleScore(quay, profile) {
     : stopRatingScale([-0.02, 0, 0.01])(vehicleThresholdDifference);
 
   const rampRoomWidthProfile = 1.5;
-  const rampRoomWidth = adaptations.boardingpositionwidth;
+  const rampRoomWidth = quay.boardingpositionwidth;
   const rampRoomWidthDifference = rampRoomWidth - rampRoomWidthProfile;
   // give this the highest rating if user does not need a ramp
   const rampRoomWidthRating = profile.ramp
@@ -71,7 +67,7 @@ function profileAccessibleScore(quay, profile) {
         transportMode === "tram"
       ? 0.186
       : null;
-  const rampRoomKerbHeight = adaptations.kerbheight;
+  const rampRoomKerbHeight = quay.kerbheight;
   const rampRoomMinHeightDifference =
     rampRoomKerbHeight - rampRoomMinHeightProfile;
   // TODO: zie hierboven, ratingschaal moet rekening houden met bus en tram, dit is nog te kort door de bocht
