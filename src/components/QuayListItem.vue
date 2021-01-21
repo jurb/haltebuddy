@@ -30,9 +30,7 @@
           </div>
           <div class="my-1 content">
             Toegankelijkheid:
-            <span class="px-1" :class="scoreColor"
-              ><strong>{{ scoreText }}</strong></span
-            >
+            <rating-label :rating="quay.profileAccessibleScore.overallRating" />
           </div>
         </v-list-item-subtitle>
       </v-list-item-content>
@@ -43,36 +41,13 @@
 
 <script>
 import VehicleIcon from "@/components/VehicleIcon.vue";
+import RatingLabel from "@/components/RatingLabel.vue";
 export default {
   name: "QuayListItem",
   // TODO: don't pass the whole quay, but only the data you need as props
   props: ["quay"],
-  components: { VehicleIcon },
+  components: { VehicleIcon, RatingLabel },
   computed: {
-    scoreColor: function() {
-      const rating = this.quay.profileAccessibleScore.overallRating;
-      return rating === 0
-        ? "error white--text"
-        : rating === 1
-        ? "accent white--text"
-        : rating === 2
-        ? "gvb-yellow"
-        : rating === 3
-        ? "gvb-green white--text"
-        : "error";
-    },
-    scoreText: function() {
-      const rating = this.quay.profileAccessibleScore.overallRating;
-      return rating === 0
-        ? "Niet toegankelijk"
-        : rating === 1
-        ? "Misschien"
-        : rating === 2
-        ? "Redelijk"
-        : rating === 3
-        ? "Zeer goed"
-        : "Fout in beoordeling";
-    },
     distanceText: function() {
       const distancePrecision = Number.parseFloat(
         this.quay.distance

@@ -1,0 +1,36 @@
+<template>
+  <span class="px-1" :class="scoreColor">
+    <strong>{{ scoreText }}</strong>
+  </span>
+</template>
+
+<script>
+export default {
+  name: "RatingLabel",
+  props: ["rating"],
+  computed: {
+    scoreColor: function() {
+      return this.rating === 0
+        ? "error white--text"
+        : this.rating === 1
+        ? "accent white--text"
+        : this.rating === 2
+        ? "gvb-yellow"
+        : this.rating === 3
+        ? "gvb-green white--text"
+        : "error";
+    },
+    scoreText: function() {
+      return this.rating === 0
+        ? "Niet toegankelijk"
+        : this.rating === 1
+        ? "Misschien"
+        : this.rating === 2
+        ? "Redelijk"
+        : this.rating === 3
+        ? "Zeer goed"
+        : "Fout in beoordeling";
+    },
+  },
+};
+</script>
