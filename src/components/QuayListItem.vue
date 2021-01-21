@@ -3,7 +3,7 @@
     <v-list-item>
       <v-list-item-content>
         <v-list-item-title class="mb-1">
-          <img :src="vehicleIcon" class="vehicle-icon" />
+          <vehicle-icon :transportmode="quay.transportmode" />
           Halte
           <router-link :to="`quay/${quay.quaycode}`">{{
             quay.quayname
@@ -42,10 +42,12 @@
 </template>
 
 <script>
+import VehicleIcon from "@/components/VehicleIcon.vue";
 export default {
   name: "QuayListItem",
   // TODO: don't pass the whole quay, but only the data you need as props
   props: ["quay"],
+  components: { VehicleIcon },
   computed: {
     scoreColor: function() {
       const rating = this.quay.profileAccessibleScore.overallRating;
@@ -71,18 +73,6 @@ export default {
         ? "Zeer goed"
         : "Fout in beoordeling";
     },
-    vehicleIcon: function() {
-      const tmode = this.quay.transportmode;
-      return tmode === "tram"
-        ? require("@/assets/icons/vehicleCircleTram.svg")
-        : tmode === "metro"
-        ? require("@/assets/icons/vehicleCircleMetro.svg")
-        : tmode === "bus"
-        ? require("@/assets/icons/vehicleCircleBus.svg")
-        : tmode === "ferry"
-        ? require("@/assets/icons/vehicleCircleFerry.svg")
-        : require("@/assets/icons/vehicleCircleTram.svg");
-    },
     distanceText: function() {
       const distancePrecision = Number.parseFloat(
         this.quay.distance
@@ -105,10 +95,5 @@ export default {
 }
 .v-chip {
   padding: 0 6px;
-}
-.vehicle-icon {
-  height: 25px;
-  width: 25px;
-  vertical-align: middle;
 }
 </style>
