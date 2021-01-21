@@ -15,7 +15,7 @@ export default {
         : this.rating === 1
         ? "accent white--text"
         : this.rating === 2
-        ? "gvb-yellow"
+        ? "gvb-green lighten-2 white--text"
         : this.rating === 3
         ? "gvb-green white--text"
         : "error";
@@ -24,7 +24,7 @@ export default {
       return this.rating === 0
         ? "Niet toegankelijk"
         : this.rating === 1
-        ? "Misschien"
+        ? "Matig"
         : this.rating === 2
         ? "Redelijk"
         : this.rating === 3
