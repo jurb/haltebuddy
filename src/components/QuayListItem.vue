@@ -8,9 +8,7 @@
           <router-link :to="`quay/${quay.quaycode}`">{{
             quay.quayname
           }}</router-link>
-          &nbsp;<span class="text--secondary text-body-2" v-if="quay.distance">
-            {{ distanceText }}
-          </span>
+          &nbsp;<distance-text v-if="quay.distance" :distance="quay.distance" />
         </v-list-item-title>
         <v-list-item-subtitle>
           <div class="mb-2">
@@ -42,21 +40,13 @@
 <script>
 import VehicleIcon from "@/components/VehicleIcon.vue";
 import RatingLabel from "@/components/RatingLabel.vue";
+import DistanceText from "@/components/DistanceText.vue";
+
 export default {
   name: "QuayListItem",
   // TODO: don't pass the whole quay, but only the data you need as props
   props: ["quay"],
-  components: { VehicleIcon, RatingLabel },
-  computed: {
-    distanceText: function() {
-      const distancePrecision = Number.parseFloat(
-        this.quay.distance
-      ).toPrecision(2);
-      return this.quay.distance < 1
-        ? `${Math.round(distancePrecision * 1000)}m`
-        : `${distancePrecision}km`;
-    },
-  },
+  components: { VehicleIcon, RatingLabel, DistanceText },
 };
 </script>
 
