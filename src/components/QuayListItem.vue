@@ -5,10 +5,11 @@
         <v-list-item-title class="mb-1">
           <vehicle-icon :transportmode="quay.transportmode" />
           Halte
-          <router-link :to="`quay/${quay.quaycode}`">{{
-            quay.quayname
-          }}</router-link>
-          &nbsp;<distance-text v-if="quay.distance" :distance="quay.distance" />
+          <router-link :to="`quay/${quay.quaycode}`">
+            {{ quay.quayname }}
+          </router-link>
+          &nbsp;
+          <distance-text v-if="quay.distance" :distance="quay.distance" />
         </v-list-item-title>
         <v-list-item-subtitle>
           <div class="mb-2">
