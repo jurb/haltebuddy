@@ -28,12 +28,7 @@ export default {
   methods: {
     // TODO: add error handling to data, add render checks in template
     fetchOVApi: function(tpccode) {
-      fetch(`https://v0.ovapi.nl/tpc/${tpccode}/departures`, {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
+      fetch(`https://v0.ovapi.nl/tpc/${tpccode}/departures`)
         .then((res) => res.json())
         .then((data) => (this.OVapi = data[tpccode]))
         .catch((error) => console.error(error.message));
