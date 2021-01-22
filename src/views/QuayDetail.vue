@@ -26,9 +26,13 @@ export default {
     },
   },
   methods: {
-    // TODO: add error handling to data, add render checks in template
+    // TODO: add error message to data, show error message in app & add render checks in template
+    // TODO: I used middleware to avoid cors errors from ovapi.nl for now. This adds latency (instance needs to spin up)
+    // Ideally ovapi.nl needs better headers, but otherwise I should probably use a faster server for the middleware
     fetchOVApi: function(tpccode) {
-      fetch(`https://v0.ovapi.nl/tpc/${tpccode}/departures`)
+      fetch(
+        `https://cors-anywhere-jurb-observable.herokuapp.com/https://v0.ovapi.nl/tpc/${tpccode}/departures`
+      )
         .then((res) => res.json())
         .then((data) => (this.OVapi = data[tpccode]))
         .catch((error) => console.error(error.message));
