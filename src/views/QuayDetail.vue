@@ -36,7 +36,7 @@ export default {
       })
         .then((res) => res.json())
         .then((data) => (this.OVapi = data[tpccode]))
-        .catch((error) => alert(error.message));
+        .catch((error) => console.error(error.message));
     },
   },
   mounted() {
