@@ -86,6 +86,7 @@ import DistanceText from "@/components/DistanceText.vue";
 import { mapGetters, mapState } from "vuex";
 
 import compareAsc from "date-fns/compareAsc";
+import isAfter from "date-fns/isAfter";
 import formatDistance from "date-fns/formatDistance";
 import parseISO from "date-fns/parseISO";
 import locale from "date-fns/locale/nl";
@@ -106,10 +107,13 @@ export default {
       //TODO: don't like this way of error checking
       return this.OVapi
         ? Object.values(this.OVapi.Passes)
+            .filter((d) =>
+              isAfter(parseISO(d.ExpectedDepartureTime), new Date())
+            )
             .sort((a, b) =>
               compareAsc(
-                parseISO(a.ExpectedArrivalTime),
-                parseISO(b.ExpectedArrivalTime)
+                parseISO(a.ExpectedDepartureTime),
+                parseISO(b.ExpectedDepartureTime)
               )
             )
             .slice(0, 6)
