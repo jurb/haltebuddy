@@ -1,10 +1,11 @@
 <template>
   <div class="quays">
-    <address-auto-complete />
+    <top-bar max-height="10vh" />
+
     <!-- TODO: dynamically adjust height of virtualscroller to viewport height -->
     <v-virtual-scroll
       :items="localQuays"
-      max-height="100vh"
+      max-height="80vh"
       item-height="142"
       bench="2"
     >
@@ -18,8 +19,8 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import AddressAutoComplete from "@/components/AddressAutoComplete.vue";
 import QuayListItem from "@/components/QuayListItem.vue";
+import TopBar from "../components/topBar.vue";
 
 export default {
   name: "Haltes",
@@ -33,8 +34,8 @@ export default {
     test: false,
   }),
   components: {
-    AddressAutoComplete,
     QuayListItem,
+    TopBar,
   },
 };
 </script>
