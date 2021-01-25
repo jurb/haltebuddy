@@ -12,9 +12,8 @@
     :hide-no-data="true"
     no-filter
     solo
-  >
-    <template v-slot:append-outer> <location-set-icon /> </template>
-  </v-autocomplete>
+      class="px-4 pt-4"
+    >
 </template>
 
 <script>
