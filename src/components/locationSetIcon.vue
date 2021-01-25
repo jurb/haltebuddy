@@ -1,5 +1,9 @@
 <template>
-  <v-icon @click="setLocation">mdi-crosshairs-gps</v-icon>
+  <v-icon
+    @click="setLocation"
+    :color="currentLocation.length > 0 ? 'primary' : null"
+    >mdi-crosshairs-gps</v-icon
+  >
 </template>
 
 <script>
