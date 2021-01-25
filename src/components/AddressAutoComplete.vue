@@ -1,18 +1,19 @@
 <template>
   <div>
     <v-autocomplete
-      v-model="model"
+      v-model="select"
       :items="filteredItems"
       :loading="isLoading"
       :search-input.sync="search"
-      clearable
       item-text="weergavenaam"
       item-value="id"
       label="Zoek adres"
       no-data-text="Niks gevonden"
       :hide-no-data="true"
       no-filter
+      single-line
       solo
+      clearable
       class="px-4 pt-4"
     >
       <template v-slot:append-outer> <location-set-icon /> </template>
@@ -31,10 +32,10 @@ export default {
     isLoading: false,
     items: [],
     search: null,
-    model: null,
+    select: null,
   }),
   computed: {
-    ...mapState(["currentLocation"]),
+    ...mapState(["currentLocation", "locationSet"]),
     filteredItems: function() {
       // remove postal code and city name from results, since we're focussing on Amsterdam right now.
       // for national results just point the autocomplete component to this.items instead
@@ -45,7 +46,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["changeCurrentLocation"]),
+    ...mapActions(["changeCurrentLocation", "changeLocationSet"]),
     searchSuggestAPI: function(val) {
       // Items have already been loaded
       this.isLoading = true;
@@ -82,6 +83,7 @@ export default {
           const centroide_ll = res.response.docs[0].centroide_ll;
           const coords = this.convertPointString(centroide_ll);
           this.changeCurrentLocation(coords);
+          this.changeLocationSet(false);
         })
         .catch((err) => {
           console.log(err);
@@ -91,13 +93,21 @@ export default {
   },
   watch: {
     search(val) {
-      this.searchSuggestAPI(val);
+      val && val !== this.select && this.searchSuggestAPI(val);
     },
-    model(val) {
+    select(val) {
       this.setLocationFromResult(val);
+    },
+    locationSet(val) {
+      val
+        ? this.$nextTick(() => {
+            this.search = "";
+            this.select = "";
+          })
+        : null;
     },
   },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped> /style>

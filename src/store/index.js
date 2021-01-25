@@ -41,6 +41,7 @@ export const store = new Vuex.Store({
       thresholdLess: false,
     },
     currentLocation: [],
+    locationSet: false,
     quaysAll: quays,
     quaysFiltered: quays,
   },
@@ -69,6 +70,9 @@ export const store = new Vuex.Store({
     changeQuays({ commit }, e) {
       commit("changeQuays", e);
     },
+    changeLocationSet({ commit }, e) {
+      commit("changeLocationSet", e);
+    },
     changeCurrentLocation({ commit }, e) {
       commit("changeCurrentLocation", e);
     },
@@ -91,6 +95,9 @@ export const store = new Vuex.Store({
   mutations: {
     changeQuays(state, val) {
       state.quaysFiltered = val;
+    },
+    changeLocationSet(state, val) {
+      state.locationSet = val;
     },
     changeCurrentLocation(state, val) {
       state.currentLocation = val;

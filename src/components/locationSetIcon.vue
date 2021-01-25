@@ -1,7 +1,5 @@
 <template>
-  <v-icon
-    @click="setLocation"
-    :color="currentLocation.length > 0 ? 'primary' : null"
+  <v-icon @click="setLocation" :color="locationSet ? 'primary' : null"
     >mdi-crosshairs-gps</v-icon
   >
 </template>
@@ -16,10 +14,10 @@ export default {
     errorStr: "",
   }),
   computed: {
-    ...mapState(["currentLocation"]),
+    ...mapState(["currentLocation", "locationSet"]),
   },
   methods: {
-    ...mapActions(["changeCurrentLocation"]),
+    ...mapActions(["changeCurrentLocation", "changeLocationSet"]),
     setLocation: function() {
       //do we support geolocation
       if (!("geolocation" in navigator)) {
@@ -33,6 +31,7 @@ export default {
           this.gettingLocation = false;
           this.location = [pos.coords.latitude, pos.coords.longitude];
           this.changeCurrentLocation(this.location);
+          this.changeLocationSet(true);
         },
         (err) => {
           console.error(err.message);
