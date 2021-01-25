@@ -1,6 +1,6 @@
 <template>
   <div class="quays">
-    <search-bar />
+    <address-auto-complete />
     <!-- TODO: dynamically adjust height of virtualscroller to viewport height -->
     <v-virtual-scroll
       :items="localQuays"
@@ -18,7 +18,7 @@
 
 <script>
 import { mapGetters, mapState } from "vuex";
-import SearchBar from "@/components/SearchBar.vue";
+import AddressAutoComplete from "@/components/AddressAutoComplete.vue";
 import QuayListItem from "@/components/QuayListItem.vue";
 
 export default {
@@ -33,7 +33,7 @@ export default {
     test: false,
   }),
   components: {
-    SearchBar,
+    AddressAutoComplete,
     QuayListItem,
   },
 };
