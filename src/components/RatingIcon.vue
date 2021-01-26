@@ -1,9 +1,14 @@
 <template>
-  <v-btn fab x-small depressed :color="scoreColor" class="icon-round">
+  <!-- <v-btn fab x-small depressed :color="scoreColor" class="icon-round">
     <v-icon>
       {{ scoreIcon }}
     </v-icon>
-  </v-btn>
+  </v-btn> -->
+  <v-avatar :color="scoreColor" size="24">
+    <v-icon dark size="medium">
+      {{ scoreIcon }}
+    </v-icon>
+  </v-avatar>
 </template>
 
 <script>
