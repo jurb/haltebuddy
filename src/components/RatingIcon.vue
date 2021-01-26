@@ -14,21 +14,25 @@
 <script>
 export default {
   name: "RatingIcon",
-  props: ["rating"],
+  props: ["rating", "disabled"],
   computed: {
     scoreColor: function() {
-      return this.rating === 0
-        ? "error"
+      return this.disabled
+        ? "grey white--text"
+        : this.rating === 0
+        ? "error white--text"
         : this.rating === 1
-        ? "accent"
+        ? "accent white--text"
         : this.rating === 2
         ? "gvb-green lighten-2"
         : this.rating === 3
-        ? "gvb-green"
+        ? "gvb-green white--text"
         : "error";
     },
     scoreIcon: function() {
-      return this.rating === 0
+      return this.disabled
+        ? "mdi-check"
+        : this.rating === 0
         ? "mdi-close"
         : this.rating === 1
         ? "mdi-exclamation"
