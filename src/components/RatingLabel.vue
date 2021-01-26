@@ -18,7 +18,7 @@ export default {
         ? "gvb-green lighten-2"
         : this.rating === 3
         ? "gvb-green white--text"
-        : "error";
+        : "error white--text";
     },
     scoreText: function() {
       return this.rating === 0
@@ -29,7 +29,7 @@ export default {
         ? "Redelijk"
         : this.rating === 3
         ? "Zeer goed"
-        : "Fout in beoordeling";
+        : "Onbekende gegevens";
     },
   },
 };
