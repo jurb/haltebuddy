@@ -81,9 +81,16 @@
         <v-col>
           <h4>Haltebreedte</h4>
           <p>
-            Breedte: {{ quay.boardingpositionwidth }} m<br />
-            Smalste doorgang:
-            {{ quay.profileAccessibleScore.quayNarrowestWidth }} m
+            {{
+              quay.boardingpositionwidth
+                ? `Breedte: ${quay.boardingpositionwidth} m`
+                : `Breedte onbekend`
+            }}<br />
+            {{
+              quay.profileAccessibleScore.quayNarrowestWidth
+                ? `Smalste doorgang: ${quay.profileAccessibleScore.quayNarrowestWidth} m`
+                : `Smalste doorgang onbekend`
+            }}
           </p>
         </v-col>
       </v-row>
@@ -109,11 +116,15 @@
           <v-col>
             <h4>Instappen zonder plank</h4>
             <p>
-              Hoogte tot voertuig:
               {{
-                Math.round(quay.profileAccessibleScore.vehicleThreshold * 100)
+                quay.profileAccessibleScore.vehicleThreshold
+                  ? `Hoogte tot voertuig: ${Math.round(
+                      quay.profileAccessibleScore.vehicleThreshold * 100
+                    )} cm`
+                  : `Hoogte halte onbekend`
               }}
-              cm<br />
+
+              <br />
               <span v-if="quay.transportmode === 'tram'"
                 >Diepte tot tram: 2-5 cm</span
               >
