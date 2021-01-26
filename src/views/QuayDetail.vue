@@ -94,7 +94,7 @@
           v-if="profile.ramp"
           :absolute="true"
           class="mt-n3 mx-n6"
-          :opacity="0.25"
+          :opacity="0.1"
         />
         <v-row no-gutters class="text-body-2">
           <v-col :cols="1">
@@ -128,7 +128,7 @@
           v-if="!profile.ramp"
           :absolute="true"
           class="mx-n6"
-          :opacity="0.25"
+          :opacity="0.1"
           :z-index="1"
         />
         <v-row no-gutters class="text-body-2">
