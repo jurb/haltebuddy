@@ -114,14 +114,12 @@ function profileAccessibleScore(quay, profile) {
     vehicleThresholdRating,
     rampRoomWidthRating,
     rampMinHeightRating,
-    rampRating,
   ];
   const rampRatings = [
     quayThresholdRating,
     quayNarrowestWidthRating,
     rampRoomWidthRating,
     rampMinHeightRating,
-    rampRating,
   ];
 
   const noRampRatings = [
