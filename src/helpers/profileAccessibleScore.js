@@ -29,8 +29,9 @@ function profileAccessibleScore(quay, profile) {
   // when using the ramp, we think wheelchair users need a quay width of at least 1.5 meters to be able to board
   const RAMPWIDTHNEEDED = 1.5;
 
-  const WHEELCHAIRMANUAL = "wheelchairManual";
-  const WHEELCHAIRELECTRIC = "wheelchairElectric";
+  const WHEELCHAIRMANUAL = "Electrische rolstoel";
+  const WHEELCHAIRELECTRIC = "Handrolstoel";
+  const WALKINGAID = "Rollator";
 
   // Ramp min-height values are calculated by the maximum angle the ramp can have,
   // see https://docs.google.com/spreadsheets/d/1ANc_PizZm7Eu82_2hiIWGCYqAqQ7Wi2IE11AMYkdxq0/edit?usp=sharing
@@ -85,15 +86,17 @@ function profileAccessibleScore(quay, profile) {
   // TODO: we don't take the different ramp dimensions of tram and bus into account
   // TODO: add checks for metro and ferry?
   const rampMinHeightProfile =
-    profile.profileModality === WHEELCHAIRMANUAL && transportMode === "bus"
+    (profile.modality === WHEELCHAIRMANUAL ||
+      profile.modality === WALKINGAID) &&
+    transportMode === "bus"
       ? MINHEIGHT_MANUAL_BUS
-      : profile.profileModality === WHEELCHAIRELECTRIC &&
-        transportMode === "bus"
+      : profile.modality === WHEELCHAIRELECTRIC && transportMode === "bus"
       ? MINHEIGHT_ELECTRIC_BUS
-      : profile.profileModality === WHEELCHAIRMANUAL && transportMode === "tram"
-      ? MINHEIGHT_MANUAL_TRAM
-      : profile.profileModality === WHEELCHAIRELECTRIC &&
+      : (profile.modality === WHEELCHAIRMANUAL ||
+          profile.modality === WALKINGAID) &&
         transportMode === "tram"
+      ? MINHEIGHT_MANUAL_TRAM
+      : profile.modality === WHEELCHAIRELECTRIC && transportMode === "tram"
       ? MINHEIGHT_ELECTRIC_TRAM
       : // for now we throw a null for other transportmodes, leading to a max rating
         null;
