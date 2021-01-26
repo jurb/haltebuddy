@@ -40,10 +40,9 @@ function profileAccessibleScore(quay, profile) {
   const MINHEIGHT_ELECTRIC_TRAM = 0.186;
 
   // Threshold rating block
-  const threshold =
-    !quay.ramp && !quay.stopplaceaccessroute && quay.kerbheight > 0;
+  const threshold = !quay.ramp && !quay.stopplaceaccessroute;
   const quayThresholdProfile = profile.threshold / 100;
-  const quayThreshold = threshold ? quay.kerbheight : null;
+  const quayThreshold = threshold ? quay.kerbheight : undefined;
   const quayThresholdDifference = quayThresholdProfile - quayThreshold;
   // voorbeeld: profiel: maxdrempel is 5, situatie: drempel is 6 => difference 5-6= -1
   const quayThresholdRating = threshold
