@@ -1,11 +1,15 @@
 <template>
-  <img :src="vehicleIcon" class="vehicle-icon" />
+  <img :src="vehicleIcon" class="vehicle-icon" :style="cssVars" />
 </template>
 
 <script>
 export default {
   name: "VehicleIcon",
-  props: ["transportmode"],
+  props: {
+    transportmode: String,
+    height: { type: Number, default: 32 },
+    width: { type: Number, default: 32 },
+  },
   computed: {
     vehicleIcon: function() {
       return this.transportmode === "tram"
@@ -18,14 +22,20 @@ export default {
         ? require("@/assets/icons/vehicleCircleFerry.svg")
         : require("@/assets/icons/vehicleCircleTram.svg");
     },
+    cssVars: function() {
+      return {
+        "--height": this.height + "px",
+        "--width": this.width + "px",
+      };
+    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 .vehicle-icon {
-  height: 25px;
-  width: 25px;
+  height: var(--height);
+  width: var(--width);
   vertical-align: middle;
 }
 </style>
