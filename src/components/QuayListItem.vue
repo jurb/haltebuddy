@@ -4,7 +4,6 @@
       <v-list-item-content>
         <v-list-item-title class="mb-1">
           <vehicle-icon :transportmode="quay.transportmode" />
-          Halte
           <router-link :to="`quay/${quay.quaycode}`">
             {{ quay.quayname }}
           </router-link>
