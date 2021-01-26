@@ -27,24 +27,32 @@
               <strong>{{ route }}</strong>
             </v-chip>
           </div>
-          <div class="my-1 content">
-            Toegankelijkheid:
-            <rating-label :rating="quay.profileAccessibleScore.overallRating" />
-            ↪ dit klopt niet voor mij
-          </div>
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <div class="mx-n4">
+    <!-- <div class="mx-n4">
       <v-divider />
-    </div>
-    <div v-if="quay.profileAccessibleScore" class="ma-4 mt-10">
+    </div> -->
+    <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
       <h3>
         Toegankelijkheid
       </h3>
       <div class="mx-n4">
         <v-divider />
       </div>
+      <v-row no-gutters class="mt-3 text-body-2">
+        <v-col>
+          <div class="my-1 content">
+            Totaal beoordeling:
+            <rating-label :rating="quay.profileAccessibleScore.overallRating" />
+            <br />
+            <div class="feedback-text-link text-body-2">
+              <a href="#">↪ dit klopt niet voor mij</a>
+            </div>
+          </div>
+        </v-col></v-row
+      >
+      <v-divider class="my-3" />
       <v-row no-gutters class="mt-3 text-body-2">
         <v-col :cols="1">
           <rating-icon
@@ -210,6 +218,9 @@
             </p>
           </v-col>
         </v-row>
+        <div class="feedback-text-link text-body-2">
+          <a href="#">↪ er lijkt iets niet te kloppen</a>
+        </div>
       </div>
     </div>
     <div class="mx-n4 mt-n4">
@@ -375,6 +386,14 @@ export default {
 }
 .v-btn {
   letter-spacing: 0;
+}
+.feedback-text-link {
+  float: right;
+  a {
+    text-decoration: none;
+    color: var(--v-secondary-base);
+  }
+  font-weight: 700;
 }
 </style>
 
