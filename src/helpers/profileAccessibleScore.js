@@ -3,12 +3,13 @@ import * as d3 from "d3-scale";
 function profileAccessibleScore(quay, profile) {
   // our rating range (higher is better) and a derived maximum score
   const RATINGRANGE = [0, 1, 2, 3];
+  const RATINGNA = 4;
   const maximumRating = RATINGRANGE.slice(-1)[0];
 
   // our rating scale function and domain constants. Calling ratingScale(domain)(number) will output
   // a number from RATINGRANGE, depending on where in the domain the number is.
   // e.g. ratingScale(THRESHOLDDOMAIN)(-0.2) will output '0'
-  // and ratingScale(STOPNARROWESTWIDTHDOMAIN)(0.01) will output '2'
+  // and ratingScale(QUAYNARROWESTWIDTHDOMAIN)(0.01) will output '2'
   const ratingScale = (domain) =>
     d3
       .scaleThreshold()
@@ -16,9 +17,9 @@ function profileAccessibleScore(quay, profile) {
       .range(RATINGRANGE);
   // domain constants
   const THRESHOLDDOMAIN = [-0.01, 0, 0.01];
-  const STOPNARROWESTWIDTHDOMAIN = [-0.05, 0, 0.05];
+  const QUAYNARROWESTWIDTHDOMAIN = [-0.05, 0, 0.05];
   const RAMPROOMWIDTHDOMAIN = [-0.2, 0, 0.05];
-  const RAMPROOMMINHEIGHTDOMAIN = [-0.01, 0, 0];
+  const RAMPMINHEIGHTDOMAIN = [-0.01, 0, 0];
   const VEHICLETHRESHOLDDOMAIN = [-0.02, 0, 0.01];
 
   // we subtract 1cm from the 30cm of a tram due to wear
@@ -41,21 +42,21 @@ function profileAccessibleScore(quay, profile) {
   // Threshold rating block
   const threshold =
     !quay.ramp && !quay.stopplaceaccessroute && quay.kerbheight > 0;
-  const stopThresholdProfile = profile.threshold / 100;
-  const stopThreshold = threshold ? quay.kerbheight : null;
-  const stopThresholdDifference = stopThresholdProfile - stopThreshold;
+  const quayThresholdProfile = profile.threshold / 100;
+  const quayThreshold = threshold ? quay.kerbheight : null;
+  const quayThresholdDifference = quayThresholdProfile - quayThreshold;
   // voorbeeld: profiel: maxdrempel is 5, situatie: drempel is 6 => difference 5-6= -1
-  const stopThresholdRating = threshold
-    ? ratingScale(THRESHOLDDOMAIN)(stopThresholdDifference)
+  const quayThresholdRating = threshold
+    ? ratingScale(THRESHOLDDOMAIN)(quayThresholdDifference)
     : maximumRating;
 
-  // stopNarrowestWidthRating block
-  const stopNarrowestWidthProfile = profile.width / 100;
-  const stopNarrowestWidth = quay.narrowestpassagewidth;
-  const stopNarrowestWidthDifference =
-    stopNarrowestWidth - stopNarrowestWidthProfile;
-  const stopNarrowestWidthRating = ratingScale(STOPNARROWESTWIDTHDOMAIN)(
-    stopNarrowestWidthDifference
+  // quayNarrowestWidthRating block
+  const quayNarrowestWidthProfile = profile.width / 100;
+  const quayNarrowestWidth = quay.narrowestpassagewidth;
+  const quayNarrowestWidthDifference =
+    quayNarrowestWidth - quayNarrowestWidthProfile;
+  const quayNarrowestWidthRating = ratingScale(QUAYNARROWESTWIDTHDOMAIN)(
+    quayNarrowestWidthDifference
   );
 
   // vehicleThresholdRating block
@@ -69,23 +70,22 @@ function profileAccessibleScore(quay, profile) {
       : null;
   const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
   // give this the highest rating if user needs a ramp
-  const vehicleThresholdRating = profile.ramp
-    ? maximumRating
-    : ratingScale(VEHICLETHRESHOLDDOMAIN)(vehicleThresholdDifference);
+  const vehicleThresholdRating = ratingScale(VEHICLETHRESHOLDDOMAIN)(
+    vehicleThresholdDifference
+  );
 
   // rampRoomWidthRating block
   const rampRoomWidthProfile = RAMPWIDTHNEEDED;
   const rampRoomWidth = quay.boardingpositionwidth;
   const rampRoomWidthDifference = rampRoomWidth - rampRoomWidthProfile;
   // give this the highest rating if user does not need a ramp
-  const rampRoomWidthRating = profile.ramp
-    ? ratingScale(RAMPROOMWIDTHDOMAIN)(rampRoomWidthDifference)
-    : maximumRating;
-
+  const rampRoomWidthRating = ratingScale(RAMPROOMWIDTHDOMAIN)(
+    rampRoomWidthDifference
+  );
   // rampRoomMinHeightRating block
   // TODO: we don't take the different ramp dimensions of tram and bus into account
   // TODO: add checks for metro and ferry?
-  const rampRoomMinHeightProfile =
+  const rampMinHeightProfile =
     profile.profileModality === WHEELCHAIRMANUAL && transportMode === "bus"
       ? MINHEIGHT_MANUAL_BUS
       : profile.profileModality === WHEELCHAIRELECTRIC &&
@@ -98,29 +98,43 @@ function profileAccessibleScore(quay, profile) {
       ? MINHEIGHT_ELECTRIC_TRAM
       : // for now we throw a null for other transportmodes, leading to a max rating
         null;
-  const rampRoomKerbHeight = quay.kerbheight;
-  const rampRoomMinHeightDifference =
-    rampRoomKerbHeight - rampRoomMinHeightProfile;
+  const rampKerbHeight = quay.kerbheight;
+  const rampMinHeightDifference = rampKerbHeight - rampMinHeightProfile;
   // TODO: maybe there should be a difference in the rating for a bus and a tram quay here
   // give this the highest rating if user does not need a ramp
-  const rampRoomMinHeightRating = profile.ramp
-    ? ratingScale(RAMPROOMMINHEIGHTDOMAIN)(rampRoomMinHeightDifference)
-    : maximumRating;
+  const rampMinHeightRating = ratingScale(RAMPMINHEIGHTDOMAIN)(
+    rampMinHeightDifference
+  );
 
   // we use a combined ramp rating
-  const rampRating = Math.min(rampRoomMinHeightRating, rampRoomWidthRating);
+  const rampRating = Math.min(rampMinHeightRating, rampRoomWidthRating);
 
   const allRatings = [
-    stopThresholdRating,
-    stopNarrowestWidthRating,
+    quayThresholdRating,
+    quayNarrowestWidthRating,
     vehicleThresholdRating,
     rampRoomWidthRating,
-    rampRoomMinHeightRating,
+    rampMinHeightRating,
+    rampRating,
+  ];
+  const rampRatings = [
+    quayThresholdRating,
+    quayNarrowestWidthRating,
+    rampRoomWidthRating,
+    rampMinHeightRating,
     rampRating,
   ];
 
-  // the overall rating is the lowest rating of all ratings
-  const overallRating = Math.min(...allRatings);
+  const noRampRatings = [
+    quayThresholdRating,
+    quayNarrowestWidthRating,
+    vehicleThresholdRating,
+  ];
+
+  // the overall rating is the lowest rating of ramp dependent ratings
+  const overallRating = profile.ramp
+    ? Math.min(...rampRatings)
+    : Math.min(...noRampRatings);
 
   // to return all calculated constands, we construct them in an object here
   // TODO: is there a better way?
@@ -128,15 +142,15 @@ function profileAccessibleScore(quay, profile) {
     transportMode,
     threshold,
 
-    stopThresholdProfile,
-    stopThreshold,
-    stopThresholdDifference,
-    stopThresholdRating,
+    quayThresholdProfile,
+    quayThreshold,
+    quayThresholdDifference,
+    quayThresholdRating,
 
-    stopNarrowestWidthProfile,
-    stopNarrowestWidth,
-    stopNarrowestWidthDifference,
-    stopNarrowestWidthRating,
+    quayNarrowestWidthProfile,
+    quayNarrowestWidth,
+    quayNarrowestWidthDifference,
+    quayNarrowestWidthRating,
 
     vehicleThresholdProfile,
     vehicleThreshold,
@@ -148,10 +162,10 @@ function profileAccessibleScore(quay, profile) {
     rampRoomWidthDifference,
     rampRoomWidthRating,
 
-    rampRoomMinHeightProfile,
-    rampRoomKerbHeight,
-    rampRoomMinHeightDifference,
-    rampRoomMinHeightRating,
+    rampMinHeightProfile,
+    rampKerbHeight,
+    rampMinHeightDifference,
+    rampMinHeightRating,
 
     rampRating,
 
