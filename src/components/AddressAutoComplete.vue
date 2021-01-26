@@ -10,6 +10,7 @@
       label="Zoek adres"
       no-data-text="Niks gevonden"
       :hide-no-data="true"
+      hide-details
       no-filter
       single-line
       solo
@@ -18,7 +19,6 @@
     >
       <template v-slot:append-outer> <location-set-icon /> </template>
     </v-autocomplete>
-    <v-divider />
   </div>
 </template>
 
