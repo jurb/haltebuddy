@@ -244,6 +244,45 @@
           :key="`divider-${index}`"
         ></v-divider>
       </template>
+      <div class="mx-n4">
+        <v-divider />
+      </div>
+    </div>
+
+    <div class="ma-4 my-12">
+      <h3>
+        Reviews
+      </h3>
+      <div class="mx-n4">
+        <v-divider />
+      </div>
+      <v-card elevation="2" class="pa-2 mt-2 text-body-2">
+        Obcaecati dicta adipisci ratione quas vel deserunt, mollitia sequi!
+      </v-card>
+      <v-card elevation="2" class="pa-2 my-4 text-body-2">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At doloribus
+        earum quisquam quam voluptatibus, dolores saepe commodi natus officiis
+        aspernatur quas.
+      </v-card>
+      <v-spacer class="my-8" />
+      <div class="mx-n4">
+        <v-divider />
+      </div>
+      <v-spacer class="my-8" />
+      <v-btn
+        block
+        class="text-none text-body"
+        color="secondary"
+        Maak
+        een
+        melding
+      >
+        <v-icon left dark>
+          mdi-alert
+        </v-icon>
+        <strong>Maak een melding</strong>
+      </v-btn>
+      <v-spacer class="my-16" />
     </div>
   </div>
 </template>
@@ -330,6 +369,9 @@ export default {
 }
 .detail-wrapper {
   position: relative;
+}
+.v-btn {
+  letter-spacing: 0;
 }
 </style>
 
