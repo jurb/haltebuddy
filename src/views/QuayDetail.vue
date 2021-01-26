@@ -149,7 +149,7 @@
           <v-col :cols="1">
             <rating-icon
               :disabled="!profile.ramp"
-              :rating="quay.profileAccessibleScore.rampRoomWidthRating"
+              :rating="quay.profileAccessibleScore.rampMinHeightRating"
             />
           </v-col>
           <v-col :cols="3" class="ml-4">
@@ -157,21 +157,21 @@
           </v-col>
           <v-col>
             <h4>Haltehoogte voor plank</h4>
-            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 3">
+            <p v-if="quay.profileAccessibleScore.rampMinHeightRating === 3">
               Halte hoog genoeg voor plank
             </p>
-            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 2">
+            <p v-if="quay.profileAccessibleScore.rampMinHeightRating === 2">
               Halte
               <strong>
                 net
               </strong>
               hoog genoeg voor plank
             </p>
-            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 1">
+            <p v-if="quay.profileAccessibleScore.rampMinHeightRating === 1">
               Halte waarschijnlijk <strong>niet</strong> hoog genoeg voor plank
             </p>
             <p
-              v-else-if="quay.profileAccessibleScore.rampRoomWidthRating === 0"
+              v-else-if="quay.profileAccessibleScore.rampMinHeightRating === 0"
             >
               Halte <strong>niet</strong> hoog genoeg voor plank
             </p>
