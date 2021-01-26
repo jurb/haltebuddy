@@ -55,7 +55,7 @@
             @click:append="profileLocal.threshold++"
             :disabled="profileLocal.ramp"
             min="0"
-            max="15"
+            max="20"
             thumb-size="40"
             @end="changeProfileThreshold"
           >
@@ -86,11 +86,7 @@ export default {
     },
   },
   data: () => ({
-    width: 90,
-    threshold: 2,
-    ramp: false,
     modalities: ["Electrische rolstoel", "Handrolstoel", "Rollator"],
-    modality: "",
   }),
   methods: {
     ...mapActions([

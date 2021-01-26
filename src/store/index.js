@@ -35,7 +35,7 @@ export const store = new Vuex.Store({
   state: {
     profile: {
       width: 90,
-      threshold: 12,
+      threshold: 15,
       modality: "Electrische rolstoel",
       ramp: false,
       thresholdLess: false,
