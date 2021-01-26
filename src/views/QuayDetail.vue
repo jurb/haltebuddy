@@ -5,12 +5,12 @@
     </v-btn>
     <v-list-item>
       <v-list-item-content>
-        <v-list-item-title class="mb-1">
+        <h2 class="mb-1">
           <vehicle-icon :transportmode="quay.transportmode" />
-          Halte {{ quay.quayname }}
+          {{ quay.quayname }}
           &nbsp;
           <distance-text v-if="quay.distance" :distance="quay.distance" />
-        </v-list-item-title>
+        </h2>
         <v-list-item-subtitle>
           <div class="mb-2">
             Richting {{ quay.directionfull }} {{ quay.direction }}
@@ -30,49 +30,207 @@
           <div class="my-1 content">
             Toegankelijkheid:
             <rating-label :rating="quay.profileAccessibleScore.overallRating" />
+            ↪ dit klopt niet voor mij
           </div>
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
+    <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
+      <h3>
+        Toegankelijkheid
+      </h3>
+      <div class="mx-n4">
+        <v-divider />
+      </div>
+      <v-row no-gutters class="mt-3 text-body-2">
+        <v-col :cols="1">
+          <rating-icon
+            :rating="quay.profileAccessibleScore.quayThresholdRating"
+          />
+        </v-col>
+        <v-col :cols="3" class="ml-4">
+          <img :src="require('@/assets/icons/quayThreshold.svg')" />
+        </v-col>
+        <v-col>
+          <h4>Op de halte komen</h4>
+          <p>
+            {{
+              quay.ramp
+                ? "Hellingbaan aanwezig"
+                : quay.stopplaceaccessroute
+                ? `Halte bereikbaar vanaf omgeving`
+                : quay.profileAccessibleScore.quayThreshold
+                ? `Drempel: ${quay.profileAccessibleScore.quayThreshold *
+                    100} cm`
+                : `Drempel onbekend`
+            }}
+          </p>
+        </v-col>
+      </v-row>
+      <v-divider class="mb-3" />
 
-    <!-- {{ quay.quayname }} -->
-    <!-- <span v-if="OVapi"> {{ passes }}</span> -->
-    <div v-if="passes">
+      <v-row no-gutters class="text-body-2">
+        <v-col :cols="1">
+          <rating-icon
+            :rating="quay.profileAccessibleScore.quayNarrowestWidthRating"
+          />
+        </v-col>
+        <v-col :cols="3" class="ml-4">
+          <img :src="require('@/assets/icons/quayWidth.svg')" />
+        </v-col>
+        <v-col>
+          <h4>Haltebreedte</h4>
+          <p>
+            Breedte: {{ quay.boardingpositionwidth }} m<br />
+            Smalste doorgang:
+            {{ quay.profileAccessibleScore.quayNarrowestWidth }} m
+          </p>
+        </v-col>
+      </v-row>
+      <v-divider class="mb-3" />
+
+      <div id="no-ramp-rows" class="detail-wrapper">
+        <v-overlay
+          v-if="profile.ramp"
+          :absolute="true"
+          class="mt-n3 mx-n6"
+          :opacity="0.25"
+        />
+        <v-row no-gutters class="text-body-2">
+          <v-col :cols="1">
+            <rating-icon
+              :disabled="profile.ramp"
+              :rating="quay.profileAccessibleScore.vehicleThresholdRating"
+            />
+          </v-col>
+          <v-col :cols="3" class="ml-4">
+            <img :src="require('@/assets/icons/quayThresholdToVehicle.svg')" />
+          </v-col>
+          <v-col>
+            <h4>Instappen zonder plank</h4>
+            <p>
+              Hoogte tot voertuig:
+              {{
+                Math.round(quay.profileAccessibleScore.vehicleThreshold * 100)
+              }}
+              cm<br />
+              <span v-if="quay.transportmode === 'tram'"
+                >Diepte tot tram: 2-5 cm</span
+              >
+            </p>
+          </v-col>
+        </v-row>
+      </div>
+
+      <div id="ramp-rows" class="detail-wrapper">
+        <v-divider class="mb-3" />
+        <v-overlay
+          v-if="!profile.ramp"
+          :absolute="true"
+          class="mx-n6"
+          :opacity="0.25"
+        />
+        <v-row no-gutters class="text-body-2">
+          <v-col :cols="1">
+            <rating-icon
+              :disabled="!profile.ramp"
+              :rating="quay.profileAccessibleScore.rampRoomWidthRating"
+            />
+          </v-col>
+          <v-col :cols="3" class="ml-4">
+            <img :src="require('@/assets/icons/quayRamproom.svg')" />
+          </v-col>
+          <v-col>
+            <h4>Haltehoogte voor plank</h4>
+            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 3">
+              Halte hoog genoeg voor plank
+            </p>
+            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 2">
+              Halte
+              <strong>
+                net
+              </strong>
+              hoog genoeg voor plank
+            </p>
+            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 1">
+              Halte waarschijnlijk <strong>niet</strong> hoog genoeg voor plank
+            </p>
+            <p
+              v-else-if="quay.profileAccessibleScore.rampRoomWidthRating === 0"
+            >
+              Halte <strong>niet</strong> hoog genoeg voor plank
+            </p>
+          </v-col>
+        </v-row>
+        <v-divider class="mb-3" />
+        <v-row no-gutters class="text-body-2">
+          <v-col :cols="1">
+            <rating-icon
+              :disabled="!profile.ramp"
+              :rating="quay.profileAccessibleScore.rampRoomWidthRating"
+            />
+          </v-col>
+          <v-col :cols="3" class="ml-4">
+            <img :src="require('@/assets/icons/quayRamproom.svg')" />
+          </v-col>
+          <v-col>
+            <h4>Haltebreedte voor plank</h4>
+            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 3">
+              Halte breed genoeg voor oprijplank
+            </p>
+            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 2">
+              Halte
+              <strong>
+                net
+              </strong>
+              breed genoeg voor plank
+            </p>
+            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 1">
+              Halte waarschijnlijk <strong>niet</strong> breed genoeg voor plank
+            </p>
+            <p
+              v-else-if="quay.profileAccessibleScore.rampRoomWidthRating === 0"
+            >
+              Halte <strong>niet</strong> breed genoeg voor plank
+            </p>
+          </v-col>
+        </v-row>
+      </div>
+    </div>
+    <div class="mx-n4 mt-n4">
+      <v-divider />
+    </div>
+    <div v-if="passes && passes.length" class="ma-4 mt-12">
+      <h3>
+        Vertrektijden
+      </h3>
+      <div class="mx-n4">
+        <v-divider />
+      </div>
       <template v-for="(item, index) in passes">
-        <v-list-item :key="item.id">
-          <template v-slot:default="{ active }">
-            <v-list-item-content>
-              <v-list-item-title
-                v-text="item.DestinationName50"
-              ></v-list-item-title>
+        <v-row :key="`pass-${index}`" no-gutters class="my-2 text-body-2">
+          <v-col :cols="3">
+            <vehicle-icon
+              :transportmode="quay.transportmode"
+              :height="24"
+              :width="24"
+            />
+            <v-chip label color="secondary" outlined class="ml-2">
+              <strong>{{ item.LinePublicNumber }}</strong>
+            </v-chip>
+          </v-col>
+          <v-col class="pt-1">{{ item.DestinationName50 }}</v-col>
+          <v-col :cols="2" class="ml-2 pt-1"
+            ><strong
+              >{{ formatDistancePass(item.ExpectedDepartureTime) }} min
+            </strong></v-col
+          >
+        </v-row>
 
-              <v-list-item-subtitle>
-                <v-chip class="mr-2" label color="secondary" outlined>
-                  <strong>{{ item.LinePublicNumber }}</strong>
-                </v-chip>
-              </v-list-item-subtitle>
-
-              <v-list-item-subtitle
-                v-text="formatDistancePass(item.ExpectedDepartureTime)"
-              ></v-list-item-subtitle>
-            </v-list-item-content>
-
-            <v-list-item-action>
-              <v-list-item-action-text
-                v-text="item.action"
-              ></v-list-item-action-text>
-
-              <v-icon v-if="!active" color="grey lighten-1">
-                mdi-star-outline
-              </v-icon>
-
-              <v-icon v-else color="yellow darken-3">
-                mdi-star
-              </v-icon>
-            </v-list-item-action>
-          </template>
-        </v-list-item>
-        <v-divider v-if="index < passes.length - 1" :key="index"></v-divider>
+        <v-divider
+          v-if="index < passes.length - 1"
+          :key="`divider-${index}`"
+        ></v-divider>
       </template>
     </div>
   </div>
@@ -87,16 +245,17 @@ import { mapGetters, mapState } from "vuex";
 
 import compareAsc from "date-fns/compareAsc";
 import isAfter from "date-fns/isAfter";
-import formatDistance from "date-fns/formatDistance";
+import differenceInMinutes from "date-fns/differenceInMinutes";
 import parseISO from "date-fns/parseISO";
-import locale from "date-fns/locale/nl";
+import RatingIcon from "../components/RatingIcon.vue";
 
 export default {
   name: "QuayDetail",
   data: () => ({ OVapi: null }),
-  components: { VehicleIcon, RatingLabel, DistanceText },
+  components: { VehicleIcon, RatingLabel, DistanceText, RatingIcon },
   computed: {
     ...mapGetters(["filteredQuays"]),
+    ...mapState(["profile"]),
     quay: function() {
       const foundQuay = this.filteredQuays.find(
         (quay) => quay.quaycode === this.$route.params.quaycode
@@ -119,6 +278,9 @@ export default {
             .slice(0, 6)
         : null;
     },
+    directions: function() {
+      return [...new Set(this.passes.map((el) => el.DestinationName50))];
+    },
   },
   methods: {
     // TODO: add error message to data, show error message in app & add render checks in template
@@ -133,10 +295,7 @@ export default {
         .catch((error) => console.error(error.message));
     },
     formatDistancePass: function(ExpectedDepartureTime) {
-      return formatDistance(parseISO(ExpectedDepartureTime), new Date(), {
-        addSuffix: true,
-        locale,
-      });
+      return differenceInMinutes(parseISO(ExpectedDepartureTime), new Date());
     },
   },
   mounted() {
@@ -156,6 +315,9 @@ export default {
 }
 .v-chip {
   padding: 0 6px;
+}
+.detail-wrapper {
+  position: relative;
 }
 </style>
 
