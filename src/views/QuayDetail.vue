@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn icon to="/">
+    <v-btn icon to="/" class="ma-2">
       <v-icon color="grey darken-4">mdi-arrow-left</v-icon>
     </v-btn>
     <v-list-item>
@@ -35,7 +35,10 @@
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
+    <div class="mx-n4">
+      <v-divider />
+    </div>
+    <div v-if="quay.profileAccessibleScore" class="ma-4 mt-10">
       <h3>
         Toegankelijkheid
       </h3>
