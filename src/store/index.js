@@ -40,6 +40,10 @@ export const store = new Vuex.Store({
       ramp: false,
       thresholdLess: false,
     },
+    filters: {
+      vehicles: ["tram", "bus", "metro"],
+      accessibleonly: true,
+    },
     currentLocation: [],
     locationSet: false,
     quaysAll: quays,
@@ -47,26 +51,33 @@ export const store = new Vuex.Store({
   },
   getters: {
     filteredQuays: (state, getters) => {
-      return (
-        state.quaysFiltered
-          // TODO: M&E: add a filter function here, look if you want to use a helper filter and filter object or something else (lookup filtering on multiple conditions)
-          .map((quay) => ({
-            distance:
-              state.currentLocation.length && quay.geo && !quay.geo.error
-                ? distance(
-                    turf.point(state.currentLocation),
-                    turf.point([quay.geo.lat, quay.geo.lon])
-                  )
-                : undefined,
-            ...quay,
-            profileAccessibleScore: profileAccessibleScore(quay, state.profile),
-          }))
-          .sort((a, b) => a.distance - b.distance)
-      );
+      return state.quaysFiltered
+        .map((quay) => ({
+          distance:
+            state.currentLocation.length && quay.geo && !quay.geo.error
+              ? distance(
+                  turf.point(state.currentLocation),
+                  turf.point([quay.geo.lat, quay.geo.lon])
+                )
+              : undefined,
+          ...quay,
+          profileAccessibleScore: profileAccessibleScore(quay, state.profile),
+        }))
+        .filter(
+          (quay) =>
+            state.filters.vehicles.includes(quay.transportmode) &&
+            (state.filters.accessibleonly
+              ? quay.profileAccessibleScore.overallRating !== 0
+              : quay)
+        )
+        .sort((a, b) => a.distance - b.distance);
     },
   },
   //TODO: use $store.commit to call the mutations, so you can remove these actions
   actions: {
+    changeFilter({ commit }, e) {
+      commit("changeFilter", e);
+    },
     changeQuays({ commit }, e) {
       commit("changeQuays", e);
     },
@@ -93,6 +104,10 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
+    // TODO: refactor the profile mutations into one mutation, like below with filters
+    changeFilter(state, payload) {
+      state.filters[payload.prop] = payload.value;
+    },
     changeQuays(state, val) {
       state.quaysFiltered = val;
     },

@@ -1,13 +1,18 @@
 <template>
-  <address-auto-complete />
+  <div>
+    <address-auto-complete />
+    <quay-filters />
+    <v-divider />
+  </div>
 </template>
 
 <script>
 import AddressAutoComplete from "./AddressAutoComplete.vue";
+import QuayFilters from "./QuayFilters.vue";
 
 export default {
   name: "TopBar",
-  components: { AddressAutoComplete },
+  components: { AddressAutoComplete, QuayFilters },
 };
 </script>
 
