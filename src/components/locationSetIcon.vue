@@ -1,7 +1,7 @@
 <template>
-  <v-icon @click="setLocation" :color="locationSet ? 'primary' : null"
-    >mdi-crosshairs-gps</v-icon
-  >
+  <v-icon @click="setLocation" :color="locationSet ? 'primary' : null">{{
+    locationSet ? "mdi-crosshairs-gps" : "mdi-crosshairs"
+  }}</v-icon>
 </template>
 
 <script>
