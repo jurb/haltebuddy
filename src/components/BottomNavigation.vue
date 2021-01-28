@@ -1,7 +1,7 @@
 <template>
   <v-bottom-navigation
     v-model="value"
-    background-color="#009ee3"
+    background-color="error"
     dark
     grow
     absolute
