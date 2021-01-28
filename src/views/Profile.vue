@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pa-2">
     <!-- <h1>Profiel</h1> -->
     <v-form>
       <v-card>
