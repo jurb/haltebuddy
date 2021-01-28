@@ -68,6 +68,8 @@
             {{
               quay.ramp
                 ? "Hellingbaan aanwezig"
+                : quay.lift
+                ? `Halte bereikbaar met lift`
                 : quay.stopplaceaccessroute
                 ? `Halte bereikbaar vanaf omgeving`
                 : quay.profileAccessibleScore.quayThreshold

@@ -41,7 +41,7 @@ function profileAccessibleScore(quay, profile) {
   const MINHEIGHT_ELECTRIC_TRAM = 0.186;
 
   // Threshold rating block
-  const threshold = !quay.ramp && !quay.stopplaceaccessroute;
+  const threshold = !quay.ramp && !quay.lift && !quay.stopplaceaccessroute;
   const quayThresholdProfile = profile.threshold / 100;
   const quayThreshold = threshold ? quay.kerbheight : undefined;
   const quayThresholdDifference = quayThresholdProfile - quayThreshold;
@@ -67,6 +67,9 @@ function profileAccessibleScore(quay, profile) {
       ? VEHICLETRAMHEIGHT - quay.kerbheight
       : transportMode === "bus"
       ? VEHICLEBUSHEIGHT - quay.kerbheight
+      : // set metro treshold to 0
+      transportMode === "metro"
+      ? 0
       : null;
   const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
   // give this the highest rating if user needs a ramp
