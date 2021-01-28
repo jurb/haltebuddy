@@ -16,7 +16,7 @@
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <v-btn value="map" to="/kaart">
+    <v-btn value="map" to="/quay-map">
       <span>Kaart</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
