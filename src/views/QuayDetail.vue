@@ -350,6 +350,7 @@ export default {
     },
   },
   methods: {
+    // TODO: move this and other API calls to seperate script / store methods
     // TODO: add error message to data, show error message in app & add render checks in template
     // TODO: I used middleware to avoid cors errors from ovapi.nl for now. This adds latency (instance needs to spin up)
     // Ideally ovapi.nl needs better headers, but otherwise I should probably use a faster server for the middleware
