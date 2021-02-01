@@ -120,12 +120,7 @@ export const store = new Vuex.Store({
         }, {});
       };
       fetch(
-        `https://cors-anywhere-jurb-observable.herokuapp.com/https://www.gvb.nl/verstoringen/liften/liften.html`,
-        {
-          headers: {
-            "X-Requested-With": "Haltebuddy",
-          },
-        }
+        `https://cors-anywhere-jurb-observable.herokuapp.com/https://www.gvb.nl/verstoringen/liften/liften.html`
       )
         .then((res) => res.text())
         .then((html) => {
