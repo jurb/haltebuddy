@@ -63,6 +63,13 @@ export const store = new Vuex.Store({
               : undefined,
           ...quay,
           profileAccessibleScore: profileAccessibleScore(quay, state.profile),
+          elevatorMalfunction: state.GVBdata.find(
+            (d) =>
+              quay.quayname.includes(d.Station) &&
+              quay.transportmode === "metro"
+          )
+            ? true
+            : false,
         }))
         .filter(
           (quay) =>

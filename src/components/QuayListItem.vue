@@ -29,6 +29,11 @@
           <div class="my-1 content">
             Toegankelijkheid:
             <rating-label :rating="quay.profileAccessibleScore.overallRating" />
+            <span
+              v-if="quay.elevatorMalfunction"
+              class="px-1 ml-2 error white--text"
+              ><strong>Let op: Lift kapot!</strong></span
+            >
           </div>
         </v-list-item-subtitle>
       </v-list-item-content>
