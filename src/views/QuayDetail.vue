@@ -66,7 +66,9 @@
           <h4>Op de halte komen</h4>
           <p>
             {{
-              quay.ramp
+              quay.elevatorMalfunction
+                ? "Halte mogelijk niet bereikbaar met lift"
+                : quay.ramp
                 ? "Hellingbaan aanwezig"
                 : quay.lift
                 ? `Halte bereikbaar met lift`
@@ -76,8 +78,12 @@
                 ? `Drempel: ${quay.profileAccessibleScore.quayThreshold *
                     100} cm`
                 : `Drempel onbekend`
-            }}
+            }}<br />
           </p>
+          <v-alert dense outlined type="error" class="text-body-2">
+            <strong>{{ quay.elevatorMalfunction.Omschrijving }}</strong
+            ><br />{{ quay.elevatorMalfunction.Prognose }}
+          </v-alert>
         </v-col>
       </v-row>
       <v-divider class="mb-3" />
