@@ -82,7 +82,13 @@
           </p>
         </v-col>
       </v-row>
-      <v-alert dense outlined type="error" class="text-body-2">
+      <v-alert
+        v-if="quay.elevatorMalfunction"
+        dense
+        outlined
+        type="error"
+        class="text-body-2"
+      >
         <strong>{{ quay.elevatorMalfunction.Omschrijving }}</strong
         ><br />{{ quay.elevatorMalfunction.Prognose }}
       </v-alert>
