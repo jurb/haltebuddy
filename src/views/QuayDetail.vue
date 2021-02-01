@@ -80,12 +80,12 @@
                 : `Drempel onbekend`
             }}<br />
           </p>
-          <v-alert dense outlined type="error" class="text-body-2">
-            <strong>{{ quay.elevatorMalfunction.Omschrijving }}</strong
-            ><br />{{ quay.elevatorMalfunction.Prognose }}
-          </v-alert>
         </v-col>
       </v-row>
+      <v-alert dense outlined type="error" class="text-body-2">
+        <strong>{{ quay.elevatorMalfunction.Omschrijving }}</strong
+        ><br />{{ quay.elevatorMalfunction.Prognose }}
+      </v-alert>
       <v-divider class="mb-3" />
 
       <v-row no-gutters class="text-body-2">
