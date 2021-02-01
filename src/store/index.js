@@ -150,7 +150,6 @@ export const store = new Vuex.Store({
           const GVBdataObject = zip(gvbLabels, gvbContent).map((el) =>
             zipObject(el[0], el[1])
           );
-          console.log(GVBdataObject);
           commit("setGVBdata", GVBdataObject);
         })
         .catch((error) => console.error(error.message));
