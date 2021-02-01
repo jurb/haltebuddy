@@ -48,6 +48,7 @@ export const store = new Vuex.Store({
     locationSet: false,
     quaysAll: quays,
     quaysFiltered: quays,
+    GVBdata: [],
   },
   getters: {
     filteredQuays: (state, getters) => {
@@ -102,6 +103,48 @@ export const store = new Vuex.Store({
     changeProfileModality({ commit }, e) {
       commit("changeProfileModality", e);
     },
+    fetchGVBpage({ commit }, e) {
+      const zip = (arr, ...arrs) => {
+        return arr.map((val, i) =>
+          arrs.reduce((a, arr) => [...a, arr[i]], [val])
+        );
+      };
+      const zipObject = (props, values) => {
+        return props.reduce((prev, prop, i) => {
+          return Object.assign(prev, { [prop]: values[i] });
+        }, {});
+      };
+      fetch(
+        `https://cors-anywhere-jurb-observable.herokuapp.com/https://www.gvb.nl/verstoringen/liften/liften.html`
+      )
+        .then((res) => res.text())
+        .then((html) => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const rows = doc.querySelectorAll(".views-row");
+          const gvbLabels = Array.from(rows, (row) =>
+            Array.from(
+              row.querySelectorAll(".views-label"),
+              (d) => d.textContent
+            )
+          );
+          const gvbContent = Array.from(rows, (row) =>
+            Array.from(row.querySelectorAll(".field-content"), (d) =>
+              d.textContent
+                .trim()
+                .replaceAll("\n", " ")
+                .replaceAll("                 ", " | ")
+                .replaceAll(" Richting", "richting")
+            )
+          );
+          const GVBdataObject = zip(gvbLabels, gvbContent).map((el) =>
+            zipObject(el[0], el[1])
+          );
+          console.log(GVBdataObject);
+          commit("setGVBdata", GVBdataObject);
+        })
+        .catch((error) => console.error(error.message));
+    },
   },
   mutations: {
     // TODO: refactor the profile mutations into one mutation, like below with filters
@@ -133,6 +176,9 @@ export const store = new Vuex.Store({
     },
     changeProfileModality(state, val) {
       state.profile.modality = val;
+    },
+    setGVBdata(state, val) {
+      state.GVBdata = val;
     },
   },
 });
