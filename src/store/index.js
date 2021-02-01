@@ -67,9 +67,7 @@ export const store = new Vuex.Store({
             (d) =>
               quay.quayname.includes(d.Station) &&
               quay.transportmode === "metro"
-          )
-            ? true
-            : false,
+          ),
         }))
         .filter(
           (quay) =>
