@@ -119,9 +119,7 @@ export const store = new Vuex.Store({
           return Object.assign(prev, { [prop]: values[i] });
         }, {});
       };
-      fetch(
-        `https://cors-anywhere-jurb-observable.herokuapp.com/https://www.gvb.nl/verstoringen/liften/liften.html`
-      )
+      fetch(`https://www.gvb.nl/verstoringen/liften/liften.html`)
         .then((res) => res.text())
         .then((html) => {
           const parser = new DOMParser();
