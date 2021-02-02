@@ -13,7 +13,9 @@
       hide-details
       no-filter
       single-line
+      append-icon=""
       solo
+      chips
       clearable
       class="px-4 pt-4"
     >
@@ -96,7 +98,7 @@ export default {
       val && val !== this.select && this.searchSuggestAPI(val);
     },
     select(val) {
-      this.setLocationFromResult(val);
+      this.setLocationFromResult(val)
     },
     locationSet(val) {
       val
