@@ -51,7 +51,7 @@ export const store = new Vuex.Store({
     GVBdata: [],
   },
   getters: {
-    filteredQuays: (state, getters) => {
+    enhancedQuays: (state, getters) => {
       return state.quaysFiltered
         .map((quay) => ({
           distance:
@@ -69,14 +69,16 @@ export const store = new Vuex.Store({
               quay.transportmode === "metro"
           ),
         }))
-        .filter(
-          (quay) =>
-            state.filters.vehicles.includes(quay.transportmode) &&
-            (state.filters.accessibleonly
-              ? quay.profileAccessibleScore.overallRating !== 0
-              : quay)
-        )
         .sort((a, b) => a.distance - b.distance);
+    },
+    filteredQuays: (state, getters) => {
+      return getters.enhancedQuays.filter(
+        (quay) =>
+          state.filters.vehicles.includes(quay.transportmode) &&
+          (state.filters.accessibleonly
+            ? quay.profileAccessibleScore.overallRating !== 0
+            : quay)
+      );
     },
   },
   //TODO: use $store.commit to call the mutations, so you can remove these actions
