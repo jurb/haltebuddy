@@ -6,10 +6,7 @@
 import { mapGetters, mapState } from "vuex";
 export default {
   name: "Halteknop",
-  computed: {
-    ...mapState(["profile", "quays"]),
-    ...mapGetters(["filterQuays"]),
-  },
+  computed: {},
   data: () => ({
     test: false,
   }),
