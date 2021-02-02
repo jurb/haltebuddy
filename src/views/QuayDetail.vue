@@ -6,7 +6,10 @@
     <v-list-item>
       <v-list-item-content>
         <h2 class="mb-1">
-          <vehicle-icon :transportmode="quay.transportmode" />
+          <vehicle-icon
+            v-if="quay.transportmode"
+            :transportmode="quay.transportmode"
+          />
           {{ quay.quayname }}
           &nbsp;
           <distance-text v-if="quay.distance" :distance="quay.distance" />
@@ -150,7 +153,7 @@
               }}
 
               <br />
-              <span v-if="quay.transportmode === 'tram'"
+              <span v-if="quay.transportmode && quay.transportmode === 'tram'"
                 >Diepte tot tram: 2-5 cm</span
               >
             </p>
