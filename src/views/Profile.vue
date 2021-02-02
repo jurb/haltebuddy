@@ -86,7 +86,14 @@ export default {
     },
   },
   data: () => ({
-    modalities: ["Electrische rolstoel", "Handrolstoel", "Rollator"],
+    modalities: [
+      "Electrische rolstoel",
+      "Scootmobiel",
+      "Handrolstoel",
+      "Rollator",
+      "Stok of krukken",
+      "Ik reis zonder hulpmiddel",
+    ],
   }),
   methods: {
     ...mapActions([
