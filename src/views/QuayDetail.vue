@@ -252,7 +252,7 @@
       </div>
       <template v-for="(item, index) in passes">
         <v-row :key="`pass-${index}`" no-gutters class="my-2 text-body-2">
-          <v-col :cols="3">
+          <v-col :cols="2">
             <vehicle-icon
               :transportmode="quay.transportmode"
               :height="24"
@@ -260,6 +260,11 @@
             />
             <v-chip label color="secondary" outlined class="ml-2">
               <strong>{{ item.LinePublicNumber }}</strong>
+            </v-chip>
+          </v-col>
+          <v-col :cols="2">
+            <v-chip label color="secondary" outlined class="ml-2">
+              {{ item.WheelChairAccessible === "ACCESSIBLE" ? "♿️" : "❌" }}
             </v-chip>
           </v-col>
           <v-col class="pt-1">{{ item.DestinationName50 }}</v-col>
