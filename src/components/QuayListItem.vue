@@ -1,45 +1,56 @@
 <template>
-  <div>
-    <v-list-item>
-      <v-list-item-content>
-        <v-list-item-title class="mb-1">
-          <vehicle-icon :transportmode="quay.transportmode" />
-          <router-link :to="`quay/${quay.quaycode}`">
-            {{ quay.quayname }}
-          </router-link>
-          &nbsp;
-          <distance-text v-if="quay.distance" :distance="quay.distance" />
-        </v-list-item-title>
-        <v-list-item-subtitle>
-          <div class="mb-2">
-            Richting {{ quay.directionfull }} {{ quay.direction }}
+  <router-link :to="`quay/${quay.quaycode}`">
+    <div>
+      <v-row no-gutters align="center">
+        <v-col :cols="11">
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title class="mb-1 primary--text">
+                <vehicle-icon :transportmode="quay.transportmode" />
+                {{ quay.quayname }}
+                &nbsp;
+                <distance-text v-if="quay.distance" :distance="quay.distance" />
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                <div class="mb-2">
+                  Richting {{ quay.directionfull }} {{ quay.direction }}
+                </div>
+                <div class="mb-2">
+                  <v-chip
+                    v-for="route in quay.routes"
+                    :key="route.id"
+                    class="mr-2"
+                    label
+                    color="secondary"
+                    outlined
+                  >
+                    <strong>{{ route }}</strong>
+                  </v-chip>
+                </div>
+                <div class="my-1 content">
+                  Toegankelijkheid:
+                  <rating-label
+                    :rating="quay.profileAccessibleScore.overallRating"
+                  />
+                  <span
+                    v-if="quay.elevatorMalfunction"
+                    class="px-1 ml-2 error white--text"
+                    ><strong>Let op: Lift kapot!</strong></span
+                  >
+                </div>
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-col>
+        <v-col :cols="1">
+          <div class="float-right">
+            <v-icon x-large color="grey">mdi-chevron-right</v-icon>
           </div>
-          <div class="mb-2">
-            <v-chip
-              v-for="route in quay.routes"
-              :key="route.id"
-              class="mr-2"
-              label
-              color="secondary"
-              outlined
-            >
-              <strong>{{ route }}</strong>
-            </v-chip>
-          </div>
-          <div class="my-1 content">
-            Toegankelijkheid:
-            <rating-label :rating="quay.profileAccessibleScore.overallRating" />
-            <span
-              v-if="quay.elevatorMalfunction"
-              class="px-1 ml-2 error white--text"
-              ><strong>Let op: Lift kapot!</strong></span
-            >
-          </div>
-        </v-list-item-subtitle>
-      </v-list-item-content>
-    </v-list-item>
-    <v-divider></v-divider>
-  </div>
+        </v-col>
+      </v-row>
+      <v-divider></v-divider>
+    </div>
+  </router-link>
 </template>
 
 <script>
@@ -65,5 +76,8 @@ export default {
 }
 .v-chip {
   padding: 0 6px;
+}
+a {
+  text-decoration: none;
 }
 </style>
