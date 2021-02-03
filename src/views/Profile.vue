@@ -42,11 +42,13 @@
       </v-card>
       <div class="pb-6"></div>
       <v-card>
-        <v-card-title class="pb-0">Maak je gebruik van de plank?</v-card-title>
+        <v-card-title class="pb-0"
+          >Maak je gebruik van de oprijplank?</v-card-title
+        >
         <v-card-text>
           <v-checkbox
             v-model="profileLocal.ramp"
-            :label="`Ja, ik wil met de plank het voertuig in`"
+            :label="`Ja, ik wil met de oprijplank het voertuig in`"
             @change="changeProfileRamp"
           ></v-checkbox> </v-card-text
       ></v-card>

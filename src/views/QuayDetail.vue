@@ -277,13 +277,13 @@ export default {
           icon: require("@/assets/icons/quayRamproom.svg"),
           text: `${
             this.quay.profileAccessibleScore.rampMinHeightRating === 3
-              ? "Halte hoog genoeg voor plank"
+              ? "Halte <strong>hoog genoeg</strong> voor oprijplank"
               : this.quay.profileAccessibleScore.rampMinHeightRating === 2
-              ? `Halte <strong> net </strong> hoog genoeg voor plank`
+              ? `Halte <strong> net hoog genoeg</strong> voor oprijplank`
               : this.quay.profileAccessibleScore.rampMinHeightRating === 1
-              ? `Halte waarschijnlijk <strong>niet</strong> hoog genoeg voor plank`
+              ? `Halte <strong>waarschijnlijk niet hoog genoeg</strong> voor oprijplank`
               : this.quay.profileAccessibleScore.rampMinHeightRating === 0
-              ? `Halte <strong>niet</strong> hoog genoeg voor plank`
+              ? `Halte <strong>niet hoog genoeg</strong> voor oprijplank`
               : `Hoogte halte onbekend`
           }`,
           disabled: !this.profile.ramp,
@@ -295,13 +295,13 @@ export default {
           icon: require("@/assets/icons/quayRamproom.svg"),
           text: `${
             this.quay.profileAccessibleScore.rampRoomWidthRating === 3
-              ? "Halte breed genoeg voor oprijplank"
+              ? "Halte <strong>breed genoeg</strong> voor oprijplank"
               : this.quay.profileAccessibleScore.rampRoomWidthRating === 2
-              ? `Halte <strong>net</strong> breed genoeg voor plank`
+              ? `Halte <strong>net breed genoeg</strong> voor oprijplank`
               : this.quay.profileAccessibleScore.rampRoomWidthRating === 1
-              ? `Halte waarschijnlijk <strong>niet</strong> breed genoeg voor plank`
+              ? `Halte <strong>waarschijnlijk niet breed genoeg</strong> voor oprijplank`
               : this.quay.profileAccessibleScore.rampRoomWidthRating === 0
-              ? `Halte <strong>niet</strong> breed genoeg voor plank`
+              ? `Halte <strong>niet breed genoeg</strong> voor oprijplank`
               : `Plank breedte onbekend`
           }`,
           disabled: !this.profile.ramp,
