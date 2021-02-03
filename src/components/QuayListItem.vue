@@ -28,7 +28,6 @@
                   </v-chip>
                 </div>
                 <div class="my-1 content">
-                  Toegankelijkheid:
                   <rating-label
                     :rating="quay.profileAccessibleScore.overallRating"
                   />
