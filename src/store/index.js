@@ -47,6 +47,7 @@ export const store = new Vuex.Store({
       accessibleonly: true,
     },
     currentLocation: [],
+    currentLocationName: "",
     locationSet: false,
     quaysAll: quays,
     quaysFiltered: quays,
@@ -96,6 +97,9 @@ export const store = new Vuex.Store({
     },
     changeCurrentLocation({ commit }, e) {
       commit("changeCurrentLocation", e);
+    },
+    changeCurrentLocationName({ commit }, e) {
+      commit("changeCurrentLocationName", e);
     },
     changeProfile({ commit }, e) {
       commit("changeProfile", e);
@@ -167,6 +171,9 @@ export const store = new Vuex.Store({
     },
     changeCurrentLocation(state, val) {
       state.currentLocation = val;
+    },
+    changeCurrentLocationName(state, val) {
+      state.currentLocationName = val;
     },
     changeProfile(state, val) {
       state.profile = val;

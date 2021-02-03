@@ -17,7 +17,11 @@ export default {
     ...mapState(["currentLocation", "locationSet"]),
   },
   methods: {
-    ...mapActions(["changeCurrentLocation", "changeLocationSet"]),
+    ...mapActions([
+      "changeCurrentLocation",
+      "changeCurrentLocationName",
+      "changeLocationSet",
+    ]),
     setLocation: function() {
       //do we support geolocation
       if (!("geolocation" in navigator)) {
@@ -32,6 +36,7 @@ export default {
           this.location = [pos.coords.latitude, pos.coords.longitude];
           this.changeCurrentLocation(this.location);
           this.changeLocationSet(true);
+          this.changeCurrentLocationName("huidige locatie");
         },
         (err) => {
           console.error(err.message);
