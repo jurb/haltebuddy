@@ -284,7 +284,7 @@ export default {
               ? `Halte waarschijnlijk <strong>niet</strong> hoog genoeg voor plank`
               : this.quay.profileAccessibleScore.rampMinHeightRating === 0
               ? `Halte <strong>niet</strong> hoog genoeg voor plank`
-              : `Plank hoogte onbekend`
+              : `Hoogte halte onbekend`
           }`,
           disabled: !this.profile.ramp,
         },
