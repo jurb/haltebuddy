@@ -2,7 +2,7 @@
   <router-link :to="`quay/${quay.quaycode}`">
     <div>
       <v-row no-gutters align="center">
-        <v-col :cols="11">
+        <v-col cols="10">
           <v-list-item>
             <v-list-item-content>
               <v-list-item-title class="mb-1 primary--text">
@@ -43,8 +43,8 @@
             </v-list-item-content>
           </v-list-item>
         </v-col>
-        <v-col :cols="1">
-          <div class="float-right">
+        <v-col cols="auto">
+          <div class="float-right ml-4">
             <v-icon x-large color="grey">mdi-chevron-right</v-icon>
           </div>
         </v-col>
