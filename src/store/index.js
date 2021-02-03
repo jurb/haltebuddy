@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 import distance from "@turf/distance";
 import * as turf from "@turf/helpers";
@@ -32,6 +33,7 @@ const quays = quaysImport
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     profile: {
       width: 75,
