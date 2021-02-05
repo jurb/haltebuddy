@@ -258,7 +258,15 @@ export default {
           id: "vehicleThreshold",
           title: "Instappen zonder oprijplank",
           rating: this.quay.profileAccessibleScore.vehicleThresholdRating,
-          icon: require("@/assets/icons/quayThresholdToVehicle.svg"),
+          icon: !this.quay.transportmode
+            ? require("@/assets/icons/quayThresholdToVehicle.svg")
+            : this.quay.transportmode === "tram"
+            ? require("@/assets/icons/quayThresholdToVehicleTram.svg")
+            : this.quay.transportmode === "bus"
+            ? require("@/assets/icons/quayThresholdToVehicleBus.svg")
+            : this.quay.transportmode === "metro"
+            ? require("@/assets/icons/quayThresholdToVehicleMetro.svg")
+            : require("@/assets/icons/quayThresholdToVehicle.svg"),
           text: `${
             this.quay.transportmode === "metro"
               ? "Metro ingang is gelijkvloers"
