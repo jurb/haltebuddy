@@ -60,39 +60,41 @@
         v-for="(row, rowIndex) in ratingInfo"
         v-bind:key="row.id"
       >
-        <v-overlay
-          v-if="row.disabled"
-          :absolute="true"
-          class="mt-n3 mx-n6"
-          :opacity="0.1"
-        />
-        <v-row no-gutters class="mt-3 text-body-2">
-          <v-col :cols="1">
-            <rating-icon :disabled="row.disabled" :rating="row.rating" />
-          </v-col>
-          <v-col :cols="3" class="ml-4">
-            <img :src="row.icon" />
-          </v-col>
-          <v-col>
-            <h4>{{ row.title }}</h4>
-            <p v-html="row.text"></p>
-          </v-col>
-          <v-alert
-            v-if="row.alert"
-            dense
-            outlined
-            type="error"
-            class="text-body-2"
-          >
-            <strong>{{ row.alert[0] }}</strong
-            ><br />{{ row.alert[1] }}
-          </v-alert>
-        </v-row>
-        <v-divider
-          v-if="rowIndex < ratingInfo.length - 1"
-          :key="`row-divider-${rowIndex}`"
-          class="mb-3"
-        ></v-divider>
+        <template v-if="!row.hidden">
+          <v-overlay
+            v-if="row.overlay"
+            :absolute="true"
+            class="mt-n3 mx-n6"
+            :opacity="0.1"
+          />
+          <v-row no-gutters class="mt-3 text-body-2">
+            <v-col :cols="1">
+              <rating-icon :disabled="row.overlay" :rating="row.rating" />
+            </v-col>
+            <v-col :cols="3" class="ml-4">
+              <img :src="row.icon" />
+            </v-col>
+            <v-col>
+              <h4>{{ row.title }}</h4>
+              <p v-html="row.text"></p>
+            </v-col>
+            <v-alert
+              v-if="row.alert"
+              dense
+              outlined
+              type="error"
+              class="text-body-2"
+            >
+              <strong>{{ row.alert[0] }}</strong
+              ><br />{{ row.alert[1] }}
+            </v-alert>
+          </v-row>
+          <v-divider
+            v-if="rowIndex < ratingInfo.length - 1"
+            :key="`row-divider-${rowIndex}`"
+            class="mb-3"
+          ></v-divider>
+        </template>
       </div>
     </div>
     <div class="mx-n4 mt-n4">
@@ -268,7 +270,7 @@ export default {
               ? `<br /> Diepte tot tram: 2-5 cm`
               : ""
           }`,
-          disabled: this.profile.ramp,
+          overlay: this.profile.ramp && this.quay.transportmode !== "metro",
         },
         {
           id: "rampMinHeight",
@@ -286,7 +288,8 @@ export default {
               ? `Halte <strong>niet hoog genoeg</strong> voor oprijplank`
               : `Hoogte halte onbekend`
           }`,
-          disabled: !this.profile.ramp,
+          overlay: !this.profile.ramp,
+          hidden: this.quay.transportmode === "metro",
         },
         {
           id: "rampRoomWidth",
@@ -304,7 +307,8 @@ export default {
               ? `Halte <strong>niet breed genoeg</strong> voor oprijplank`
               : `Plank breedte onbekend`
           }`,
-          disabled: !this.profile.ramp,
+          overlay: !this.profile.ramp,
+          hidden: this.quay.transportmode === "metro",
         },
       ];
     },
