@@ -52,7 +52,12 @@ function profileAccessibleScore(quay, profile) {
 
   // quayNarrowestWidthRating block
   const quayNarrowestWidthProfile = profile.width / 100;
-  const quayNarrowestWidth = quay.narrowestpassagewidth;
+  const quayNarrowestWidth =
+    quay.narrowestpassagewidth || quay.boardingpositionwidth; // a small percentage of quays have an unknown narrowestwidth (mostly metros and ferrys)
+  // const quayWidth =
+  //   quay.boardingpositionwidth !== 0.01
+  //     ? quay.boardingpositionwidth
+  //     : quay.narrowestpassagewidth; // a small percentage of quays have an unknown narrowestwidth (mostly metros and ferrys)
   const quayNarrowestWidthDifference =
     quayNarrowestWidth - quayNarrowestWidthProfile;
   const quayNarrowestWidthRating = ratingScale(QUAYNARROWESTWIDTHDOMAIN)(
@@ -67,7 +72,7 @@ function profileAccessibleScore(quay, profile) {
       ? VEHICLETRAMHEIGHT - quay.kerbheight
       : transportMode === "bus"
       ? VEHICLEBUSHEIGHT - quay.kerbheight
-      : // set metro treshold to 0
+      : // set metro treshold to 0, leading to a max rating
       transportMode === "metro"
       ? 0
       : null;
@@ -82,9 +87,10 @@ function profileAccessibleScore(quay, profile) {
   const rampRoomWidth = quay.boardingpositionwidth;
   const rampRoomWidthDifference = rampRoomWidth - rampRoomWidthProfile;
   // give this the highest rating if user does not need a ramp
-  const rampRoomWidthRating = ratingScale(RAMPROOMWIDTHDOMAIN)(
-    rampRoomWidthDifference
-  );
+  const rampRoomWidthRating =
+    transportMode === "metro"
+      ? maximumRating
+      : ratingScale(RAMPROOMWIDTHDOMAIN)(rampRoomWidthDifference);
   // rampRoomMinHeightRating block
   // TODO: we don't take the different ramp dimensions of tram and bus into account
   // TODO: add checks for metro and ferry?
@@ -103,7 +109,7 @@ function profileAccessibleScore(quay, profile) {
       ? MINHEIGHT_ELECTRIC_TRAM
       : // for now we throw a null for other transportmodes, leading to a max rating
         null;
-  const rampKerbHeight = quay.kerbheight;
+  const rampKerbHeight = quay.kerbheight || 0; // unknown kerbs are presumed to have no height
   const rampMinHeightDifference = rampKerbHeight - rampMinHeightProfile;
   // TODO: maybe there should be a difference in the rating for a bus and a tram quay here
   // give this the highest rating if user does not need a ramp
