@@ -260,7 +260,9 @@ export default {
           rating: this.quay.profileAccessibleScore.vehicleThresholdRating,
           icon: require("@/assets/icons/quayThresholdToVehicle.svg"),
           text: `${
-            this.quay.profileAccessibleScore.vehicleThreshold
+            this.quay.transportmode === "metro"
+              ? "Metro ingang is gelijkvloers"
+              : this.quay.profileAccessibleScore.vehicleThreshold
               ? `Hoogte tot voertuig: ${Math.round(
                   this.quay.profileAccessibleScore.vehicleThreshold * 100
                 )} cm`
