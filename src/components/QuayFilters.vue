@@ -27,8 +27,20 @@
               <v-icon left>
                 mdi-chevron-down
               </v-icon>
-              Voertuigen</v-chip
-            >
+              Type
+              <img
+                v-if="vehicleFilter.includes('tram')"
+                class="chip-icon ml-1"
+                :src="require('@/assets/icons/vehicleTramWhite.svg')"/>
+              <img
+                v-if="vehicleFilter.includes('bus')"
+                class="chip-icon ml-1"
+                :src="require('@/assets/icons/vehicleBusWhite.svg')"/>
+              <img
+                v-if="vehicleFilter.includes('metro')"
+                class="chip-icon ml-1"
+                :src="require('@/assets/icons/vehicleMetroWhite.svg')"
+            /></v-chip>
           </template>
           <v-card width="300">
             <v-chip-group
@@ -100,4 +112,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.chip-icon {
+  width: 12px;
+  height: 18px;
+  vertical-align: bottom;
+}
+</style>
