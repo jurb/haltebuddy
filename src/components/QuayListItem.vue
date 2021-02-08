@@ -2,6 +2,7 @@
   <router-link :to="`quay/${quay.quaycode}`">
     <div>
       <v-row no-gutters align="center">
+        <!-- TODO: align chevron on the right dynamically -->
         <v-col cols="10">
           <v-list-item>
             <v-list-item-content>
