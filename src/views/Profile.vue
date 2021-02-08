@@ -8,15 +8,24 @@
         <v-card-text
           ><v-radio-group
             v-model="profileLocal.modality"
-            @change="changeProfileModality"
+            @change="setModalityDefaults"
           >
             <v-radio
               v-for="n in modalities"
               :key="n"
               :label="`${n}`"
               :value="n"
-            ></v-radio> </v-radio-group
-        ></v-card-text>
+            ></v-radio>
+          </v-radio-group>
+          <p>
+            We vullen alvast waarden in die passen bij de meeste mensen
+            {{
+              profileLocal.modality === "Zonder hulpmiddel"
+                ? "zonder hulpmiddel"
+                : `met een ${profileLocal.modality.toLowerCase()}`
+            }}.
+          </p>
+        </v-card-text>
       </v-card>
       <div class="pb-6"></div>
       <v-card>
@@ -91,6 +100,9 @@ export default {
     profileLocal() {
       return this.profile;
     },
+    modalityLocal() {
+      return this.profile.modality;
+    },
   },
   data: () => ({
     modalities: [
@@ -99,7 +111,7 @@ export default {
       "Handrolstoel",
       "Rollator",
       "Stok of krukken",
-      "Ik reis zonder hulpmiddel",
+      "Zonder hulpmiddel",
     ],
   }),
   methods: {
@@ -109,7 +121,33 @@ export default {
       "changeProfileRamp",
       "changeProfileModality",
     ]),
+    setValues: function(width, threshold, ramp) {
+      this.changeProfileWidth(width);
+      this.changeProfileThreshold(threshold);
+      this.changeProfileRamp(ramp);
+    },
+    setModalityDefaults: function(val) {
+      if (val === "Electrische rolstoel") {
+        this.setValues(80, 2, true);
+      }
+      if (val === "Scootmobiel") {
+        this.setValues(100, 2, true);
+      }
+      if (val === "Handrolstoel") {
+        this.setValues(70, 2, true);
+      }
+      if (val === "Rollator") {
+        this.setValues(60, 2, false);
+      }
+      if (val === "Stok of krukken") {
+        this.setValues(50, 5, false);
+      }
+      if (val === "Zonder hulpmiddel") {
+        this.setValues(40, 15, false);
+      }
+    },
   },
+  watch: {},
 };
 </script>
 
