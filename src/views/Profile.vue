@@ -42,15 +42,13 @@
       </v-card>
       <div class="pb-6"></div>
       <v-card>
-        <v-card-title class="pb-0"
-          >Maak je gebruik van de oprijplank?</v-card-title
-        >
+        <v-card-title class="pb-0">Gebruik je de oprijplank?</v-card-title>
         <v-card-text>
-          <v-checkbox
+          <v-switch
             v-model="profileLocal.ramp"
-            :label="`Ja, ik wil met de oprijplank het voertuig in`"
+            :label="`Houd rekening met de oprijplank`"
             @change="changeProfileRamp"
-          ></v-checkbox> </v-card-text
+          ></v-switch> </v-card-text
       ></v-card>
       <div class="pb-6"></div>
       <v-card>
@@ -61,7 +59,7 @@
             @change="changeProfileThreshold"
             mandatory
           >
-            <v-radio label="Gelijkvloers–2 cm" :value="2"></v-radio>
+            <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
             <v-radio label="2–5 cm" :value="5"></v-radio>
             <v-radio label="5–15 cm" :value="15"></v-radio>
             <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
