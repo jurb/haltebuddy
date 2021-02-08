@@ -43,7 +43,7 @@ export const store = new Vuex.Store({
       thresholdLess: false,
     },
     filters: {
-      vehicles: ["tram", "bus", "metro"],
+      vehicles: ["tram", "bus", "metro", "ferry"],
       accessibleonly: true,
     },
     currentLocation: [],

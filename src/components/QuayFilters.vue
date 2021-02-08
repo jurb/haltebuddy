@@ -39,8 +39,11 @@
               <img
                 v-if="vehicleFilter.includes('metro')"
                 class="chip-icon ml-1"
-                :src="require('@/assets/icons/vehicleMetroWhite.svg')"
-            /></v-chip>
+          <img
+            v-if="vehicleFilter.includes('ferry')"
+            class="chip-icon ml-1"
+            :src="require('@/assets/icons/vehicleFerryWhite.svg')"
+        /></v-chip>
           </template>
           <v-card width="300">
             <v-chip-group
@@ -58,17 +61,9 @@
               <v-chip filter :ripple="false" value="metro">
                 Metro
               </v-chip>
-            </v-chip-group>
-          </v-card>
-        </v-menu>
-      </div>
-      <div class="text-body-2 mt-n1 ml-2">
-        <v-switch
-          v-model="accessibleonlyFilter"
-          label="Alleen toegankelijk"
-          color="secondary"
-        ></v-switch>
-      </div>
+      <v-chip filter :ripple="false" value="ferry">
+        Pont
+      </v-chip>
     </v-chip-group>
   </div>
 </template>
