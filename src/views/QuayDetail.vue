@@ -124,10 +124,10 @@
             &nbsp;&nbsp;<v-chip label color="secondary" outlined>
               <strong>{{ item.LinePublicNumber }}</strong>
             </v-chip>
-            &nbsp;&nbsp;
+            <!-- &nbsp;&nbsp;
             <span class="text-h6">{{
               item.WheelChairAccessible === "ACCESSIBLE" ? "♿︎" : "❌"
-            }}</span>
+            }}</span> -->
           </v-col>
           <v-col>{{ item.DestinationName50 }}</v-col>
           <v-col :cols="2"
@@ -229,14 +229,12 @@ export default {
             ? `Drempel: ${this.quay.profileAccessibleScore.quayThreshold *
                 100} cm`
             : `Drempel onbekend`,
-          alert:
-            this.quay?.elevatorMalfunction?.Omschrijving &&
-            this.quay?.elevatorMalfunction?.Prognose
-              ? [
-                  this.quay.elevatorMalfunction.Omschrijving,
-                  this.quay.elevatorMalfunction.Prognose,
-                ]
-              : null,
+          alert: this.quay?.elevatorMalfunction?.Omschrijving
+            ? [
+                this.quay.elevatorMalfunction.Omschrijving,
+                this.quay.elevatorMalfunction.Prognose,
+              ]
+            : null,
         },
         {
           id: "width",
