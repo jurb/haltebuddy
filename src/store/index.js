@@ -186,8 +186,6 @@ export const store = new Vuex.Store({
     },
     changeProfileRamp(state, val) {
       state.profile.ramp = val;
-      state.profile.thresholdLess = val;
-      state.profile.ramp ? (state.profile.threshold = 2) : null;
     },
     changeProfileModality(state, val) {
       state.profile.modality = val;
