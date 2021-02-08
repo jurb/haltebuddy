@@ -286,7 +286,15 @@ export default {
           id: "rampMinHeight",
           title: "Haltehoogte voor oprijplank",
           rating: this.quay.profileAccessibleScore.rampMinHeightRating,
-          icon: require("@/assets/icons/quayRamproom.svg"),
+          icon: !this.quay.transportmode
+            ? require("@/assets/icons/quayRamp.svg")
+            : this.quay.transportmode === "tram"
+            ? require("@/assets/icons/quayRampTram.svg")
+            : this.quay.transportmode === "bus"
+            ? require("@/assets/icons/quayRampBus.svg")
+            : this.quay.transportmode === "metro"
+            ? require("@/assets/icons/quayRampMetro.svg")
+            : require("@/assets/icons/quayRamp.svg"),
           text: `${
             this.quay.profileAccessibleScore.rampMinHeightRating === 3
               ? "Halte <strong>hoog genoeg</strong> voor oprijplank"
@@ -305,7 +313,15 @@ export default {
           id: "rampRoomWidth",
           title: "Haltebreedte voor oprijplank",
           rating: this.quay.profileAccessibleScore.rampRoomWidthRating,
-          icon: require("@/assets/icons/quayRamproom.svg"),
+          icon: !this.quay.transportmode
+            ? require("@/assets/icons/quayRamp.svg")
+            : this.quay.transportmode === "tram"
+            ? require("@/assets/icons/quayRampTram.svg")
+            : this.quay.transportmode === "bus"
+            ? require("@/assets/icons/quayRampBus.svg")
+            : this.quay.transportmode === "metro"
+            ? require("@/assets/icons/quayRampMetro.svg")
+            : require("@/assets/icons/quayRamp.svg"),
           text: `${
             this.quay.profileAccessibleScore.rampRoomWidthRating === 3
               ? "Halte <strong>breed genoeg</strong> voor oprijplank"
