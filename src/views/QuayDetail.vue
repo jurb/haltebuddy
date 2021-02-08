@@ -3,7 +3,6 @@
     <v-btn icon to="/" class="ma-2">
       <v-icon color="grey darken-4">mdi-arrow-left</v-icon>
     </v-btn>
-
     <v-list-item>
       <v-list-item-content>
         <h2 class="mb-1">
@@ -105,6 +104,17 @@
       <h3>
         Vertrektijden
       </h3>
+      <v-alert
+        v-if="oldTramWarning"
+        dense
+        outlined
+        type="error"
+        class="text-body-2"
+      >
+        <strong>Op lijn 5 & 19 rijden oude trams</strong><br />Oude trams zijn
+        minder goed toegankelijk. De oude trams rijden meestal afwisselend op de
+        lijn met nieuwe trams.
+      </v-alert>
       <div class="mx-n4">
         <v-divider />
       </div>
@@ -352,8 +362,18 @@ export default {
             .slice(0, 6)
         : null;
     },
-    directions: function() {
+    destinations: function() {
       return [...new Set(this.passes.map((el) => el.DestinationName50))];
+    },
+    lineNumbers: function() {
+      return this.passes
+        ? [...new Set(this.passes.map((el) => el.LinePublicNumber))]
+        : null;
+    },
+    oldTramWarning: function() {
+      return this.passes && this.lineNumbers
+        ? this.lineNumbers.includes("19") || this.lineNumbers.includes("5")
+        : null;
     },
   },
   methods: {
