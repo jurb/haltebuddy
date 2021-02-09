@@ -1,5 +1,30 @@
 <template>
-  <div>Halteknop</div>
+  <div>
+    <v-container class="pa-0">
+      <v-row no-gutters>
+        <v-col align-self="end">
+          <h3 class="pt-10 px-3">Halteknop</h3>
+        </v-col>
+        <v-col align-self="end" class="mb-n2">
+          <img :src="require('@/assets/adameva01.svg')" alt="" />
+          <img :src="require('@/assets/adameva02.svg')" alt="" class="ml-2" />
+          <img :src="require('@/assets/adameva03.svg')" alt="" class="ml-4" />
+        </v-col>
+      </v-row>
+    </v-container>
+    <v-divider />
+
+    <v-container class="pa-0 px-3">
+      <v-row
+        ><v-col class="text-body-2"
+          >Laat de bestuurder van een voertuig weten dat je extra hulp of tijd
+          nodig hebt bij het instappen. Activeer de halteknop als je op de halte
+          staat.</v-col
+        ></v-row
+      >
+    </v-container>
+    <v-divider />
+  </div>
 </template>
 
 <script>
