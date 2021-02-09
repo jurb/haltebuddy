@@ -24,6 +24,20 @@
       >
     </v-container>
     <v-divider />
+    <router-link v-if="!$route.params.page" to="/halteknop/02">
+      <img class="map-image" src="@/assets/halteknop01.png"
+    /></router-link>
+    <router-link v-if="$route.params.page === '02'" to="/halteknop/03">
+      <img class="map-image" src="@/assets/halteknop02.png"
+    /></router-link>
+    <router-link v-if="$route.params.page === '03'" to="/halteknop/04">
+      <img class="map-image" src="@/assets/halteknop03.png"
+    /></router-link>
+    <router-link v-if="$route.params.page === '04'" to="/halteknop">
+      <img class="map-image" src="@/assets/halteknop04.png"
+    /></router-link>
+
+    <!-- <v-btn class="halte-button">but</v-btn> -->
   </div>
 </template>
 
@@ -38,4 +52,15 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.map-image {
+  width: 100%;
+}
+.halte-button {
+  position: absolute;
+  bottom: 236px;
+  left: 50%;
+  margin: auto;
+  z-index: 2;
+}
+</style>
