@@ -5,7 +5,7 @@
         <router-view></router-view>
       </v-container>
     </v-main>
-    <v-footer app>
+    <v-footer>
       <bottom-navigation />
     </v-footer>
   </v-app>
