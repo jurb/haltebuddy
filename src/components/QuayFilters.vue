@@ -2,7 +2,7 @@
   <div>
     <v-chip-group class="pl-4">
       <div class="ml-1 mt-2">
-        <v-chip pill v-on="on" @click="menu = !menu" color="secondary">
+        <v-chip pill @click="menu = !menu" color="secondary">
           <v-icon left>
             mdi-chevron-down
           </v-icon>
