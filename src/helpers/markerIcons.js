@@ -16,6 +16,7 @@ import markerTramBlue from "@/assets/icons/markerTramBlue.svg";
 import markerTramGreen from "@/assets/icons/markerTramGreen.svg";
 import markerTramOrange from "@/assets/icons/markerTramOrange.svg";
 import markerTramRed from "@/assets/icons/markerTramRed.svg";
+import marker from "@/assets/icons/marker.svg";
 
 const CustomIcons = [
   { src: markerBusBlue, name: "markerBusBlue-svg" },
@@ -34,6 +35,7 @@ const CustomIcons = [
   { src: markerTramGreen, name: "markerTramGreen-svg" },
   { src: markerTramOrange, name: "markerTramOrange-svg" },
   { src: markerTramRed, name: "markerTramRed-svg" },
+  { src: marker, name: "marker-svg" },
 ];
 
 export default CustomIcons;

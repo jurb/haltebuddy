@@ -7,6 +7,7 @@
       @map-load="loaded"
       @map-init="initMap"
       :nav-control="{ show: false }"
+      @map-click:markers="clicked"
     />
   </div>
 </template>
@@ -41,7 +42,7 @@ export default {
       return {
         style: "mapbox://styles/mapbox/light-v9",
         center: this.currentLocation.slice().reverse(),
-        zoom: 14,
+        zoom: 13,
       };
     },
     filterQuaysGeoJSONLayer: function() {
@@ -92,12 +93,51 @@ export default {
           "icon-size": 1,
         },
       });
+      this.updateCenterMarker();
     },
     initMap(map) {
       this.map = map;
     },
     refreshData() {
       this.map.getSource("markers").setData(this.filterQuaysGeoJSON);
+    },
+    clicked(map, e) {
+      const quayname = e.features[0].properties.quayname;
+      console.log(quayname);
+    },
+    updateCenterMarker: function() {
+      if (this.map.getLayer("markerpoint")) {
+        this.map.removeLayer("markerpoint");
+      }
+      if (this.map.getSource("markerpoint")) {
+        this.map.removeSource("markerpoint");
+      }
+
+      this.map.addSource("markerpoint", {
+        type: "geojson",
+        data: {
+          type: "FeatureCollection",
+          features: [
+            {
+              type: "Feature",
+              geometry: {
+                type: "Point",
+                coordinates: this.currentLocation.slice().reverse(),
+              },
+            },
+          ],
+        },
+      });
+
+      this.map.addLayer({
+        id: "markerpoint",
+        type: "symbol",
+        source: "markerpoint",
+        layout: {
+          "icon-image": "marker-svg",
+          "icon-size": 1.25,
+        },
+      });
     },
   },
   data: () => ({
@@ -110,7 +150,9 @@ export default {
     currentLocation: function() {
       this.map.flyTo({
         center: this.currentLocation.slice().reverse(),
+        zoom: 15,
       });
+      this.updateCenterMarker();
     },
   },
   created() {
@@ -122,7 +164,7 @@ export default {
 <style lang="scss" scoped>
 #map {
   width: 100%;
-  height: 100vh;
+  height: 75vh;
 }
 
 .top-bar {
