@@ -6,6 +6,7 @@
       :map-options="mapOptions"
       @map-load="loaded"
       @map-init="initMap"
+      :nav-control="{ show: false }"
     />
   </div>
 </template>
@@ -14,6 +15,8 @@
 import { mapGetters, mapState } from "vuex";
 import Mapbox from "mapbox-gl-vue";
 import TopBar from "../components/topBar.vue";
+
+import CustomIcons from "@/helpers/markerIcons.js";
 
 export default {
   name: "Kaart",
@@ -47,18 +50,46 @@ export default {
         data: this.filterQuaysGeoJSON,
       };
     },
+    mapboxExpressionMarkers: function() {
+      const vehicles = ["bus", "metro", "tram", "ferry"];
+      const colors = ["Red", "Orange", "Green", "Green"];
+      return colors.flatMap((color, index) =>
+        vehicles.flatMap((vehicle) => [
+          [
+            "all",
+            [
+              "==",
+              ["get", "overallRating", ["get", "profileAccessibleScore"]],
+              index,
+            ],
+            ["==", ["get", "transportmode"], vehicle],
+          ],
+          `marker${vehicle.charAt(0).toUpperCase()}${vehicle.slice(
+            1
+          )}${color}-svg`,
+        ])
+      );
+    },
   },
   methods: {
     loaded(map) {
+      CustomIcons.forEach((icon) => {
+        let customIcon = new Image(32, 32);
+        customIcon.onload = () => map.addImage(icon.name, customIcon);
+        customIcon.src = icon.src;
+      });
       map.addLayer({
-        id: "quays",
+        id: "markers",
         source: this.filterQuaysGeoJSONLayer,
-        type: "circle",
-        paint: {
-          "circle-radius": 4,
-          "circle-color": "green",
-          "circle-opacity": 0.6,
-          "circle-stroke-width": 0,
+        type: "symbol",
+        layout: {
+          "icon-image": [
+            "case",
+            ...this.mapboxExpressionMarkers,
+            "markerBusBlue-svg",
+          ],
+          "icon-allow-overlap": true,
+          "icon-size": 1,
         },
       });
     },
@@ -66,7 +97,7 @@ export default {
       this.map = map;
     },
     refreshData() {
-      this.map.getSource("quays").setData(this.filterQuaysGeoJSON);
+      this.map.getSource("markers").setData(this.filterQuaysGeoJSON);
     },
   },
   data: () => ({
@@ -95,7 +126,6 @@ export default {
 }
 
 .top-bar {
-  // position: absolute;
   width: 100%;
 }
 </style>
