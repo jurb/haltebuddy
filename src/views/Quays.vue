@@ -1,6 +1,15 @@
 <template>
   <div class="quays">
     <top-bar max-height="10vh" />
+    <v-alert
+      v-if="$route.params.fromProfile"
+      color="primary"
+      dense
+      text
+      dismissible
+      class="text-body-2 mb-0"
+      >De toegankelijkheidsscore is aangepast op jouw profiel
+    </v-alert>
 
     <!-- TODO: dynamically adjust height of virtualscroller to viewport height -->
     <v-virtual-scroll
@@ -18,21 +27,27 @@
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 import QuayListItem from "@/components/QuayListItem.vue";
 import TopBar from "../components/topBar.vue";
 
 export default {
-  name: "Haltes",
+  name: "Quays",
+  data: () => ({
+    test: false,
+  }),
   computed: {
     ...mapGetters(["filteredQuays"]),
     localQuays: function() {
       return this.filteredQuays.filter((quay) => quay.quayname);
     },
   },
-  data: () => ({
-    test: false,
-  }),
+  methods: {
+    ...mapActions(["fetchGVBpage"]),
+  },
+  mounted() {
+    this.fetchGVBpage();
+  },
   components: {
     QuayListItem,
     TopBar,

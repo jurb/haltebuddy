@@ -1,11 +1,5 @@
 <template>
-  <v-bottom-navigation
-    v-model="value"
-    background-color="#009ee3"
-    dark
-    grow
-    absolute
-  >
+  <v-bottom-navigation v-model="value" background-color="error" dark grow app>
     <v-btn value="profile" to="/profile">
       <span>Reisprofiel</span>
       <v-icon>mdi-account</v-icon>
@@ -16,7 +10,7 @@
       <v-icon>mdi-heart</v-icon>
     </v-btn>
 
-    <v-btn value="map" to="/kaart">
+    <v-btn value="map" to="/quay-map">
       <span>Kaart</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>

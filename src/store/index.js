@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 import distance from "@turf/distance";
 import * as turf from "@turf/helpers";
@@ -32,25 +33,29 @@ const quays = quaysImport
 Vue.use(Vuex);
 
 export const store = new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     profile: {
-      width: 90,
+      width: 75,
       threshold: 15,
       modality: "Electrische rolstoel",
       ramp: false,
       thresholdLess: false,
     },
     filters: {
-      vehicles: ["tram", "bus", "metro"],
+      vehicles: ["tram", "bus", "metro", "ferry"],
       accessibleonly: true,
     },
-    currentLocation: [],
+    // initial location (center of Amsterdam according to wikipedia)
+    currentLocation: [52.369, 4.9041],
+    currentLocationName: "Amsterdam",
     locationSet: false,
     quaysAll: quays,
     quaysFiltered: quays,
+    GVBdata: [],
   },
   getters: {
-    filteredQuays: (state, getters) => {
+    enhancedQuays: (state, getters) => {
       return state.quaysFiltered
         .map((quay) => ({
           distance:
@@ -62,15 +67,22 @@ export const store = new Vuex.Store({
               : undefined,
           ...quay,
           profileAccessibleScore: profileAccessibleScore(quay, state.profile),
+          elevatorMalfunction: state.GVBdata.find(
+            (d) =>
+              quay.quayname.includes(d.Station) &&
+              quay.transportmode === "metro"
+          ),
         }))
-        .filter(
-          (quay) =>
-            state.filters.vehicles.includes(quay.transportmode) &&
-            (state.filters.accessibleonly
-              ? quay.profileAccessibleScore.overallRating !== 0
-              : quay)
-        )
         .sort((a, b) => a.distance - b.distance);
+    },
+    filteredQuays: (state, getters) => {
+      return getters.enhancedQuays.filter(
+        (quay) =>
+          state.filters.vehicles.includes(quay.transportmode) &&
+          (state.filters.accessibleonly
+            ? quay.profileAccessibleScore.overallRating !== 0
+            : quay)
+      );
     },
   },
   //TODO: use $store.commit to call the mutations, so you can remove these actions
@@ -87,6 +99,9 @@ export const store = new Vuex.Store({
     changeCurrentLocation({ commit }, e) {
       commit("changeCurrentLocation", e);
     },
+    changeCurrentLocationName({ commit }, e) {
+      commit("changeCurrentLocationName", e);
+    },
     changeProfile({ commit }, e) {
       commit("changeProfile", e);
     },
@@ -101,6 +116,47 @@ export const store = new Vuex.Store({
     },
     changeProfileModality({ commit }, e) {
       commit("changeProfileModality", e);
+    },
+    fetchGVBpage({ commit }, e) {
+      const zip = (arr, ...arrs) => {
+        return arr.map((val, i) =>
+          arrs.reduce((a, arr) => [...a, arr[i]], [val])
+        );
+      };
+      const zipObject = (props, values) => {
+        return props.reduce((prev, prop, i) => {
+          return Object.assign(prev, { [prop]: values[i] });
+        }, {});
+      };
+      fetch(
+        `https://cors-anywhere-jurb-observable.herokuapp.com/https://www.gvb.nl/verstoringen/liften/liften.html`
+      )
+        .then((res) => res.text())
+        .then((html) => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, "text/html");
+          const rows = doc.querySelectorAll(".views-row");
+          const gvbLabels = Array.from(rows, (row) =>
+            Array.from(
+              row.querySelectorAll(".views-label"),
+              (d) => d.textContent
+            )
+          );
+          const gvbContent = Array.from(rows, (row) =>
+            Array.from(row.querySelectorAll(".field-content"), (d) =>
+              d.textContent
+                .trim()
+                .replaceAll("\n", " ")
+                .replaceAll("                 ", " | ")
+                .replaceAll(" Richting", "richting")
+            )
+          );
+          const GVBdataObject = zip(gvbLabels, gvbContent).map((el) =>
+            zipObject(el[0], el[1])
+          );
+          commit("setGVBdata", GVBdataObject);
+        })
+        .catch((error) => console.error(error.message));
     },
   },
   mutations: {
@@ -117,6 +173,9 @@ export const store = new Vuex.Store({
     changeCurrentLocation(state, val) {
       state.currentLocation = val;
     },
+    changeCurrentLocationName(state, val) {
+      state.currentLocationName = val;
+    },
     changeProfile(state, val) {
       state.profile = val;
     },
@@ -128,11 +187,12 @@ export const store = new Vuex.Store({
     },
     changeProfileRamp(state, val) {
       state.profile.ramp = val;
-      state.profile.thresholdLess = val;
-      state.profile.threshold = 12;
     },
     changeProfileModality(state, val) {
       state.profile.modality = val;
+    },
+    setGVBdata(state, val) {
+      state.GVBdata = val;
     },
   },
 });

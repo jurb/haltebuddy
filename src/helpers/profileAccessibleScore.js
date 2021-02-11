@@ -40,35 +40,43 @@ function profileAccessibleScore(quay, profile) {
   const MINHEIGHT_MANUAL_TRAM = 0.221;
   const MINHEIGHT_ELECTRIC_TRAM = 0.186;
 
+  const transportMode = quay.transportmode;
+
   // Threshold rating block
   const threshold = !quay.ramp && !quay.lift && !quay.stopplaceaccessroute;
   const quayThresholdProfile = profile.threshold / 100;
   const quayThreshold = threshold ? quay.kerbheight : undefined;
   const quayThresholdDifference = quayThresholdProfile - quayThreshold;
   // voorbeeld: profiel: maxdrempel is 5, situatie: drempel is 6 => difference 5-6= -1
-  const quayThresholdRating = threshold
-    ? ratingScale(THRESHOLDDOMAIN)(quayThresholdDifference)
-    : maximumRating;
+  const quayThresholdRating =
+    threshold && transportMode !== "ferry"
+      ? ratingScale(THRESHOLDDOMAIN)(quayThresholdDifference)
+      : maximumRating;
 
   // quayNarrowestWidthRating block
   const quayNarrowestWidthProfile = profile.width / 100;
-  const quayNarrowestWidth = quay.narrowestpassagewidth;
+  const quayNarrowestWidth =
+    quay.narrowestpassagewidth || quay.boardingpositionwidth; // a small percentage of quays have an unknown narrowestwidth (mostly metros and ferrys)
+  // const quayWidth =
+  //   quay.boardingpositionwidth !== 0.01
+  //     ? quay.boardingpositionwidth
+  //     : quay.narrowestpassagewidth; // a small percentage of quays have an unknown narrowestwidth (mostly metros and ferrys)
   const quayNarrowestWidthDifference =
     quayNarrowestWidth - quayNarrowestWidthProfile;
-  const quayNarrowestWidthRating = ratingScale(QUAYNARROWESTWIDTHDOMAIN)(
-    quayNarrowestWidthDifference
-  );
+  const quayNarrowestWidthRating =
+    transportMode !== "ferry"
+      ? ratingScale(QUAYNARROWESTWIDTHDOMAIN)(quayNarrowestWidthDifference)
+      : maximumRating;
 
   // vehicleThresholdRating block
-  const transportMode = quay.transportmode;
   const vehicleThresholdProfile = profile.threshold / 100;
   const vehicleThreshold =
     transportMode === "tram"
       ? VEHICLETRAMHEIGHT - quay.kerbheight
       : transportMode === "bus"
       ? VEHICLEBUSHEIGHT - quay.kerbheight
-      : // set metro treshold to 0
-      transportMode === "metro"
+      : // set metro and ferry  treshold to 0, leading to a max rating
+      transportMode === "metro" || transportMode === "ferry"
       ? 0
       : null;
   const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
@@ -82,9 +90,10 @@ function profileAccessibleScore(quay, profile) {
   const rampRoomWidth = quay.boardingpositionwidth;
   const rampRoomWidthDifference = rampRoomWidth - rampRoomWidthProfile;
   // give this the highest rating if user does not need a ramp
-  const rampRoomWidthRating = ratingScale(RAMPROOMWIDTHDOMAIN)(
-    rampRoomWidthDifference
-  );
+  const rampRoomWidthRating =
+    transportMode === "metro" || transportMode === "ferry"
+      ? maximumRating
+      : ratingScale(RAMPROOMWIDTHDOMAIN)(rampRoomWidthDifference);
   // rampRoomMinHeightRating block
   // TODO: we don't take the different ramp dimensions of tram and bus into account
   // TODO: add checks for metro and ferry?
@@ -103,7 +112,7 @@ function profileAccessibleScore(quay, profile) {
       ? MINHEIGHT_ELECTRIC_TRAM
       : // for now we throw a null for other transportmodes, leading to a max rating
         null;
-  const rampKerbHeight = quay.kerbheight;
+  const rampKerbHeight = quay.kerbheight || 0; // unknown kerbs are presumed to have no height
   const rampMinHeightDifference = rampKerbHeight - rampMinHeightProfile;
   // TODO: maybe there should be a difference in the rating for a bus and a tram quay here
   // give this the highest rating if user does not need a ramp

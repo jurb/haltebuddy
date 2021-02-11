@@ -6,7 +6,10 @@
     <v-list-item>
       <v-list-item-content>
         <h2 class="mb-1">
-          <vehicle-icon :transportmode="quay.transportmode" />
+          <vehicle-icon
+            v-if="quay.transportmode"
+            :transportmode="quay.transportmode"
+          />
           {{ quay.quayname }}
           &nbsp;
           <distance-text v-if="quay.distance" :distance="quay.distance" />
@@ -30,9 +33,7 @@
         </v-list-item-subtitle>
       </v-list-item-content>
     </v-list-item>
-    <!-- <div class="mx-n4">
-      <v-divider />
-    </div> -->
+
     <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
       <h3>
         Toegankelijkheid
@@ -45,219 +46,122 @@
           <div class="my-1 content">
             Totaal beoordeling:
             <rating-label :rating="quay.profileAccessibleScore.overallRating" />
-            <br />
-            <div class="feedback-text-link text-body-2">
-              <a href="#">↪ dit klopt niet voor mij</a>
-            </div>
-          </div>
-        </v-col></v-row
-      >
-      <v-divider class="my-3" />
-      <v-row no-gutters class="mt-3 text-body-2">
-        <v-col :cols="1">
-          <rating-icon
-            :rating="quay.profileAccessibleScore.quayThresholdRating"
-          />
-        </v-col>
-        <v-col :cols="3" class="ml-4">
-          <img :src="require('@/assets/icons/quayThreshold.svg')" />
-        </v-col>
-        <v-col>
-          <h4>Op de halte komen</h4>
-          <p>
-            {{
-              quay.ramp
-                ? "Hellingbaan aanwezig"
-                : quay.lift
-                ? `Halte bereikbaar met lift`
-                : quay.stopplaceaccessroute
-                ? `Halte bereikbaar vanaf omgeving`
-                : quay.profileAccessibleScore.quayThreshold
-                ? `Drempel: ${quay.profileAccessibleScore.quayThreshold *
-                    100} cm`
-                : `Drempel onbekend`
-            }}
-          </p>
-        </v-col>
-      </v-row>
-      <v-divider class="mb-3" />
-
-      <v-row no-gutters class="text-body-2">
-        <v-col :cols="1">
-          <rating-icon
-            :rating="quay.profileAccessibleScore.quayNarrowestWidthRating"
-          />
-        </v-col>
-        <v-col :cols="3" class="ml-4">
-          <img :src="require('@/assets/icons/quayWidth.svg')" />
-        </v-col>
-        <v-col>
-          <h4>Haltebreedte</h4>
-          <p>
-            {{
-              quay.boardingpositionwidth
-                ? `Breedte: ${quay.boardingpositionwidth} m`
-                : `Breedte onbekend`
-            }}<br />
-            {{
-              quay.profileAccessibleScore.quayNarrowestWidth
-                ? `Smalste doorgang: ${quay.profileAccessibleScore.quayNarrowestWidth} m`
-                : `Smalste doorgang onbekend`
-            }}
-          </p>
-        </v-col>
-      </v-row>
-      <v-divider class="mb-3" />
-
-      <div id="no-ramp-rows" class="detail-wrapper">
-        <v-overlay
-          v-if="profile.ramp"
-          :absolute="true"
-          class="mt-n3 mx-n6"
-          :opacity="0.1"
-        />
-        <v-row no-gutters class="text-body-2">
-          <v-col :cols="1">
-            <rating-icon
-              :disabled="profile.ramp"
-              :rating="quay.profileAccessibleScore.vehicleThresholdRating"
-            />
-          </v-col>
-          <v-col :cols="3" class="ml-4">
-            <img :src="require('@/assets/icons/quayThresholdToVehicle.svg')" />
-          </v-col>
-          <v-col>
-            <h4>Instappen zonder plank</h4>
-            <p>
-              {{
-                quay.profileAccessibleScore.vehicleThreshold
-                  ? `Hoogte tot voertuig: ${Math.round(
-                      quay.profileAccessibleScore.vehicleThreshold * 100
-                    )} cm`
-                  : `Hoogte halte onbekend`
-              }}
-
+            <template v-if="quay.transportmode !== 'ferry'">
               <br />
-              <span v-if="quay.transportmode === 'tram'"
-                >Diepte tot tram: 2-5 cm</span
+              <div class="feedback-text-link text-body-2">
+                <a href="#">↪ dit klopt niet voor mij</a>
+              </div>
+            </template>
+          </div>
+        </v-col>
+      </v-row>
+      <v-divider class="my-3" />
+      <template v-if="quay.transportmode === 'ferry'">
+        <span class="text-body-2">
+          <strong>
+            Ponten zijn toegankelijk met een rolstoel, scootmobiel of andere
+            hulpmiddelen
+          </strong>
+        </span>
+      </template>
+      <template v-if="quay.transportmode !== 'ferry'">
+        <div
+          class="detail-wrapper"
+          v-for="(row, rowIndex) in ratingInfo"
+          v-bind:key="row.id"
+        >
+          <template v-if="!row.hidden">
+            <v-overlay
+              v-if="row.overlay"
+              :absolute="true"
+              class="mt-n3 mx-n6"
+              :opacity="0.1"
+              :z-index="1"
+            />
+            <v-row no-gutters class="mt-3 text-body-2">
+              <v-col :cols="1">
+                <rating-icon :disabled="row.overlay" :rating="row.rating" />
+              </v-col>
+              <v-col :cols="3" class="ml-4">
+                <img :src="row.icon" />
+              </v-col>
+              <v-col>
+                <h4>{{ row.title }}</h4>
+                <p v-html="row.text"></p>
+              </v-col>
+              <v-alert
+                v-if="row.alert"
+                dense
+                outlined
+                type="error"
+                class="text-body-2"
               >
-            </p>
-          </v-col>
-        </v-row>
-      </div>
-
-      <div id="ramp-rows" class="detail-wrapper">
-        <v-divider class="mb-3" />
-        <v-overlay
-          v-if="!profile.ramp"
-          :absolute="true"
-          class="mx-n6"
-          :opacity="0.1"
-          :z-index="1"
-        />
-        <v-row no-gutters class="text-body-2">
-          <v-col :cols="1">
-            <rating-icon
-              :disabled="!profile.ramp"
-              :rating="quay.profileAccessibleScore.rampMinHeightRating"
-            />
-          </v-col>
-          <v-col :cols="3" class="ml-4">
-            <img :src="require('@/assets/icons/quayRamproom.svg')" />
-          </v-col>
-          <v-col>
-            <h4>Haltehoogte voor plank</h4>
-            <p v-if="quay.profileAccessibleScore.rampMinHeightRating === 3">
-              Halte hoog genoeg voor plank
-            </p>
-            <p v-if="quay.profileAccessibleScore.rampMinHeightRating === 2">
-              Halte
-              <strong>
-                net
-              </strong>
-              hoog genoeg voor plank
-            </p>
-            <p v-if="quay.profileAccessibleScore.rampMinHeightRating === 1">
-              Halte waarschijnlijk <strong>niet</strong> hoog genoeg voor plank
-            </p>
-            <p
-              v-else-if="quay.profileAccessibleScore.rampMinHeightRating === 0"
-            >
-              Halte <strong>niet</strong> hoog genoeg voor plank
-            </p>
-          </v-col>
-        </v-row>
-        <v-divider class="mb-3" />
-        <v-row no-gutters class="text-body-2">
-          <v-col :cols="1">
-            <rating-icon
-              :disabled="!profile.ramp"
-              :rating="quay.profileAccessibleScore.rampRoomWidthRating"
-            />
-          </v-col>
-          <v-col :cols="3" class="ml-4">
-            <img :src="require('@/assets/icons/quayRamproom.svg')" />
-          </v-col>
-          <v-col>
-            <h4>Haltebreedte voor plank</h4>
-            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 3">
-              Halte breed genoeg voor oprijplank
-            </p>
-            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 2">
-              Halte
-              <strong>
-                net
-              </strong>
-              breed genoeg voor plank
-            </p>
-            <p v-if="quay.profileAccessibleScore.rampRoomWidthRating === 1">
-              Halte waarschijnlijk <strong>niet</strong> breed genoeg voor plank
-            </p>
-            <p
-              v-else-if="quay.profileAccessibleScore.rampRoomWidthRating === 0"
-            >
-              Halte <strong>niet</strong> breed genoeg voor plank
-            </p>
-          </v-col>
-        </v-row>
-        <div class="feedback-text-link text-body-2">
-          <a href="#">↪ er lijkt iets niet te kloppen</a>
+                <strong>{{ row.alert[0] }}</strong
+                ><br />{{ row.alert[1] }}
+              </v-alert>
+            </v-row>
+            <v-divider
+              v-if="rowIndex < ratingInfo.length - 1"
+              :key="`row-divider-${rowIndex}`"
+              class="mb-3"
+            ></v-divider>
+          </template>
         </div>
-      </div>
+      </template>
     </div>
     <div class="mx-n4 mt-n4">
       <v-divider />
     </div>
+
     <div v-if="passes && passes.length" class="ma-4 mt-12">
       <h3>
         Vertrektijden
       </h3>
+      <v-alert
+        v-if="oldTramWarning"
+        dense
+        outlined
+        type="error"
+        class="text-body-2"
+      >
+        <strong>Op lijn 5 & 19 rijden oude trams</strong><br />Oude trams zijn
+        minder goed toegankelijk. De oude trams rijden meestal afwisselend op de
+        lijn met nieuwe trams.
+      </v-alert>
       <div class="mx-n4">
         <v-divider />
       </div>
-      <template v-for="(item, index) in passes">
-        <v-row :key="`pass-${index}`" no-gutters class="my-2 text-body-2">
-          <v-col :cols="3">
+      <template v-for="(item, passIndex) in passes">
+        <v-row
+          :key="`pass-${passIndex}`"
+          no-gutters
+          class="my-2 text-body-2"
+          align="center"
+        >
+          <v-col :cols="4">
             <vehicle-icon
               :transportmode="quay.transportmode"
               :height="24"
               :width="24"
             />
-            <v-chip label color="secondary" outlined class="ml-2">
+            &nbsp;&nbsp;<v-chip label color="secondary" outlined>
               <strong>{{ item.LinePublicNumber }}</strong>
             </v-chip>
+            <!-- &nbsp;&nbsp;
+            <span class="text-h6">{{
+              item.WheelChairAccessible === "ACCESSIBLE" ? "♿︎" : "❌"
+            }}</span> -->
           </v-col>
-          <v-col class="pt-1">{{ item.DestinationName50 }}</v-col>
-          <v-col :cols="2" class="ml-2 pt-1"
+          <v-col>{{ item.DestinationName50 }}</v-col>
+          <v-col :cols="2"
             ><strong
               >{{ formatDistancePass(item.ExpectedDepartureTime) }} min
             </strong></v-col
           >
         </v-row>
-
         <v-divider
-          v-if="index < passes.length - 1"
-          :key="`divider-${index}`"
+          v-if="passIndex < passes.length - 1"
+          :key="`pass-divider-${passIndex}`"
         ></v-divider>
       </template>
       <div class="mx-n4">
@@ -321,13 +225,139 @@ export default {
   data: () => ({ OVapi: null }),
   components: { VehicleIcon, RatingLabel, DistanceText, RatingIcon },
   computed: {
-    ...mapGetters(["filteredQuays"]),
+    ...mapGetters(["enhancedQuays"]),
     ...mapState(["profile"]),
     quay: function() {
-      const foundQuay = this.filteredQuays.find(
+      const foundQuay = this.enhancedQuays.find(
         (quay) => quay.quaycode === this.$route.params.quaycode
       );
       return foundQuay;
+    },
+    ratingInfo: function() {
+      return [
+        {
+          id: "threshold",
+          title: "Op de halte komen",
+          rating: this.quay.profileAccessibleScore.quayThresholdRating,
+          icon: require("@/assets/icons/quayThreshold.svg"),
+          text: this.quay.elevatorMalfunction
+            ? "Halte mogelijk niet bereikbaar met lift"
+            : this.quay.ramp
+            ? "Hellingbaan aanwezig"
+            : this.quay.lift
+            ? `Halte bereikbaar met lift`
+            : this.quay.stopplaceaccessroute
+            ? `Halte bereikbaar vanaf omgeving`
+            : this.quay.profileAccessibleScore.quayThreshold
+            ? `Drempel: ${this.quay.profileAccessibleScore.quayThreshold *
+                100} cm`
+            : `Drempel onbekend`,
+          alert: this.quay?.elevatorMalfunction?.Omschrijving
+            ? [
+                this.quay.elevatorMalfunction.Omschrijving,
+                this.quay.elevatorMalfunction.Prognose,
+              ]
+            : null,
+        },
+        {
+          id: "width",
+          title: "Haltebreedte",
+          rating: this.quay.profileAccessibleScore.quayNarrowestWidthRating,
+          icon: require("@/assets/icons/quayWidth.svg"),
+          text: `${
+            this.quay.boardingpositionwidth
+              ? `Breedte: ${this.quay.boardingpositionwidth} m`
+              : `Breedte onbekend`
+          } <br />
+          ${
+            this.quay.profileAccessibleScore.quayNarrowestWidth
+              ? `Smalste doorgang: ${this.quay.profileAccessibleScore.quayNarrowestWidth} m`
+              : `Smalste doorgang onbekend`
+          }`,
+        },
+        {
+          id: "vehicleThreshold",
+          title: "Instappen zonder oprijplank",
+          rating: this.quay.profileAccessibleScore.vehicleThresholdRating,
+          icon: !this.quay.transportmode
+            ? require("@/assets/icons/quayThresholdToVehicle.svg")
+            : this.quay.transportmode === "tram"
+            ? require("@/assets/icons/quayThresholdToVehicleTram.svg")
+            : this.quay.transportmode === "bus"
+            ? require("@/assets/icons/quayThresholdToVehicleBus.svg")
+            : this.quay.transportmode === "metro"
+            ? require("@/assets/icons/quayThresholdToVehicleMetro.svg")
+            : require("@/assets/icons/quayThresholdToVehicle.svg"),
+          text: `${
+            this.quay.transportmode === "metro"
+              ? "Metro ingang is gelijkvloers"
+              : this.quay.profileAccessibleScore.vehicleThreshold
+              ? `Hoogte tot voertuig: ${Math.round(
+                  this.quay.profileAccessibleScore.vehicleThreshold * 100
+                )} cm`
+              : `Hoogte halte onbekend`
+          } ${
+            this.quay.transportmode && this.quay.transportmode === "tram"
+              ? `<br /> Diepte tot tram: 2-5 cm`
+              : ""
+          }`,
+          overlay: this.profile.ramp && this.quay.transportmode !== "metro",
+        },
+        {
+          id: "rampMinHeight",
+          title: "Haltehoogte voor oprijplank",
+          rating: this.quay.profileAccessibleScore.rampMinHeightRating,
+          icon: !this.quay.transportmode
+            ? require("@/assets/icons/quayRamp.svg")
+            : this.quay.transportmode === "tram"
+            ? require("@/assets/icons/quayRampTram.svg")
+            : this.quay.transportmode === "bus"
+            ? require("@/assets/icons/quayRampBus.svg")
+            : this.quay.transportmode === "metro"
+            ? require("@/assets/icons/quayRampMetro.svg")
+            : require("@/assets/icons/quayRamp.svg"),
+          text: `${
+            this.quay.profileAccessibleScore.rampMinHeightRating === 3
+              ? "Halte <strong>hoog genoeg</strong> voor oprijplank"
+              : this.quay.profileAccessibleScore.rampMinHeightRating === 2
+              ? `Halte <strong> net hoog genoeg</strong> voor oprijplank`
+              : this.quay.profileAccessibleScore.rampMinHeightRating === 1
+              ? `Halte <strong>waarschijnlijk niet hoog genoeg</strong> voor oprijplank`
+              : this.quay.profileAccessibleScore.rampMinHeightRating === 0
+              ? `Halte <strong>niet hoog genoeg</strong> voor oprijplank`
+              : `Hoogte halte onbekend`
+          }`,
+          overlay: !this.profile.ramp,
+          hidden: this.quay.transportmode === "metro",
+        },
+        {
+          id: "rampRoomWidth",
+          title: "Haltebreedte voor oprijplank",
+          rating: this.quay.profileAccessibleScore.rampRoomWidthRating,
+          icon: !this.quay.transportmode
+            ? require("@/assets/icons/quayRamp.svg")
+            : this.quay.transportmode === "tram"
+            ? require("@/assets/icons/quayRampTram.svg")
+            : this.quay.transportmode === "bus"
+            ? require("@/assets/icons/quayRampBus.svg")
+            : this.quay.transportmode === "metro"
+            ? require("@/assets/icons/quayRampMetro.svg")
+            : require("@/assets/icons/quayRamp.svg"),
+          text: `${
+            this.quay.profileAccessibleScore.rampRoomWidthRating === 3
+              ? "Halte <strong>breed genoeg</strong> voor oprijplank"
+              : this.quay.profileAccessibleScore.rampRoomWidthRating === 2
+              ? `Halte <strong>net breed genoeg</strong> voor oprijplank`
+              : this.quay.profileAccessibleScore.rampRoomWidthRating === 1
+              ? `Halte <strong>waarschijnlijk niet breed genoeg</strong> voor oprijplank`
+              : this.quay.profileAccessibleScore.rampRoomWidthRating === 0
+              ? `Halte <strong>niet breed genoeg</strong> voor oprijplank`
+              : `Plank breedte onbekend`
+          }`,
+          overlay: !this.profile.ramp,
+          hidden: this.quay.transportmode === "metro",
+        },
+      ];
     },
     passes: function() {
       //TODO: don't like this way of error checking
@@ -345,11 +375,22 @@ export default {
             .slice(0, 6)
         : null;
     },
-    directions: function() {
+    destinations: function() {
       return [...new Set(this.passes.map((el) => el.DestinationName50))];
+    },
+    lineNumbers: function() {
+      return this.passes
+        ? [...new Set(this.passes.map((el) => el.LinePublicNumber))]
+        : null;
+    },
+    oldTramWarning: function() {
+      return this.passes && this.lineNumbers
+        ? this.lineNumbers.includes("19") || this.lineNumbers.includes("5")
+        : null;
     },
   },
   methods: {
+    // TODO: move this and other API calls to seperate script / store methods
     // TODO: add error message to data, show error message in app & add render checks in template
     // TODO: I used middleware to avoid cors errors from ovapi.nl for now. This adds latency (instance needs to spin up)
     // Ideally ovapi.nl needs better headers, but otherwise I should probably use a faster server for the middleware
@@ -398,82 +439,3 @@ export default {
   font-weight: 700;
 }
 </style>
-
-<!-- <v-row no-gutters>
-            <v-col
-              v-if="!quay.profileAccessibleScore.threshold"
-              align-self="start"
-              class="px-0"
-              align="center"
-            >
-              <img :src="require('@/assets/icons/quayNoThreshold.svg')" />
-              <p class="caption">{{ ratingSymbol(3) }} Opgang</p></v-col
-            >
-            <v-col
-              v-if="quay.profileAccessibleScore.threshold"
-              align-self="start"
-              class="px-0"
-              align="center"
-            >
-              <img :src="require('@/assets/icons/quayThreshold.svg')" />
-              <p class="caption">
-                {{
-                  Math.round(quay.profileAccessibleScore.stopThreshold * 100)
-                }}cm
-                {{
-                  ratingSymbol(
-                    quay.profileAccessibleScore.stopThresholdRating
-                  ) || "?"
-                }}
-              </p></v-col
-            >
-            <v-col align-self="start" class="px-0" align="center">
-              <img :src="require('@/assets/icons/quayWidth.svg')" />
-              <p class="caption">
-                {{
-                  quay.profileAccessibleScore.stopNarrowestWidth
-                    ? ` ${
-                        quay.profileAccessibleScore.stopNarrowestWidth
-                      }m ${ratingSymbol(
-                        quay.profileAccessibleScore.stopNarrowestWidthRating
-                      )}
-
-                 `
-                    : "Breedte onbekend"
-                }}
-              </p>
-            </v-col>
-            <v-col
-              v-if="profile.ramp"
-              align-self="start"
-              class="px-0"
-              align="center"
-            >
-              <img :src="require('@/assets/icons/quayRamp.svg')" />
-              <p class="caption">
-                Plank {{ ratingSymbol(quay.profileAccessibleScore.rampRating) }}
-              </p>
-            </v-col>
-            <v-col
-              v-if="!profile.ramp"
-              align-self="start"
-              class="px-0"
-              align="center"
-            >
-              <img
-                :src="require('@/assets/icons/quayThresholdToVehicle.svg')"
-              />
-              <p class="caption">
-                {{
-                  Math.round(
-                    quay.profileAccessibleScore.vehicleThreshold * 100
-                  )
-                }}cm
-                {{
-                  ratingSymbol(
-                    quay.profileAccessibleScore.vehicleThresholdRating
-                  )
-                }}
-              </p>
-            </v-col>
-          </v-row> -->

@@ -8,17 +8,26 @@
         <v-card-text
           ><v-radio-group
             v-model="profileLocal.modality"
-            @change="changeProfileModality"
+            @change="setModalityDefaults"
           >
             <v-radio
               v-for="n in modalities"
               :key="n"
               :label="`${n}`"
               :value="n"
-            ></v-radio> </v-radio-group
-        ></v-card-text>
+            ></v-radio>
+          </v-radio-group>
+          <p>
+            We vullen alvast waarden in die passen bij de meeste mensen
+            {{
+              profileLocal.modality === "Zonder hulpmiddel"
+                ? "zonder hulpmiddel"
+                : `met een ${profileLocal.modality.toLowerCase()}`
+            }}.
+          </p>
+        </v-card-text>
       </v-card>
-      <div><br /></div>
+      <div class="pb-6"></div>
       <v-card>
         <v-card-title class="pb-0">Hoeveel breedte heb je nodig?</v-card-title>
         <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
@@ -40,43 +49,50 @@
           </v-slider>
         </v-card-text>
       </v-card>
-      <div><br /></div>
+      <div class="pb-6"></div>
+      <v-card>
+        <v-card-title class="pb-0">Gebruik je de oprijplank?</v-card-title>
+        <v-card-text>
+          <v-switch
+            v-model="profileLocal.ramp"
+            :label="`Houd rekening met de oprijplank`"
+            @change="changeProfileRamp"
+          ></v-switch> </v-card-text
+      ></v-card>
+      <div class="pb-6"></div>
       <v-card>
         <v-card-title class="pb-0">Hoe hoog mag een drempel zijn?</v-card-title>
-        <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
         <v-card-text>
-          <v-slider
-            class="mt-14"
+          <v-radio-group
             v-model="profileLocal.threshold"
-            prepend-icon=" mdi-chevron-double-down"
-            append-icon=" mdi-chevron-double-up"
-            thumb-label="always"
-            @click:prepend="profileLocal.threshold--"
-            @click:append="profileLocal.threshold++"
-            :disabled="profileLocal.ramp"
-            min="0"
-            max="20"
-            thumb-size="40"
-            @end="changeProfileThreshold"
+            @change="changeProfileThreshold"
+            mandatory
           >
-            <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
-          </v-slider>
-          <v-checkbox
-            v-model="profileLocal.ramp"
-            :label="
-              `Ik wil drempelloos reizen (en met de plank het voertuig in)`
-            "
-            @change="changeProfileRamp"
-          ></v-checkbox> </v-card-text
+            <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
+            <v-radio label="2–5 cm" :value="5"></v-radio>
+            <v-radio label="5–15 cm" :value="15"></v-radio>
+            <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
+          </v-radio-group> </v-card-text
       ></v-card>
     </v-form>
-    <div><br /></div>
-    <div><br /></div>
+    <div class="pb-6"></div>
+    <v-btn
+      :to="{ name: 'Quays', params: { fromProfile: true } }"
+      block
+      class="text-none text-body"
+      color="primary"
+    >
+      <v-icon left dark>
+        mdi-content-save
+      </v-icon>
+      <strong>Sla je profiel op</strong>
+    </v-btn>
+    <div class="pb-12"></div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState, mapActions } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "Profiel",
   computed: {
@@ -84,9 +100,19 @@ export default {
     profileLocal() {
       return this.profile;
     },
+    modalityLocal() {
+      return this.profile.modality;
+    },
   },
   data: () => ({
-    modalities: ["Electrische rolstoel", "Handrolstoel", "Rollator"],
+    modalities: [
+      "Electrische rolstoel",
+      "Scootmobiel",
+      "Handrolstoel",
+      "Rollator",
+      "Stok of krukken",
+      "Zonder hulpmiddel",
+    ],
   }),
   methods: {
     ...mapActions([
@@ -95,7 +121,33 @@ export default {
       "changeProfileRamp",
       "changeProfileModality",
     ]),
+    setValues: function(width, threshold, ramp) {
+      this.changeProfileWidth(width);
+      this.changeProfileThreshold(threshold);
+      this.changeProfileRamp(ramp);
+    },
+    setModalityDefaults: function(val) {
+      if (val === "Electrische rolstoel") {
+        this.setValues(80, 2, true);
+      }
+      if (val === "Scootmobiel") {
+        this.setValues(100, 2, true);
+      }
+      if (val === "Handrolstoel") {
+        this.setValues(70, 2, true);
+      }
+      if (val === "Rollator") {
+        this.setValues(60, 2, false);
+      }
+      if (val === "Stok of krukken") {
+        this.setValues(50, 5, false);
+      }
+      if (val === "Zonder hulpmiddel") {
+        this.setValues(40, 15, false);
+      }
+    },
   },
+  watch: {},
 };
 </script>
 

@@ -1,6 +1,9 @@
 <template>
   <span class="px-1" :class="scoreColor">
-    <strong>{{ scoreText }}</strong>
+    <strong>{{ scoreText }}</strong
+    ><span v-if="rating === 3"
+      >&nbsp; <v-icon x-small color="white">mdi-thumb-up-outline</v-icon></span
+    >
   </span>
 </template>
 
@@ -15,7 +18,7 @@ export default {
         : this.rating === 1
         ? "accent white--text"
         : this.rating === 2
-        ? "gvb-green lighten-2"
+        ? "gvb-green white--text"
         : this.rating === 3
         ? "gvb-green white--text"
         : "error white--text";

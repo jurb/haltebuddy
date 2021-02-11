@@ -13,7 +13,9 @@
       hide-details
       no-filter
       single-line
+      append-icon=""
       solo
+      chips
       clearable
       class="px-4 pt-4"
     >
@@ -46,7 +48,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["changeCurrentLocation", "changeLocationSet"]),
+    ...mapActions(["changeCurrentLocation", "changeCurrentLocationName", "changeLocationSet"]),
     searchSuggestAPI: function(val) {
       // Items have already been loaded
       this.isLoading = true;
@@ -83,6 +85,7 @@ export default {
           const centroide_ll = res.response.docs[0].centroide_ll;
           const coords = this.convertPointString(centroide_ll);
           this.changeCurrentLocation(coords);
+          this.changeCurrentLocationName(res.response.docs[0].weergavenaam.split(',')[0]);
           this.changeLocationSet(false);
         })
         .catch((err) => {
@@ -96,7 +99,7 @@ export default {
       val && val !== this.select && this.searchSuggestAPI(val);
     },
     select(val) {
-      this.setLocationFromResult(val);
+      this.setLocationFromResult(val)
     },
     locationSet(val) {
       val

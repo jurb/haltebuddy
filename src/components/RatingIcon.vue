@@ -30,9 +30,7 @@ export default {
         : "error";
     },
     scoreIcon: function() {
-      return this.disabled
-        ? "mdi-check"
-        : this.rating === 0
+      return this.rating === 0
         ? "mdi-close"
         : this.rating === 1
         ? "mdi-exclamation"
