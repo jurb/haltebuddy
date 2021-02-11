@@ -1,12 +1,12 @@
 <template>
   <div>
-    <v-bottom-sheet v-model="sheet" inset>
+    <v-bottom-sheet v-model="sheet">
       <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn color="orange" dark v-bind="attrs" v-on="on">
           Open Inset
         </v-btn>
       </template> -->
-      <v-sheet height="142px">
+      <v-sheet>
         <!-- <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
           close
         </v-btn> -->
