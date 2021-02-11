@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-bottom-sheet v-model="sheet">
+    <v-bottom-sheet v-model="sheet" @click:outside="scrollToTop">
       <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn color="orange" dark v-bind="attrs" v-on="on">
           Open Inset
@@ -128,6 +128,10 @@ export default {
       });
       this.setMarker();
     },
+    // TODO: dirty hack, remove
+    scrollToTop() {
+      document.getElementById("app").scrollIntoView();
+    },
     initMap(map) {
       this.map = map;
     },
@@ -190,7 +194,7 @@ export default {
 <style lang="scss" scoped>
 #map {
   width: 100%;
-  height: 80vh;
+  height: 500px;
 }
 
 .top-bar {
