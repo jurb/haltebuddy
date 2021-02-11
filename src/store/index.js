@@ -46,8 +46,9 @@ export const store = new Vuex.Store({
       vehicles: ["tram", "bus", "metro", "ferry"],
       accessibleonly: true,
     },
-    currentLocation: [],
-    currentLocationName: "",
+    // initial location (center of Amsterdam according to wikipedia)
+    currentLocation: [52.369, 4.9041],
+    currentLocationName: "Amsterdam",
     locationSet: false,
     quaysAll: quays,
     quaysFiltered: quays,
