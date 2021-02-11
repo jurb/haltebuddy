@@ -1,5 +1,18 @@
 <template>
   <div>
+    <v-bottom-sheet v-model="sheet" inset>
+      <!-- <template v-slot:activator="{ on, attrs }">
+        <v-btn color="orange" dark v-bind="attrs" v-on="on">
+          Open Inset
+        </v-btn>
+      </template> -->
+      <v-sheet height="142px">
+        <!-- <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
+          close
+        </v-btn> -->
+        <quay-list-item :quay="selectedQuay" />
+      </v-sheet>
+    </v-bottom-sheet>
     <div class="top-bar white"><top-bar /></div>
     <mapbox
       access-token="pk.eyJ1IjoianVyaWFuIiwiYSI6ImNqNTJlMTAzYzBmajEyd242ank0ZGppam8ifQ.JlOhR91CJQnc3U12pbMQwQ"
@@ -18,10 +31,11 @@ import Mapbox from "mapbox-gl-vue";
 import TopBar from "../components/topBar.vue";
 
 import CustomIcons from "@/helpers/markerIcons.js";
+import QuayListItem from "../components/QuayListItem.vue";
 
 export default {
   name: "Kaart",
-  components: { Mapbox, TopBar },
+  components: { Mapbox, TopBar, QuayListItem },
   computed: {
     ...mapState(["profile", "quays", "currentLocation"]),
     ...mapGetters(["filteredQuays"]),
@@ -37,6 +51,11 @@ export default {
           },
         })),
       };
+    },
+    selectedQuay: function() {
+      return this.filteredQuays.find(
+        (quay) => quay.quaycode === this.selectedQuayCode
+      );
     },
     markerGeoJSON: function() {
       return {
@@ -116,10 +135,11 @@ export default {
       this.map.getSource("markers").setData(this.filterQuaysGeoJSON);
     },
     clicked(map, e) {
-      const quayname = e.features[0].properties.quayname;
-      console.log(quayname);
+      const quaycode = e.features[0].properties.quaycode;
+      this.selectedQuayCode = quaycode;
+      this.sheet = true;
     },
-    updateCenterMarker: function() {
+    setMarker: function() {
       if (this.map.getLayer("markerpoint")) {
         this.map.removeLayer("markerpoint");
       }
@@ -145,6 +165,8 @@ export default {
   },
   data: () => ({
     map: {},
+    selectedQuayCode: null,
+    sheet: false,
   }),
   watch: {
     filteredQuays: function() {
