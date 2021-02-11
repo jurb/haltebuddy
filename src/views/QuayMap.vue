@@ -38,6 +38,20 @@ export default {
         })),
       };
     },
+    markerGeoJSON: function() {
+      return {
+        type: "FeatureCollection",
+        features: [
+          {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: this.currentLocation.slice().reverse(),
+            },
+          },
+        ],
+      };
+    },
     mapOptions: function() {
       return {
         style: "mapbox://styles/mapbox/light-v9",
@@ -93,7 +107,7 @@ export default {
           "icon-size": 1,
         },
       });
-      this.updateCenterMarker();
+      this.setMarker();
     },
     initMap(map) {
       this.map = map;
@@ -115,18 +129,7 @@ export default {
 
       this.map.addSource("markerpoint", {
         type: "geojson",
-        data: {
-          type: "FeatureCollection",
-          features: [
-            {
-              type: "Feature",
-              geometry: {
-                type: "Point",
-                coordinates: this.currentLocation.slice().reverse(),
-              },
-            },
-          ],
-        },
+        data: this.markerGeoJSON,
       });
 
       this.map.addLayer({
@@ -152,7 +155,8 @@ export default {
         center: this.currentLocation.slice().reverse(),
         zoom: 15,
       });
-      this.updateCenterMarker();
+
+      this.map.getSource("markerpoint").setData(this.markerGeoJSON);
     },
   },
   created() {
@@ -164,7 +168,7 @@ export default {
 <style lang="scss" scoped>
 #map {
   width: 100%;
-  height: 75vh;
+  height: 80vh;
 }
 
 .top-bar {
