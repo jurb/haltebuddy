@@ -20,7 +20,7 @@
       @map-load="loaded"
       @map-init="initMap"
       :nav-control="{ show: false }"
-      @map-click:markers="clicked"
+      @map-click:quayMarkers="clicked"
     />
   </div>
 </template>
@@ -82,10 +82,13 @@ export default {
       return {
         type: "geojson",
         data: this.filterQuaysGeoJSON,
+        cluster: true,
+        clusterMaxZoom: 12, // Max zoom to cluster points on
+        clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
       };
     },
     mapboxExpressionMarkers: function() {
-      const vehicles = ["bus", "metro", "tram", "ferry"];
+      const vehicles = ["Bus", "Metro", "Tram", "Ferry"];
       const colors = ["Red", "Orange", "Green", "Green"];
       return colors.flatMap((color, index) =>
         vehicles.flatMap((vehicle) => [
@@ -96,11 +99,9 @@ export default {
               ["get", "overallRating", ["get", "profileAccessibleScore"]],
               index,
             ],
-            ["==", ["get", "transportmode"], vehicle],
+            ["==", ["get", "transportmode"], vehicle.toLowerCase()],
           ],
-          `marker${vehicle.charAt(0).toUpperCase()}${vehicle.slice(
-            1
-          )}${color}-svg`,
+          `marker${vehicle}${color}-svg`,
         ])
       );
     },
@@ -113,8 +114,9 @@ export default {
         customIcon.src = icon.src;
       });
       map.addLayer({
-        id: "markers",
+        id: "quayMarkers",
         source: this.filterQuaysGeoJSONLayer,
+        filter: ["!", ["has", "point_count"]],
         type: "symbol",
         layout: {
           "icon-image": [
@@ -122,6 +124,17 @@ export default {
             ...this.mapboxExpressionMarkers,
             "markerBusBlue-svg",
           ],
+          "icon-allow-overlap": true,
+          "icon-size": 1,
+        },
+      });
+      map.addLayer({
+        id: "quayMarkersClusters",
+        source: this.filterQuaysGeoJSONLayer,
+        filter: ["has", "point_count"],
+        type: "symbol",
+        layout: {
+          "icon-image": "markerCombiBlue-svg",
           "icon-allow-overlap": true,
           "icon-size": 1,
         },
@@ -136,7 +149,7 @@ export default {
       this.map = map;
     },
     refreshData() {
-      this.map.getSource("markers").setData(this.filterQuaysGeoJSON);
+      this.map.getSource("quayMarkers").setData(this.filterQuaysGeoJSON);
     },
     clicked(map, e) {
       const quaycode = e.features[0].properties.quaycode;

@@ -4,6 +4,10 @@ import markerBusBlue from "@/assets/icons/markerBusBlue.svg";
 import markerBusGreen from "@/assets/icons/markerBusGreen.svg";
 import markerBusOrange from "@/assets/icons/markerBusOrange.svg";
 import markerBusRed from "@/assets/icons/markerBusRed.svg";
+import markerCombiBlue from "@/assets/icons/markerCombiBlue.svg";
+import markerCombiGreen from "@/assets/icons/markerCombiGreen.svg";
+import markerCombiOrange from "@/assets/icons/markerCombiOrange.svg";
+import markerCombiRed from "@/assets/icons/markerCombiRed.svg";
 import markerFerryBlue from "@/assets/icons/markerFerryBlue.svg";
 import markerFerryGreen from "@/assets/icons/markerFerryGreen.svg";
 import markerFerryOrange from "@/assets/icons/markerFerryOrange.svg";
@@ -23,6 +27,10 @@ const CustomIcons = [
   { src: markerBusGreen, name: "markerBusGreen-svg" },
   { src: markerBusOrange, name: "markerBusOrange-svg" },
   { src: markerBusRed, name: "markerBusRed-svg" },
+  { src: markerCombiBlue, name: "markerCombiBlue-svg" },
+  { src: markerCombiGreen, name: "markerCombiGreen-svg" },
+  { src: markerCombiOrange, name: "markerCombiOrange-svg" },
+  { src: markerCombiRed, name: "markerCombiRed-svg" },
   { src: markerFerryBlue, name: "markerFerryBlue-svg" },
   { src: markerFerryGreen, name: "markerFerryGreen-svg" },
   { src: markerFerryOrange, name: "markerFerryOrange-svg" },
