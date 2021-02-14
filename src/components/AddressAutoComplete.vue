@@ -99,6 +99,7 @@ export default {
       val && val !== this.select && this.searchSuggestAPI(val);
     },
     select(val) {
+      if (val !== "")
       this.setLocationFromResult(val)
     },
     locationSet(val) {
