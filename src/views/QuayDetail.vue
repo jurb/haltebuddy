@@ -1,5 +1,93 @@
 <template>
   <div>
+    <v-bottom-sheet v-model="feedbackmode" scrollable overlay-color="white">
+      <v-card height="75vh">
+        <v-card-actions>
+          <h2>
+            Feedback over deze halte
+          </h2>
+          <v-spacer></v-spacer>
+          <v-icon @click="feedbackmode = false" class="mr-4">mdi-close</v-icon>
+        </v-card-actions>
+        <v-card-text class="text-body-2 pl-4 pr-8">
+          <v-form>
+            <h3 class="mt-4">Vink aan wat niet klopt</h3>
+            <div class="mx-n4">
+              <v-divider />
+            </div>
+            <template v-if="quay.transportmode === 'ferry'">
+              <span class="text-body-2">
+                <strong>
+                  Ponten zijn toegankelijk met een rolstoel, scootmobiel of
+                  andere hulpmiddelen
+                </strong>
+              </span>
+            </template>
+            <template v-if="quay.transportmode !== 'ferry'">
+              <div
+                class="detail-wrapper"
+                v-for="row in ratingInfo"
+                v-bind:key="row.id"
+              >
+                <template v-if="!row.hidden">
+                  <v-row no-gutters class="mt-3 text-body-2">
+                    <v-col :cols="1">
+                      <!-- <rating-icon :disabled="row.overlay" :rating="row.rating" /> -->
+                      <v-checkbox
+                        v-model="feedback.checkboxes"
+                        :value="row.title"
+                        hide-details
+                        class="shrink ma-0 text-body-2"
+                      />
+                    </v-col>
+                    <v-col :cols="3" class="ml-4">
+                      <img :src="row.icon" />
+                    </v-col>
+                    <v-col>
+                      <h4>{{ row.title }}</h4>
+                      <p v-html="row.text"></p>
+                    </v-col>
+                    <v-alert
+                      v-if="row.alert"
+                      dense
+                      outlined
+                      type="error"
+                      class="text-body-2"
+                    >
+                      <strong>{{ row.alert[0] }}</strong
+                      ><br />{{ row.alert[1] }}
+                    </v-alert>
+                  </v-row>
+                </template>
+              </div>
+            </template>
+            <h3 class="mt-4">Kun je dit toelichten?</h3>
+            <div class="mx-n4">
+              <v-divider />
+            </div>
+            <v-textarea
+              v-model="feedback.textinput"
+              label="Vertel het ons!"
+              outlined
+              class="py-4 rounded-0"
+              hide-details
+            ></v-textarea>
+            <v-btn
+              @click="feedbackmode = false"
+              block
+              class="text-none text-body"
+              color="primary"
+            >
+              <v-icon left dark>
+                mdi-send
+              </v-icon>
+              <strong>Stuur op</strong>
+            </v-btn>
+          </v-form>
+        </v-card-text>
+      </v-card>
+    </v-bottom-sheet>
+
     <v-btn icon to="/" class="ma-2">
       <v-icon color="grey darken-4">mdi-arrow-left</v-icon>
     </v-btn>
@@ -49,7 +137,9 @@
             <template v-if="quay.transportmode !== 'ferry'">
               <br />
               <div class="feedback-text-link text-body-2">
-                <a href="#">↪ dit klopt niet voor mij</a>
+                <a @click="feedbackmode = !feedbackmode"
+                  >↪ dit klopt niet voor mij</a
+                >
               </div>
             </template>
           </div>
@@ -208,21 +298,28 @@
 </template>
 
 <script>
+import { mapGetters, mapState } from "vuex";
+
 import VehicleIcon from "@/components/VehicleIcon.vue";
 import RatingLabel from "@/components/RatingLabel.vue";
 import DistanceText from "@/components/DistanceText.vue";
-
-import { mapGetters, mapState } from "vuex";
+import RatingIcon from "@/components/RatingIcon.vue";
 
 import compareAsc from "date-fns/compareAsc";
 import isAfter from "date-fns/isAfter";
 import differenceInMinutes from "date-fns/differenceInMinutes";
 import parseISO from "date-fns/parseISO";
-import RatingIcon from "../components/RatingIcon.vue";
 
 export default {
   name: "QuayDetail",
-  data: () => ({ OVapi: null }),
+  data: () => ({
+    OVapi: null,
+    feedbackmode: true,
+    feedback: {
+      checkboxes: [],
+      textinput: "",
+    },
+  }),
   components: { VehicleIcon, RatingLabel, DistanceText, RatingIcon },
   computed: {
     ...mapGetters(["enhancedQuays"]),
@@ -247,7 +344,8 @@ export default {
             : this.quay.lift
             ? `Halte bereikbaar met lift`
             : this.quay.stopplaceaccessroute
-            ? `Halte bereikbaar vanaf omgeving`
+            ? `Halte bereikbaar vanaf omgeving, hoogte ${this.quay
+                .profileAccessibleScore.rampKerbHeight * 100} cm`
             : this.quay.profileAccessibleScore.quayThreshold
             ? `Drempel: ${this.quay.profileAccessibleScore.quayThreshold *
                 100} cm`
@@ -437,5 +535,10 @@ export default {
     color: var(--v-secondary-base);
   }
   font-weight: 700;
+}
+
+// TODO: very dirty, fix with vuetify classes or other solution
+.v-card__text {
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 </style>
