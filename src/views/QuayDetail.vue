@@ -7,9 +7,9 @@
             Feedback over deze halte
           </h2>
           <v-spacer></v-spacer>
-          <v-icon @click="feedbackmode = false" class="mr-4">mdi-close</v-icon>
+          <v-icon @click="feedbackmode = false" class="mr-0">mdi-close</v-icon>
         </v-card-actions>
-        <v-card-text class="text-body-2 pl-4 pr-8">
+        <v-card-text class="text-body-2 px-4">
           <v-form>
             <h3 class="mt-4">Vink aan wat niet klopt</h3>
             <div class="mx-n4">
@@ -67,7 +67,7 @@
             </div>
             <v-textarea
               v-model="feedback.textinput"
-              label="Vertel het ons!"
+              label="Uitgebreide uitleg helpt!"
               outlined
               class="py-4 rounded-0"
               hide-details
@@ -314,7 +314,7 @@ export default {
   name: "QuayDetail",
   data: () => ({
     OVapi: null,
-    feedbackmode: true,
+    feedbackmode: false,
     feedback: {
       checkboxes: [],
       textinput: "",
@@ -344,11 +344,13 @@ export default {
             : this.quay.lift
             ? `Halte bereikbaar met lift`
             : this.quay.stopplaceaccessroute
-            ? `Halte bereikbaar vanaf omgeving, hoogte ${this.quay
-                .profileAccessibleScore.rampKerbHeight * 100} cm`
+            ? `Halte bereikbaar vanaf omgeving, hoogte ${Math.round(
+                this.quay.profileAccessibleScore.rampKerbHeight * 100
+              )} cm`
             : this.quay.profileAccessibleScore.quayThreshold
-            ? `Drempel: ${this.quay.profileAccessibleScore.quayThreshold *
-                100} cm`
+            ? `Drempel: ${Math.round(
+                this.quay.profileAccessibleScore.quayThreshold * 100
+              )} cm`
             : `Drempel onbekend`,
           alert: this.quay?.elevatorMalfunction?.Omschrijving
             ? [
