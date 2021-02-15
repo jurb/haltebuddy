@@ -1,5 +1,12 @@
 <template>
-  <v-bottom-navigation v-model="value" background-color="primary" dark grow app>
+  <v-bottom-navigation
+    v-model="value"
+    background-color="primary"
+    dark
+    grow
+    app
+    fixed
+  >
     <v-btn value="profile" to="/profile">
       <span>Reisprofiel</span>
       <v-icon>mdi-account</v-icon>
