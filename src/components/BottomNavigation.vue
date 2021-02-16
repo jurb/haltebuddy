@@ -14,7 +14,7 @@
 
     <v-btn value="stops" to="/">
       <span>Haltes</span>
-      <v-icon>mdi-heart</v-icon>
+      <v-icon>mdi-format-list-bulleted-square</v-icon>
     </v-btn>
 
     <v-btn value="map" to="/quay-map">
