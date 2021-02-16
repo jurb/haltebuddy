@@ -44,7 +44,7 @@
           </v-list-item>
         </v-col>
         <v-col cols="auto">
-          <div class="float-right ml-4">
+          <div class="float-right">
             <v-icon x-large color="grey">mdi-chevron-right</v-icon>
           </div>
         </v-col>
