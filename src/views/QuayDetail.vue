@@ -340,7 +340,9 @@ export default {
           text: this.quay.elevatorMalfunction
             ? "Halte mogelijk niet bereikbaar met lift"
             : this.quay.ramp
-            ? "Hellingbaan aanwezig"
+            ? `Hellingbaan aanwezig, hoogte halte ${Math.round(
+                this.quay.profileAccessibleScore.rampKerbHeight * 100
+              )} cm`
             : this.quay.lift
             ? `Halte bereikbaar met lift`
             : this.quay.stopplaceaccessroute
