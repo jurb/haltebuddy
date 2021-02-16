@@ -3,11 +3,10 @@
     <v-bottom-sheet v-model="feedbackmode" scrollable overlay-color="white">
       <v-card height="75vh">
         <v-card-actions>
+          <v-icon @click="feedbackmode = false" class="mr-2">mdi-close</v-icon>
           <h2>
             Feedback over deze halte
           </h2>
-          <v-spacer></v-spacer>
-          <v-icon @click="feedbackmode = false" class="mr-0">mdi-close</v-icon>
         </v-card-actions>
         <v-card-text class="text-body-2 px-4">
           <v-form>
