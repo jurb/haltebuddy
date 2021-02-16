@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-overlay :value="loading" color="white" opacity=".8">
+    <v-overlay :value="loading" color="white" opacity="1">
       <img :src="require('@/assets/icons/spinner.svg')" class="rotate" />
       <div class="black--text">
         <h1>Eén moment.</h1>
