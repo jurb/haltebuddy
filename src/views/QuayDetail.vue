@@ -350,7 +350,7 @@
         <v-divider />
       </div>
       <v-spacer class="my-8" />
-      <v-btn
+      <!-- <v-btn
         block
         class="text-none text-body"
         color="secondary"
@@ -363,7 +363,7 @@
         </v-icon>
         <strong>Maak een melding</strong>
       </v-btn>
-      <v-spacer class="my-16" />
+      <v-spacer class="my-16" /> -->
     </div>
   </div>
 </template>
