@@ -1,131 +1,150 @@
 <template>
-  <div class="pa-2">
-    <!-- <h1>Profiel</h1> -->
-    <v-form v-if="type === 'view'">
-      <v-card>
-        <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
-        <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
-        <v-card-text
-          ><v-radio-group
-            v-model="profileLocal.modality"
-            @change="setModalityDefaults"
-          >
-            <v-radio
-              v-for="n in modalities"
-              :key="n"
-              :label="`${n}`"
-              :value="n"
-            ></v-radio>
-          </v-radio-group>
-          <p>
-            We vullen alvast waarden in die passen bij de meeste mensen
-            {{
-              profileLocal.modality === "Zonder hulpmiddel"
-                ? "zonder hulpmiddel"
-                : `met een ${profileLocal.modality.toLowerCase()}`
-            }}.
-          </p>
-        </v-card-text>
-      </v-card>
-      <div class="pb-6"></div>
-      <v-card>
-        <v-card-title class="pb-0">Hoeveel breedte heb je nodig?</v-card-title>
-        <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
-        <v-card-text>
-          <v-slider
-            class="mt-14"
-            v-model="profileLocal.width"
-            prepend-icon=" mdi-chevron-double-left"
-            append-icon=" mdi-chevron-double-right"
-            thumb-label="always"
-            @click:prepend="profileLocal.width--"
-            @click:append="profileLocal.width++"
-            min="30"
-            max="150"
-            thumb-size="40"
-            @end="changeProfileWidth"
-          >
-            <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
-          </v-slider>
-        </v-card-text>
-      </v-card>
-      <div class="pb-6"></div>
-      <v-card>
-        <v-card-title class="pb-0">Gebruik je de oprijplank?</v-card-title>
-        <v-card-text>
-          <v-switch
-            v-model="profileLocal.ramp"
-            :label="`Houd rekening met de oprijplank`"
-            @change="changeProfileRamp"
-          ></v-switch> </v-card-text
-      ></v-card>
-      <div class="pb-6"></div>
-      <v-card>
-        <v-card-title class="pb-0">Hoe hoog mag een drempel zijn?</v-card-title>
-        <v-card-text>
-          <v-radio-group
-            v-model="profileLocal.threshold"
-            @change="changeProfileThreshold"
-            mandatory
-          >
-            <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
-            <v-radio label="2–5 cm" :value="5"></v-radio>
-            <v-radio label="5–15 cm" :value="15"></v-radio>
-            <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
-          </v-radio-group> </v-card-text
-      ></v-card>
-    </v-form>
-    <template v-if="type === 'view'">
-      <div class="pb-6"></div>
-      <v-btn
-        :to="{ name: 'Quays', params: { fromProfile: true } }"
-        block
-        class="text-none text-body"
-        color="primary"
-      >
-        <v-icon left dark>
-          mdi-content-save
-        </v-icon>
-        <strong>Sla je profiel op</strong>
-      </v-btn>
-      <div class="pb-12"></div>
-    </template>
+  <div>
+    <v-overlay :value="loading" color="white" opacity=".8">
+      <img :src="require('@/assets/icons/spinner.svg')" class="rotate" />
+      <div class="black--text">
+        <h1>Eén moment.</h1>
+        <p>
+          We berekenen welke OV-haltes<br />
+          voor jou toegankelijk zijn.
+        </p>
+      </div>
+    </v-overlay>
 
-    <v-form v-if="type === 'inline'">
-      <h4>Hoeveel breedte heb je nodig?</h4>
-      <v-slider
-        class="mt-14"
-        v-model="profileLocal.width"
-        prepend-icon=" mdi-chevron-double-left"
-        append-icon=" mdi-chevron-double-right"
-        thumb-label="always"
-        @click:prepend="profileLocal.width--"
-        @click:append="profileLocal.width++"
-        min="30"
-        max="150"
-        thumb-size="40"
-        @dragleave="changeProfileWidth"
-      >
-        <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
-      </v-slider>
-      <h4>Oprijplank?</h4>
-      <v-switch
-        v-model="profileLocal.ramp"
-        :label="`Houd rekening met de oprijplank`"
-        @change="changeProfileRamp"
-      ></v-switch>
-      <h4>Drempel</h4>
-      <v-radio-group
-        v-model="profileLocal.threshold"
-        @change="changeProfileThreshold"
-        mandatory
-      >
-        <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
-        <v-radio label="2–5 cm" :value="5"></v-radio>
-        <v-radio label="5–15 cm" :value="15"></v-radio>
-        <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
-      </v-radio-group>
-    </v-form>
+    <div class="pa-2">
+      <!-- <h1>Profiel</h1> -->
+      <v-form v-if="type === 'view'">
+        <v-card>
+          <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
+          <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
+          <v-card-text
+            ><v-radio-group
+              v-model="profileLocal.modality"
+              @change="setModalityDefaults"
+            >
+              <v-radio
+                v-for="n in modalities"
+                :key="n"
+                :label="`${n}`"
+                :value="n"
+              ></v-radio>
+            </v-radio-group>
+            <p>
+              We vullen alvast waarden in die passen bij de meeste mensen
+              {{
+                profileLocal.modality === "Zonder hulpmiddel"
+                  ? "zonder hulpmiddel"
+                  : `met een ${profileLocal.modality.toLowerCase()}`
+              }}.
+            </p>
+          </v-card-text>
+        </v-card>
+        <div class="pb-6"></div>
+        <v-card>
+          <v-card-title class="pb-0"
+            >Hoeveel breedte heb je nodig?</v-card-title
+          >
+          <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
+          <v-card-text>
+            <v-slider
+              class="mt-14"
+              v-model="profileLocal.width"
+              prepend-icon=" mdi-chevron-double-left"
+              append-icon=" mdi-chevron-double-right"
+              thumb-label="always"
+              @click:prepend="profileLocal.width--"
+              @click:append="profileLocal.width++"
+              min="30"
+              max="150"
+              thumb-size="40"
+              @end="changeProfileWidth"
+            >
+              <template v-slot:thumb-label="{ value }">
+                {{ value }}cm
+              </template>
+            </v-slider>
+          </v-card-text>
+        </v-card>
+        <div class="pb-6"></div>
+        <v-card>
+          <v-card-title class="pb-0">Gebruik je de oprijplank?</v-card-title>
+          <v-card-text>
+            <v-switch
+              v-model="profileLocal.ramp"
+              :label="`Houd rekening met de oprijplank`"
+              @change="changeProfileRamp"
+            ></v-switch> </v-card-text
+        ></v-card>
+        <div class="pb-6"></div>
+        <v-card>
+          <v-card-title class="pb-0"
+            >Hoe hoog mag een drempel zijn?</v-card-title
+          >
+          <v-card-text>
+            <v-radio-group
+              v-model="profileLocal.threshold"
+              @change="changeProfileThreshold"
+              mandatory
+            >
+              <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
+              <v-radio label="2–5 cm" :value="5"></v-radio>
+              <v-radio label="5–15 cm" :value="15"></v-radio>
+              <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
+            </v-radio-group> </v-card-text
+        ></v-card>
+      </v-form>
+      <template v-if="type === 'view'">
+        <div class="pb-6"></div>
+        <v-btn
+          @click="loading = !loading"
+          block
+          class="text-none text-body"
+          color="primary"
+        >
+          <v-icon left dark>
+            mdi-content-save
+          </v-icon>
+          <strong>Sla je profiel op</strong>
+        </v-btn>
+        <div class="pb-12"></div>
+      </template>
+
+      <v-form v-if="type === 'inline'">
+        <h4>Hoeveel breedte heb je nodig?</h4>
+        <v-slider
+          class="mt-14"
+          v-model="profileLocal.width"
+          prepend-icon=" mdi-chevron-double-left"
+          append-icon=" mdi-chevron-double-right"
+          thumb-label="always"
+          @click:prepend="profileLocal.width--"
+          @click:append="profileLocal.width++"
+          min="30"
+          max="150"
+          thumb-size="40"
+          @dragleave="changeProfileWidth"
+        >
+          <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
+        </v-slider>
+        <h4>Oprijplank?</h4>
+        <v-switch
+          v-model="profileLocal.ramp"
+          :label="`Houd rekening met de oprijplank`"
+          @change="changeProfileRamp"
+        ></v-switch>
+        <h4>Drempel</h4>
+        <v-radio-group
+          v-model="profileLocal.threshold"
+          @change="changeProfileThreshold"
+          mandatory
+        >
+          <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
+          <v-radio label="2–5 cm" :value="5"></v-radio>
+          <v-radio label="5–15 cm" :value="15"></v-radio>
+          <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
+        </v-radio-group>
+      </v-form>
+    </div>
   </div>
 </template>
 
@@ -157,7 +176,17 @@ export default {
       "Stok of krukken",
       "Zonder hulpmiddel",
     ],
+    loading: false,
   }),
+  watch: {
+    loading(val) {
+      val &&
+        setTimeout(() => {
+          this.loading = false;
+          this.$router.push({ name: "Quays" });
+        }, 3000);
+    },
+  },
   methods: {
     ...mapActions([
       "changeProfileWidth",
@@ -191,7 +220,6 @@ export default {
       }
     },
   },
-  watch: {},
 };
 </script>
 
@@ -207,5 +235,18 @@ export default {
   position: absolute;
   left: -150%;
   top: -150%;
+}
+
+.rotate {
+  animation: rotation 2s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
 }
 </style>
