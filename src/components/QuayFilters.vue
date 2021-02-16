@@ -9,8 +9,8 @@
             profileMenu = false;
             accessibilityMenu = false;
           "
-          color="primary"
-          active-class="secondary"
+          color="secondary"
+          active-class="primary"
         >
           <v-icon left>
             {{ vehicleMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
@@ -40,8 +40,8 @@
             vehicleMenu = false;
             accessibilityMenu = false;
           "
-          color="primary"
-          active-class="secondary"
+          color="secondary"
+          active-class="primary"
         >
           <v-icon left>
             {{ profileMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
@@ -55,8 +55,8 @@
             vehicleMenu = false;
             profileMenu = false;
           "
-          color="primary"
-          active-class="secondary"
+          color="secondary"
+          active-class="primary"
         >
           <v-icon left>
             {{ accessibilityMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
@@ -69,7 +69,7 @@
       <v-switch
         v-model="accessibleonlyFilter"
         label="Alleen toegankelijke haltes"
-        color="secondary"
+        color="primary"
         hide-details
       ></v-switch>
     </div>
@@ -80,16 +80,16 @@
       mandatory
       class="pl-5 py-2 grey lighten-4"
     >
-      <v-chip filter :ripple="false" value="tram" class="secondary">
+      <v-chip filter :ripple="false" value="tram" class="primary">
         Tram
       </v-chip>
-      <v-chip filter :ripple="false" value="bus" class="secondary">
+      <v-chip filter :ripple="false" value="bus" class="primary">
         Bus
       </v-chip>
-      <v-chip filter :ripple="false" value="metro" class="secondary">
+      <v-chip filter :ripple="false" value="metro" class="primary">
         Metro
       </v-chip>
-      <v-chip filter :ripple="false" value="ferry" class="secondary">
+      <v-chip filter :ripple="false" value="ferry" class="primary">
         Pont
       </v-chip>
     </v-chip-group>
