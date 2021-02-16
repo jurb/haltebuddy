@@ -4,7 +4,7 @@
       <div class="ml-1 mt-2">
         <v-chip pill @click="menu = !menu" color="secondary">
           <v-icon left>
-            mdi-chevron-down
+            {{ menu ? "mdi-chevron-up" : "mdi-chevron-down" }}
           </v-icon>
           Type
           <img
