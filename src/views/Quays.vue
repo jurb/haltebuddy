@@ -15,11 +15,15 @@
     <v-virtual-scroll
       :items="localQuays"
       max-height="80vh"
-      item-height="142"
+      item-height="150"
       bench="2"
     >
       <template v-slot:default="{ item }">
-        <quay-list-item :key="item.quaycode" :quay="item" />
+        <quay-list-item
+          :key="item.quaycode"
+          :quay="item"
+          :favourite="isFavourite(item.quaycode)"
+        />
         <div class="py-12"></div>
       </template>
     </v-virtual-scroll>
@@ -38,12 +42,16 @@ export default {
   }),
   computed: {
     ...mapGetters(["filteredQuays"]),
+    ...mapState(["filters"]),
     localQuays: function() {
       return this.filteredQuays.filter((quay) => quay.quayname);
     },
   },
   methods: {
     ...mapActions(["fetchGVBpage"]),
+    isFavourite: function(quaycode) {
+      return this.filters.favourites.includes(quaycode);
+    },
   },
   mounted() {
     this.fetchGVBpage();

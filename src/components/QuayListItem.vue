@@ -28,7 +28,7 @@
                     <strong>{{ route }}</strong>
                   </v-chip>
                 </div>
-                <div class="my-1 content">
+                <div class="content">
                   <rating-label
                     :rating="quay.profileAccessibleScore.overallRating"
                   />
@@ -36,7 +36,10 @@
                     v-if="quay.elevatorMalfunction"
                     class="px-1 ml-2 error white--text rounded"
                     ><v-icon size="medium" color="white">mdi-alert</v-icon
-                    ><strong> Lift!</strong></span
+                    ><strong> Lift kapot!</strong></span
+                  >
+                  <v-icon v-if="favourite" right class="pb-1" color="secondary"
+                    >mdi-star</v-icon
                   >
                 </div>
               </v-list-item-subtitle>
@@ -62,7 +65,7 @@ import DistanceText from "@/components/DistanceText.vue";
 export default {
   name: "QuayListItem",
   // TODO: don't pass the whole quay, but only the data you need as props
-  props: ["quay"],
+  props: ["quay", "favourite"],
   components: { VehicleIcon, RatingLabel, DistanceText },
 };
 </script>
