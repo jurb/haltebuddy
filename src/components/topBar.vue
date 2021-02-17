@@ -2,7 +2,7 @@
   <div>
     <address-auto-complete />
     <quay-filters />
-    <h4 class="px-1">Haltes in de buurt van {{ currentLocationName }}</h4>
+    <h4 class="pl-4">Haltes in de buurt van {{ currentLocationName }}</h4>
     <v-divider />
   </div>
 </template>
