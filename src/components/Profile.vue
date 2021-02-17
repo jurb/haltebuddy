@@ -89,7 +89,10 @@
               <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
               <v-radio label="2–5 cm" :value="5"></v-radio>
               <v-radio label="5–15 cm" :value="15"></v-radio>
-              <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
+              <v-radio
+                label="De hoogte maakt niet uit"
+                :value="Infinity"
+              ></v-radio>
             </v-radio-group> </v-card-text
         ></v-card>
       </v-form>
