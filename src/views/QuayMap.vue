@@ -82,7 +82,7 @@ export default {
       return {
         type: "geojson",
         data: this.filterQuaysGeoJSON,
-        cluster: true,
+        cluster: false,
         clusterMaxZoom: 12, // Max zoom to cluster points on
         clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
       };
