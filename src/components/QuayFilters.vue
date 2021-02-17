@@ -1,13 +1,13 @@
 <template>
   <div>
     <v-chip-group class="pl-4">
-      <div class="ml-1 mt-2">
+      <div class="ml-0 mt-2">
         <v-chip
           pill
           @click="
             vehicleMenu = !vehicleMenu;
+            settingsMenu = false;
             profileMenu = false;
-            accessibilityMenu = false;
           "
           color="secondary"
           active-class="primary"
@@ -36,9 +36,24 @@
         <v-chip
           pill
           @click="
+            settingsMenu = !settingsMenu;
+            vehicleMenu = false;
+            profileMenu = false;
+          "
+          color="secondary"
+          active-class="primary"
+        >
+          <v-icon left>
+            {{ settingsMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
+          </v-icon>
+          <v-icon> mdi-tune </v-icon>
+        </v-chip>
+        <v-chip
+          pill
+          @click="
             profileMenu = !profileMenu;
             vehicleMenu = false;
-            accessibilityMenu = false;
+            settingsMenu = false;
           "
           color="secondary"
           active-class="primary"
@@ -48,31 +63,8 @@
           </v-icon>
           <v-icon> mdi-account </v-icon>
         </v-chip>
-        <v-chip
-          pill
-          @click="
-            accessibilityMenu = !accessibilityMenu;
-            vehicleMenu = false;
-            profileMenu = false;
-          "
-          color="secondary"
-          active-class="primary"
-        >
-          <v-icon left>
-            {{ accessibilityMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
-          </v-icon>
-          <v-icon> mdi-tune </v-icon>
-        </v-chip>
       </div>
     </v-chip-group>
-    <div v-if="accessibilityMenu" class="pl-5 py-6 pt-2 grey lighten-4">
-      <v-switch
-        v-model="accessibleonlyFilter"
-        label="Alleen toegankelijke haltes"
-        color="primary"
-        hide-details
-      ></v-switch>
-    </div>
     <v-chip-group
       v-if="vehicleMenu"
       v-model="vehicleFilter"
@@ -93,13 +85,29 @@
         Pont
       </v-chip>
     </v-chip-group>
+    <div v-if="settingsMenu" class="pl-5 py-2 grey lighten-4">
+      <h3>Filters</h3>
 
-    <template v-if="profileMenu">
+      <v-chip-group v-model="filterProperties" multiple>
+        <v-chip filter :ripple="false" class="primary" value="accessibleonly">
+          Toegankelijke haltes
+        </v-chip>
+        <v-chip filter :ripple="false" class="primary" value="favouritesonly">
+          Opgeslagen
+          <v-icon color="white">{{
+            this.filterProperties.includes("favouritesonly")
+              ? "mdi-star"
+              : "mdi-star-outline"
+          }}</v-icon>
+        </v-chip>
+      </v-chip-group>
+    </div>
+    <div v-if="profileMenu">
       <div class="px-3 grey lighten-4">
         <h3 class="pa-2">Profiel</h3>
         <profile type="inline" />
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -112,11 +120,22 @@ export default {
   data: () => ({
     vehicleMenu: false,
     profileMenu: false,
-    accessibilityMenu: false,
+    settingsMenu: false,
   }),
 
   computed: {
     ...mapState(["filters"]),
+    filterProperties: {
+      get() {
+        return this.filters.filterProperties;
+      },
+      set(v) {
+        return this.changeFilter({
+          prop: "filterProperties",
+          value: v,
+        });
+      },
+    },
     vehicleFilter: {
       get() {
         return this.filters.vehicles;
@@ -124,17 +143,6 @@ export default {
       set(v) {
         return this.changeFilter({
           prop: "vehicles",
-          value: v,
-        });
-      },
-    },
-    accessibleonlyFilter: {
-      get() {
-        return this.filters.accessibleonly;
-      },
-      set(v) {
-        return this.changeFilter({
-          prop: "accessibleonly",
           value: v,
         });
       },

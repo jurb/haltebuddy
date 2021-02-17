@@ -173,23 +173,40 @@
           &nbsp;
           <distance-text v-if="quay.distance" :distance="quay.distance" />
         </h2>
-        <v-list-item-subtitle>
+        <div>
           <div class="mb-2">
             Richting {{ quay.directionfull }} {{ quay.direction }}
           </div>
-          <div class="mb-2">
-            <v-chip
-              v-for="route in quay.routes"
-              :key="route.id"
-              class="mr-2"
-              label
-              color="secondary"
-              outlined
-            >
-              <strong>{{ route }}</strong>
-            </v-chip>
-          </div>
-        </v-list-item-subtitle>
+          <p class="mb-0">
+            <v-chip-group column>
+              <v-btn
+                color="secondary"
+                depressed
+                class="text-none text-body mt-1 mr-2 rounded-0"
+                height="32px"
+                @click="updateFavourites"
+                :value="isFavourite"
+                ><v-icon left>{{
+                  isFavourite ? "mdi-star" : "mdi-star-outline"
+                }}</v-icon
+                ><strong>{{
+                  isFavourite ? "Opgeslagen" : "Opslaan"
+                }}</strong></v-btn
+              >
+              <v-chip
+                v-for="route in quay.routes"
+                :key="route.id"
+                class="mr-2 lines"
+                label
+                color="secondary"
+                outlined
+                :ripple="false"
+              >
+                <strong>{{ route }}</strong>
+              </v-chip>
+            </v-chip-group>
+          </p>
+        </div>
       </v-list-item-content>
     </v-list-item>
 
@@ -308,10 +325,6 @@
             &nbsp;&nbsp;<v-chip label color="secondary" outlined>
               <strong>{{ item.LinePublicNumber }}</strong>
             </v-chip>
-            <!-- &nbsp;&nbsp;
-            <span class="text-h6">{{
-              item.WheelChairAccessible === "ACCESSIBLE" ? "♿︎" : "❌"
-            }}</span> -->
           </v-col>
           <v-col>{{ item.DestinationName50 }}</v-col>
           <v-col :cols="2"
@@ -350,26 +363,12 @@
         <v-divider />
       </div>
       <v-spacer class="my-8" />
-      <!-- <v-btn
-        block
-        class="text-none text-body"
-        color="secondary"
-        Maak
-        een
-        melding
-      >
-        <v-icon left dark>
-          mdi-alert
-        </v-icon>
-        <strong>Maak een melding</strong>
-      </v-btn>
-      <v-spacer class="my-16" /> -->
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapState } from "vuex";
+import { mapGetters, mapState, mapActions } from "vuex";
 
 import VehicleIcon from "@/components/VehicleIcon.vue";
 import RatingLabel from "@/components/RatingLabel.vue";
@@ -385,6 +384,7 @@ export default {
   name: "QuayDetail",
   data: () => ({
     OVapi: null,
+    saved: false,
     feedbackopen: false,
     feedbackmode: false,
     thankyoumode: false,
@@ -395,8 +395,8 @@ export default {
     },
   }),
   watch: {
-    feedbackopen: function(val) {
-      if (val) {
+    feedbackopen: function(v) {
+      if (v) {
         this.feedbackmode = true;
         this.thankyoumode = false;
       } else return;
@@ -405,7 +405,7 @@ export default {
   components: { VehicleIcon, RatingLabel, DistanceText, RatingIcon },
   computed: {
     ...mapGetters(["enhancedQuays"]),
-    ...mapState(["profile"]),
+    ...mapState(["profile", "filters"]),
     quay: function() {
       const foundQuay = this.enhancedQuays.find(
         (quay) => quay.quaycode === this.$route.params.quaycode
@@ -572,8 +572,12 @@ export default {
         ? this.lineNumbers.includes("19") || this.lineNumbers.includes("5")
         : null;
     },
+    isFavourite: function() {
+      return this.filters.favourites.includes(this.quay.quaycode);
+    },
   },
   methods: {
+    ...mapActions(["changeFilter"]),
     // TODO: move this and other API calls to seperate script / store methods
     // TODO: add error message to data, show error message in app & add render checks in template
     // TODO: I used middleware to avoid cors errors from ovapi.nl for now. This adds latency (instance needs to spin up)
@@ -588,6 +592,28 @@ export default {
     },
     formatDistancePass: function(ExpectedDepartureTime) {
       return differenceInMinutes(parseISO(ExpectedDepartureTime), new Date());
+    },
+    updateFavourites: function() {
+      const favouritesPlusQuay = [
+        ...new Set([...this.filters.favourites, this.quay.quaycode]),
+      ];
+      const favouritesMinusQuay = this.filters.favourites.filter(
+        (d) => d !== this.quay.quaycode
+      );
+      if (this.isFavourite) {
+        this.changeFilter({
+          prop: "favourites",
+          value: favouritesMinusQuay,
+        });
+        return;
+      }
+      if (!this.isFavourite) {
+        this.changeFilter({
+          prop: "favourites",
+          value: favouritesPlusQuay,
+        });
+        return;
+      } else return;
     },
   },
   mounted() {
@@ -622,9 +648,18 @@ export default {
   }
   font-weight: 700;
 }
+.v-chip.v-chip--outlined.v-chip--active:before {
+  opacity: 0;
+}
+.theme--light.v-chip:hover::before {
+  opacity: 0;
+}
 
 // TODO: very dirty, fix with vuetify classes or other solution
 .v-card__text {
   color: rgba(0, 0, 0, 0.87) !important;
+}
+.lines {
+  line-height: 2rem;
 }
 </style>
