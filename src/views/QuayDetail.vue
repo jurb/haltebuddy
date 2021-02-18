@@ -331,7 +331,7 @@
         </div>
       </template>
     </div>
-    <div class="mx-n4 mt-n4">
+    <div class="mx-0 mt-n4">
       <v-divider />
     </div>
 
