@@ -86,8 +86,7 @@
       </v-chip>
     </v-chip-group>
     <div v-if="settingsMenu" class="pl-5 py-2 grey lighten-4">
-      <h3>Filters</h3>
-
+      <!-- <h3>Filters</h3> -->
       <v-chip-group v-model="filterProperties" multiple>
         <v-chip filter :ripple="false" class="primary" value="accessibleonly">
           Toegankelijke haltes
@@ -104,7 +103,7 @@
     </div>
     <div v-if="profileMenu">
       <div class="px-3 grey lighten-4">
-        <h3 class="pa-2">Profiel</h3>
+        <!-- <h3 class="pa-2">Profiel</h3> -->
         <profile type="inline" />
       </div>
     </div>
