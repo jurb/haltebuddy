@@ -1,15 +1,47 @@
 <template>
   <div>
-    <v-bottom-sheet v-model="feedbackopen" scrollable overlay-color="white">
+    <rating-explanation-sheet
+      :rating-explanation-open="ratingExplanationOpen"
+      :title="getRatingExplanation('threshold').title"
+      :text="getRatingExplanation('threshold').text"
+      :table-header="getRatingExplanation('threshold').tableHeader"
+      :rating-explanations="getRatingExplanation('threshold').scoreTable"
+      @close="ratingExplanationOpen = false"
+    />
+
+    <v-bottom-sheet
+      v-model="generalExplanationOpen"
+      scrollable
+      overlay-color="white"
+    >
       <v-card height="75vh">
         <v-card-actions>
-          <v-icon @click="feedbackopen = false" class="mr-2">mdi-close</v-icon>
+          <v-icon @click="generalExplanationOpen = false" class="mr-2"
+            >mdi-close</v-icon
+          >
+          <h2>
+            Toegankelijkheid
+          </h2>
+        </v-card-actions>
+        <v-card-text class="text-body-2 pr-8 pl-4">
+          Op basis van afmetingen van haltes en voertuigen en jouw reisprofiel
+          schatten wij de toegankelijkheid in. De totaalscore is gelijk aan de
+          laagste toegankelijkheidswaarde van een van de halteonderdelen. Klik
+          op een halteonderdeel voor meer informatie.
+        </v-card-text>
+      </v-card>
+    </v-bottom-sheet>
+
+    <v-bottom-sheet v-model="feedbackOpen" scrollable overlay-color="white">
+      <v-card height="75vh">
+        <v-card-actions>
+          <v-icon @click="feedbackOpen = false" class="mr-2">mdi-close</v-icon>
           <h2>
             Feedback over deze halte
           </h2>
         </v-card-actions>
         <v-card-text class="text-body-2 pr-8 pl-4">
-          <template id="feedback-form" v-if="feedbackmode">
+          <template id="feedback-form" v-if="feedbackMode">
             <v-form>
               <h3 class="mt-4">Vink aan wat niet klopt</h3>
               <div class="mx-n6">
@@ -106,7 +138,7 @@
               ></v-textarea>
               <v-btn
                 @click="
-                  feedbackmode = false;
+                  feedbackMode = false;
                   thankyoumode = true;
                 "
                 block
@@ -139,7 +171,7 @@
                 v-model="feedback.emailadres"
               />
               <v-btn
-                @click="feedbackopen = false"
+                @click="feedbackOpen = false"
                 block
                 class="text-none text-body rounded-0"
                 color="secondary"
@@ -213,6 +245,9 @@
     <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
       <h3>
         Toegankelijkheid
+        <v-icon small class="pb-1" @click="generalExplanationOpen = true">
+          mdi-information-outline
+        </v-icon>
       </h3>
       <div class="mx-n4">
         <v-divider />
@@ -225,8 +260,8 @@
             <template>
               <br />
               <div class="feedback-text-link text-body-2">
-                <a @click="feedbackopen = !feedbackopen"
-                  >↪ dit klopt niet voor mij</a
+                <a @click="feedbackOpen = !feedbackOpen"
+                  >↪ dit klopt niet volgens mij</a
                 >
               </div>
             </template>
@@ -256,7 +291,11 @@
               :opacity="0.1"
               :z-index="1"
             />
-            <v-row no-gutters class="mt-3 text-body-2">
+            <v-row
+              no-gutters
+              class="mt-3 text-body-2"
+              @click="showRatingExplanationSheet(row.id)"
+            >
               <v-col :cols="1">
                 <rating-icon :disabled="row.overlay" :rating="row.rating" />
               </v-col>
@@ -264,7 +303,12 @@
                 <img :src="row.icon" />
               </v-col>
               <v-col>
-                <h4>{{ row.title }}</h4>
+                <h4>
+                  {{ row.title }}
+                  <v-icon small class="pb-1" v-if="row.explanation">
+                    mdi-information-outline
+                  </v-icon>
+                </h4>
                 <p v-html="row.text"></p>
               </v-col>
               <v-alert
@@ -379,15 +423,19 @@ import compareAsc from "date-fns/compareAsc";
 import isAfter from "date-fns/isAfter";
 import differenceInMinutes from "date-fns/differenceInMinutes";
 import parseISO from "date-fns/parseISO";
+import RatingExplanationSheet from "../components/RatingExplanationSheet.vue";
 
 export default {
   name: "QuayDetail",
   data: () => ({
     OVapi: null,
     saved: false,
-    feedbackopen: false,
-    feedbackmode: false,
+    feedbackOpen: false,
+    feedbackMode: false,
     thankyoumode: false,
+    ratingExplanationSelected: "",
+    ratingExplanationOpen: false,
+    generalExplanationOpen: false,
     feedback: {
       checkboxes: [],
       textinput: "",
@@ -395,14 +443,20 @@ export default {
     },
   }),
   watch: {
-    feedbackopen: function(v) {
+    feedbackOpen: function(v) {
       if (v) {
-        this.feedbackmode = true;
+        this.feedbackMode = true;
         this.thankyoumode = false;
       } else return;
     },
   },
-  components: { VehicleIcon, RatingLabel, DistanceText, RatingIcon },
+  components: {
+    VehicleIcon,
+    RatingLabel,
+    DistanceText,
+    RatingIcon,
+    RatingExplanationSheet,
+  },
   computed: {
     ...mapGetters(["enhancedQuays"]),
     ...mapState(["profile", "filters"]),
@@ -442,6 +496,27 @@ export default {
                 this.quay.elevatorMalfunction.Prognose,
               ]
             : null,
+          explanation: {
+            title: "Op de halte komen",
+            text:
+              "Sommige haltes hebben een drempel of zijn alleen via een trap bereikbaar. We vergelijken de opgang van de halte met de waarde die je in het reisprofiel hebt gegeven bij ‘Hoe hoog mag een drempel zijn’. Vervolgens berekenen we een toegankelijkheidsscore.",
+            tableHeader: "De opgang van de halte is:",
+            scoreTable: [
+              { score: 3, text: "lager dan de waarde in je reisprofiel" },
+              {
+                score: 2,
+                text: "0–1 cm hoger dan de waarde in je reisprofiel",
+              },
+              {
+                score: 1,
+                text: "1–2 cm lager dan de waarde in je reisprofiel",
+              },
+              {
+                score: 0,
+                text: "meer dan 2cm hoger dan de waarde in je reisprofiel",
+              },
+            ],
+          },
         },
         {
           id: "width",
@@ -590,6 +665,15 @@ export default {
         .then((data) => (this.OVapi = data[tpccode]))
         .catch((error) => console.error(error.message));
     },
+    getRatingExplanation: function(id) {
+      return this.ratingInfo.find((el) => el.id === id).explanation;
+    },
+    showRatingExplanationSheet: function(id) {
+      if (this.getRatingExplanation(id)) {
+        this.ratingExplanationSelected = id;
+        this.ratingExplanationOpen = true;
+      }
+    },
     formatDistancePass: function(ExpectedDepartureTime) {
       return differenceInMinutes(parseISO(ExpectedDepartureTime), new Date());
     },
@@ -655,11 +739,11 @@ export default {
   opacity: 0;
 }
 
+.lines {
+  line-height: 2rem;
+}
 // TODO: very dirty, fix with vuetify classes or other solution
 .v-card__text {
   color: rgba(0, 0, 0, 0.87) !important;
-}
-.lines {
-  line-height: 2rem;
 }
 </style>
