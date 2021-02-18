@@ -25,7 +25,7 @@ export default {
     },
     scoreText: function() {
       return this.rating === 0
-        ? "Niet toegankelijk"
+        ? "Ontoegankelijk"
         : this.rating === 1
         ? "Matig"
         : this.rating === 2
