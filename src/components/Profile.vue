@@ -102,7 +102,7 @@
           @click="loading = !loading"
           block
           class="text-none text-body"
-          color="primary"
+          color="secondary"
         >
           <v-icon left dark>
             mdi-content-save
