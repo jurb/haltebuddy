@@ -1,6 +1,6 @@
 <template>
   <div class="quays">
-    <top-bar max-height="10vh" />
+    <top-bar />
     <v-alert
       v-if="$route.params.fromProfile"
       color="primary"
