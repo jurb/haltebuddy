@@ -99,10 +99,11 @@
       <template v-if="type === 'view'">
         <div class="pb-6"></div>
         <v-btn
-          @click="loading = !loading"
-          block
-          class="text-none text-body"
           color="secondary"
+          block
+          depressed
+          class="text-none text-body rounded-0"
+          @click="loading = !loading"
         >
           <v-icon left dark>
             mdi-content-save
@@ -251,5 +252,9 @@ export default {
   to {
     transform: rotate(359deg);
   }
+}
+
+.v-btn {
+  letter-spacing: 0;
 }
 </style>
