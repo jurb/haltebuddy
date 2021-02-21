@@ -9,242 +9,27 @@
       @close="ratingExplanationOpen = false"
     />
 
-    <v-bottom-sheet
-      v-model="generalExplanationOpen"
-      scrollable
-      overlay-color="white"
-    >
-      <v-card height="75vh">
-        <v-card-actions>
-          <v-icon @click="generalExplanationOpen = false" class="mr-2"
-            >mdi-close</v-icon
-          >
-          <h2>
-            Toegankelijkheid
-          </h2>
-        </v-card-actions>
-        <v-card-text class="text-body-2 pr-8 pl-4">
-          Op basis van afmetingen van haltes en voertuigen en jouw reisprofiel
-          schatten wij de toegankelijkheid in. De totaalscore is gelijk aan de
-          laagste toegankelijkheidswaarde van een van de halteonderdelen. Klik
-          op een halteonderdeel voor meer informatie.
-        </v-card-text>
-      </v-card>
-    </v-bottom-sheet>
+    <general-explanation-sheet
+      :general-explanation-open="generalExplanationOpen"
+      @close="generalExplanationOpen = false"
+    />
 
-    <v-bottom-sheet v-model="feedbackOpen" scrollable overlay-color="white">
-      <v-card height="75vh">
-        <v-card-actions>
-          <v-icon @click="feedbackOpen = false" class="mr-2">mdi-close</v-icon>
-          <h2>
-            Er klopt iets niet voor mij
-          </h2>
-        </v-card-actions>
-        <v-card-text class="text-body-2 pr-8 pl-4">
-          <p>
-            Als een meeting of de score niet klopt, horen we het graag! We
-            sturen jouw bevindingen dan gelijk door naar de vervoerder.
-          </p>
-          <template id="feedback-form" v-if="feedbackMode">
-            <v-form>
-              <h3 class="mt-4">Vink aan wat niet klopt</h3>
-              <div class="mx-n6">
-                <v-divider />
-              </div>
-              <template
-                v-if="quay.transportmode !== 'ferry'"
-                id="non-ferry-feedback-options"
-              >
-                <div
-                  class="detail-wrapper"
-                  v-for="row in ratingInfo"
-                  v-bind:key="row.id"
-                >
-                  <template v-if="!row.hidden">
-                    <v-row no-gutters class="mt-3 text-body-2">
-                      <v-col :cols="1">
-                        <!-- <rating-icon :disabled="row.overlay" :rating="row.rating" /> -->
-                        <v-checkbox
-                          v-model="feedback.checkboxes"
-                          :value="row.title"
-                          hide-details
-                          class="shrink ma-0 text-body-2"
-                        />
-                      </v-col>
-                      <v-col :cols="3" class="ml-4">
-                        <img :src="row.icon" />
-                      </v-col>
-                      <v-col>
-                        <h4>{{ row.title }}</h4>
-                        <p v-html="row.text"></p>
-                      </v-col>
-                    </v-row>
-                  </template>
-                </div>
-              </template>
-              <template id="extra-feedback-options">
-                <v-row no-gutters class="mt-3 text-body-2">
-                  <v-col :cols="1">
-                    <!-- <rating-icon :disabled="row.overlay" :rating="row.rating" /> -->
-                    <v-checkbox
-                      v-model="feedback.checkboxes"
-                      value="Iets kapot"
-                      hide-details
-                      class="shrink ma-0 text-body-2"
-                    />
-                  </v-col>
-                  <v-col :cols="3" class="ml-4">
-                    <img :src="require('@/assets/icons/quayRampTram.svg')" />
-                  </v-col>
-                  <v-col>
-                    <h4>Er is iets kapot of er ging tijdens de rit wat mis</h4>
-                    <p>
-                      Bijvoorbeeld een kapotte lift of oprijplank. Hier maken we
-                      een melding van bij de vervoerder.
-                    </p>
-                  </v-col>
-                </v-row>
-                <v-row no-gutters class="mt-3 text-body-2">
-                  <v-col :cols="1">
-                    <!-- <rating-icon :disabled="row.overlay" :rating="row.rating" /> -->
-                    <v-checkbox
-                      v-model="feedback.checkboxes"
-                      value="Iets anders"
-                      hide-details
-                      class="shrink ma-0 text-body-2"
-                    />
-                  </v-col>
-                  <v-col :cols="3" class="ml-4">
-                    <img :src="require('@/assets/icons/quayRampTram.svg')" />
-                  </v-col>
-                  <v-col>
-                    <h4>Er is iets anders aan de hand</h4>
-                    <p>
-                      We zijn overal benieuwd naar, licht het hieronder ook even
-                      toe!
-                    </p>
-                  </v-col>
-                </v-row>
-              </template>
-              <h3 v-if="quay.transportmode === 'ferry'" class="mt-4">
-                Wat gaat niet goed bij deze halte?
-              </h3>
-              <h3 v-else class="mt-4">Kun je dit toelichten?</h3>
-              <div class="mx-n4">
-                <v-divider />
-              </div>
-              <v-textarea
-                v-model="feedback.textinput"
-                label="Uitgebreide uitleg helpt!"
-                outlined
-                class="py-4 rounded-0"
-                hide-details
-              ></v-textarea>
-              <v-btn
-                @click="
-                  feedbackMode = false;
-                  thankyoumode = true;
-                "
-                block
-                class="text-none text-body rounded-0"
-                color="secondary"
-              >
-                <v-icon left dark>
-                  mdi-send
-                </v-icon>
-                <strong>Stuur op naar vervoerder</strong>
-              </v-btn>
-            </v-form>
-          </template>
-          <template v-else-if="thankyoumode">
-            <h4>Dankjewel!</h4>
-            <p>
-              We gaan uitzoeken of we dit kunnen aanpassen.
-            </p>
-            <h4>Op de hoogte blijven?</h4>
-            <p>
-              Wil je hierover op de hoogte gehouden worden? Laat je e-mailadres
-              achter (optioneel):
-            </p>
-            <v-form>
-              <v-text-field
-                label="e-mailadres"
-                outlined
-                class="py-4 rounded-0"
-                hide-details
-                v-model="feedback.emailadres"
-              />
-              <v-btn
-                @click="feedbackOpen = false"
-                block
-                class="text-none text-body rounded-0"
-                color="secondary"
-              >
-                <v-icon left dark v-if="feedback.emailadres !== ''">
-                  mdi-send
-                </v-icon>
-                <strong>{{
-                  feedback.emailadres === ""
-                    ? "Verder zonder e-mailadres"
-                    : "Hou me op de hoogte"
-                }}</strong>
-              </v-btn>
-            </v-form>
-          </template>
-        </v-card-text>
-      </v-card>
-    </v-bottom-sheet>
+    <quay-feedback-sheet
+      :feedback-open="feedbackOpen"
+      :rating-info="ratingInfo"
+      :transportmode="quay.transportmode"
+      @close="feedbackOpen = false"
+    />
 
     <v-btn icon to="/" class="ma-2">
       <v-icon color="grey darken-4">mdi-arrow-left</v-icon>
     </v-btn>
-    <v-list-item>
-      <v-list-item-content>
-        <h2 class="mb-1">
-          <vehicle-icon
-            v-if="quay.transportmode"
-            :transportmode="quay.transportmode"
-          />
-          {{ quay.quayname }}
-          &nbsp;
-          <distance-text v-if="quay.distance" :distance="quay.distance" />
-        </h2>
-        <div>
-          <div class="mb-2">
-            Richting {{ quay.directionfull }} {{ quay.direction }}
-          </div>
-          <p class="mb-0">
-            <v-chip-group column>
-              <v-btn
-                color="secondary"
-                depressed
-                class="text-none text-body mt-1 mr-2 rounded-0"
-                height="32px"
-                @click="updateFavourites"
-                :value="isFavourite"
-                ><v-icon left>{{
-                  isFavourite ? "mdi-star" : "mdi-star-outline"
-                }}</v-icon
-                ><strong>{{
-                  isFavourite ? "Opgeslagen" : "Opslaan"
-                }}</strong></v-btn
-              >
-              <v-chip
-                v-for="route in quay.routes"
-                :key="route.id"
-                class="mr-2 lines"
-                label
-                color="secondary"
-                outlined
-                :ripple="false"
-              >
-                <strong>{{ route }}</strong>
-              </v-chip>
-            </v-chip-group>
-          </p>
-        </div>
-      </v-list-item-content>
-    </v-list-item>
+
+    <quay-detail-header
+      :quay="quay"
+      :is-favourite="isFavourite"
+      :update-favourites="updateFavourites"
+    />
 
     <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
       <h3>
@@ -339,138 +124,59 @@
       <v-divider />
     </div>
 
-    <div v-if="passes && passes.length" class="ma-4 mt-12">
-      <h3>
-        Vertrektijden
-      </h3>
-      <v-alert
-        v-if="oldTramWarning"
-        dense
-        outlined
-        type="error"
-        class="text-body-2"
-      >
-        <strong>Op lijn 5 & 19 rijden oude trams</strong><br />Oude trams zijn
-        minder goed toegankelijk. De oude trams rijden meestal afwisselend op de
-        lijn met nieuwe trams.
-      </v-alert>
-      <div class="mx-n4">
-        <v-divider />
-      </div>
-      <template v-for="(item, passIndex) in passes">
-        <v-row
-          :key="`pass-${passIndex}`"
-          no-gutters
-          class="my-2 text-body-2"
-          align="center"
-        >
-          <v-col :cols="4">
-            <vehicle-icon
-              :transportmode="quay.transportmode"
-              :height="24"
-              :width="24"
-            />
-            &nbsp;&nbsp;<v-chip label color="secondary" outlined>
-              <strong>{{ item.LinePublicNumber }}</strong>
-            </v-chip>
-          </v-col>
-          <v-col>{{ item.DestinationName50 }}</v-col>
-          <v-col :cols="2"
-            ><strong
-              >{{ formatDistancePass(item.ExpectedDepartureTime) }} min
-            </strong></v-col
-          >
-        </v-row>
-        <v-divider
-          v-if="passIndex < passes.length - 1"
-          :key="`pass-divider-${passIndex}`"
-        ></v-divider>
-      </template>
-      <div class="mx-n4">
-        <v-divider />
-      </div>
-    </div>
+    <quay-time-table
+      class="ma-4 mt-12"
+      v-if="passes && passes.length"
+      :passes="passes"
+      :oldTramWarning="oldTramWarning"
+      :transportmode="quay.transportmode"
+      :formatDistancePass="formatDistancePass"
+    />
 
-    <div class="ma-4 my-12">
-      <h3>
-        Ervaringen
-      </h3>
-      <div class="mx-n4">
-        <v-divider />
-      </div>
-      <v-card elevation="2" class="pa-2 mt-2 text-body-2">
-        Obcaecati dicta adipisci ratione quas vel deserunt, mollitia sequi!
-      </v-card>
-      <v-card elevation="2" class="pa-2 my-4 text-body-2">
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At doloribus
-        earum quisquam quam voluptatibus, dolores saepe commodi natus officiis
-        aspernatur quas.
-      </v-card>
-      <v-btn
-        color="secondary"
-        block
-        depressed
-        class="text-none text-body rounded-0 mt-8"
-      >
-        <v-icon left dark>
-          mdi-message-draw
-        </v-icon>
-        <strong>Deel je ervaring met anderen</strong>
-      </v-btn>
-      <v-spacer class="my-8" />
-      <div class="mx-n4">
-        <v-divider />
-      </div>
-      <v-spacer class="my-8" />
-    </div>
+    <reviews />
   </div>
 </template>
 
 <script>
 import { mapGetters, mapState, mapActions } from "vuex";
 
-import VehicleIcon from "@/components/VehicleIcon.vue";
+// import VehicleIcon from "@/components/VehicleIcon.vue";
+// import DistanceText from "@/components/DistanceText.vue";
+
 import RatingLabel from "@/components/RatingLabel.vue";
-import DistanceText from "@/components/DistanceText.vue";
 import RatingIcon from "@/components/RatingIcon.vue";
+
+import RatingExplanationSheet from "@/components/quayDetailComponents/RatingExplanationSheet.vue";
+import QuayTimeTable from "@/components/quayDetailComponents/QuayTimeTable.vue";
+import GeneralExplanationSheet from "@/components/quayDetailComponents/GeneralExplanationSheet.vue";
+import QuayFeedbackSheet from "@/components/quayDetailComponents/QuayFeedbackSheet.vue";
+import Reviews from "../components/quayDetailComponents/reviews.vue";
+import QuayDetailHeader from "@/components/quayDetailComponents/quayDetailHeader.vue";
 
 import compareAsc from "date-fns/compareAsc";
 import isAfter from "date-fns/isAfter";
 import differenceInMinutes from "date-fns/differenceInMinutes";
 import parseISO from "date-fns/parseISO";
-import RatingExplanationSheet from "../components/RatingExplanationSheet.vue";
 
 export default {
   name: "QuayDetail",
   data: () => ({
     OVapi: null,
     saved: false,
-    feedbackOpen: false,
-    feedbackMode: false,
-    thankyoumode: false,
     ratingExplanationSelected: "",
+    feedbackOpen: false,
     ratingExplanationOpen: false,
     generalExplanationOpen: false,
-    feedback: {
-      checkboxes: [],
-      textinput: "",
-      emailadres: "",
-    },
   }),
-  watch: {
-    feedbackOpen: function(v) {
-      if (v) {
-        this.feedbackMode = true;
-        this.thankyoumode = false;
-      } else return;
-    },
-  },
   components: {
-    VehicleIcon,
     RatingLabel,
-    DistanceText,
     RatingIcon,
     RatingExplanationSheet,
+    QuayTimeTable,
+    GeneralExplanationSheet,
+    QuayFeedbackSheet,
+    Reviews,
+    QuayDetailHeader,
   },
   computed: {
     ...mapGetters(["enhancedQuays"]),
@@ -730,14 +436,8 @@ export default {
 .v-list-item__subtitle {
   color: rgba(0, 0, 0, 0.87) !important;
 }
-.v-chip {
-  padding: 0 6px;
-}
 .detail-wrapper {
   position: relative;
-}
-.v-btn {
-  letter-spacing: 0;
 }
 .feedback-text-link {
   float: right;
@@ -746,12 +446,6 @@ export default {
     color: var(--v-secondary-base);
   }
   font-weight: 700;
-}
-.v-chip.v-chip--outlined.v-chip--active:before {
-  opacity: 0;
-}
-.theme--light.v-chip:hover::before {
-  opacity: 0;
 }
 
 .lines {

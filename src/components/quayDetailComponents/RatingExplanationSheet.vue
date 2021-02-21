@@ -9,7 +9,6 @@
       <v-card-actions>
         <v-icon @click="$emit('close')" class="mr-2">mdi-close</v-icon>
         <h2>
-          <!-- {{scoreExplanation.title}} -->
           {{ title }}
         </h2>
       </v-card-actions>
@@ -37,7 +36,7 @@
 </template>
 
 <script>
-import RatingLabel from "./RatingLabel.vue";
+import RatingLabel from "@/components/RatingLabel.vue";
 export default {
   components: { RatingLabel },
   data: () => ({}),
