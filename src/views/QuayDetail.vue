@@ -37,10 +37,14 @@
         <v-card-actions>
           <v-icon @click="feedbackOpen = false" class="mr-2">mdi-close</v-icon>
           <h2>
-            Feedback over deze halte
+            Er klopt iets niet voor mij
           </h2>
         </v-card-actions>
         <v-card-text class="text-body-2 pr-8 pl-4">
+          <p>
+            Als een meeting of de score niet klopt, horen we het graag! We
+            sturen jouw bevindingen dan gelijk door naar de vervoerder.
+          </p>
           <template id="feedback-form" v-if="feedbackMode">
             <v-form>
               <h3 class="mt-4">Vink aan wat niet klopt</h3>
@@ -148,7 +152,7 @@
                 <v-icon left dark>
                   mdi-send
                 </v-icon>
-                <strong>Stuur op</strong>
+                <strong>Stuur op naar vervoerder</strong>
               </v-btn>
             </v-form>
           </template>
@@ -389,7 +393,7 @@
 
     <div class="ma-4 my-12">
       <h3>
-        Reviews
+        Ervaringen
       </h3>
       <div class="mx-n4">
         <v-divider />
@@ -402,6 +406,17 @@
         earum quisquam quam voluptatibus, dolores saepe commodi natus officiis
         aspernatur quas.
       </v-card>
+      <v-btn
+        color="secondary"
+        block
+        depressed
+        class="text-none text-body rounded-0 mt-8"
+      >
+        <v-icon left dark>
+          mdi-message-draw
+        </v-icon>
+        <strong>Deel je ervaring met anderen</strong>
+      </v-btn>
       <v-spacer class="my-8" />
       <div class="mx-n4">
         <v-divider />
