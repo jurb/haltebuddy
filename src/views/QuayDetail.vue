@@ -291,7 +291,7 @@
             <v-overlay
               v-if="row.overlay"
               :absolute="true"
-              class="mt-n3 mx-n6"
+              class="mt-n3 mx-n4"
               :opacity="0.1"
               :z-index="1"
             />
