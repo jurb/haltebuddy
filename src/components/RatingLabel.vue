@@ -18,7 +18,7 @@ export default {
         : this.rating === 1
         ? "accent white--text"
         : this.rating === 2
-        ? "gvb-green white--text"
+        ? "gvb-green lighten-2 white--text"
         : this.rating === 3
         ? "gvb-green white--text"
         : "error white--text";

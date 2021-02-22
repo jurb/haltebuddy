@@ -89,8 +89,8 @@ export default {
     },
     mapboxExpressionMarkers: function() {
       const vehicles = ["Bus", "Metro", "Tram", "Ferry"];
-      const colors = ["Red", "Orange", "Green", "Green"];
-      return colors.flatMap((color, index) =>
+      const colors = ["Red", "Orange", "LightGreen", "Green"];
+      const markers = colors.flatMap((color, index) =>
         vehicles.flatMap((vehicle) => [
           [
             "all",
@@ -104,6 +104,8 @@ export default {
           `marker${vehicle}${color}-svg`,
         ])
       );
+      console.log(markers);
+      return markers;
     },
   },
   methods: {
