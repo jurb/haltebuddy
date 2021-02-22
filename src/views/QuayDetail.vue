@@ -73,13 +73,6 @@
           v-bind:key="row.id"
         >
           <template v-if="!row.hidden">
-            <v-overlay
-              v-if="row.overlay"
-              :absolute="true"
-              class="mt-n3 mx-n4"
-              :opacity="0.1"
-              :z-index="1"
-            />
             <v-row
               no-gutters
               class="mt-3 text-body-2"
@@ -111,8 +104,20 @@
                 ><br />{{ row.alert[1] }}
               </v-alert>
             </v-row>
+
+            <v-overlay
+              color="grey lighten-2"
+              v-if="row.overlay"
+              :absolute="true"
+              class="mt-n3 mx-n4"
+              :opacity="0.75"
+              :z-index="1"
+            />
             <v-divider
-              v-if="rowIndex < ratingInfo.length - 1"
+              v-if="
+                rowIndex < ratingInfo.length - 1 &&
+                  !ratingInfo[rowIndex + 1].overlay
+              "
               :key="`row-divider-${rowIndex}`"
               class="mb-3"
             ></v-divider>
@@ -423,9 +428,6 @@ export default {
   font-size: 1.15em;
   font-weight: 700;
 }
-.v-list-item__subtitle {
-  color: rgba(0, 0, 0, 0.87) !important;
-}
 .detail-wrapper {
   position: relative;
 }
@@ -440,9 +442,5 @@ export default {
 
 .lines {
   line-height: 2rem;
-}
-// TODO: very dirty, fix with vuetify classes or other solution
-.v-card__text {
-  color: rgba(0, 0, 0, 0.87) !important;
 }
 </style>
