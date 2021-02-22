@@ -43,10 +43,10 @@
                         class="shrink ma-0 text-body-2"
                       />
                     </v-col>
-                    <v-col :cols="3" class="ml-4">
+                    <v-col :cols="2" class="ml-4">
                       <img :src="row.icon" />
                     </v-col>
-                    <v-col>
+                    <v-col class="ml-6">
                       <h4>{{ row.title }}</h4>
                       <p v-html="row.text"></p>
                     </v-col>
@@ -55,6 +55,10 @@
               </div>
             </template>
             <template id="extra-feedback-options">
+              <h3 class="mt-4">En/of maak een melding</h3>
+              <div class="mx-n6">
+                <v-divider />
+              </div>
               <v-row no-gutters class="mt-3 text-body-2">
                 <v-col :cols="1">
                   <!-- <rating-icon :disabled="row.overlay" :rating="row.rating" /> -->
@@ -65,10 +69,10 @@
                     class="shrink ma-0 text-body-2"
                   />
                 </v-col>
-                <v-col :cols="3" class="ml-4">
-                  <img :src="require('@/assets/icons/quayRampTram.svg')" />
+                <v-col :cols="2" class="ml-4">
+                  <img :src="require('@/assets/icons/feedbackBroken.svg')" />
                 </v-col>
-                <v-col>
+                <v-col class="ml-6">
                   <h4>Er is iets kapot of er ging tijdens de rit wat mis</h4>
                   <p>
                     Bijvoorbeeld een kapotte lift of oprijplank. Hier maken we
@@ -86,10 +90,10 @@
                     class="shrink ma-0 text-body-2"
                   />
                 </v-col>
-                <v-col :cols="3" class="ml-4">
-                  <img :src="require('@/assets/icons/quayRampTram.svg')" />
+                <v-col :cols="2" class="ml-4">
+                  <img :src="require('@/assets/icons/feedbackMystery.svg')" />
                 </v-col>
-                <v-col>
+                <v-col class="ml-6">
                   <h4>Er is iets anders aan de hand</h4>
                   <p>
                     We zijn overal benieuwd naar, licht het hieronder ook even

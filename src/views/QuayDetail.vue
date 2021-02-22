@@ -88,10 +88,10 @@
               <v-col :cols="1">
                 <rating-icon :disabled="row.overlay" :rating="row.rating" />
               </v-col>
-              <v-col :cols="3" class="ml-4">
+              <v-col :cols="2" class="ml-2">
                 <img :src="row.icon" />
               </v-col>
-              <v-col>
+              <v-col class="ml-4">
                 <h4>
                   {{ row.title }}
                   <v-icon small class="pb-1" v-if="row.explanation">
@@ -293,8 +293,6 @@ export default {
             ? require("@/assets/icons/quayRampTram.svg")
             : this.quay.transportmode === "bus"
             ? require("@/assets/icons/quayRampBus.svg")
-            : this.quay.transportmode === "metro"
-            ? require("@/assets/icons/quayRampMetro.svg")
             : require("@/assets/icons/quayRamp.svg"),
           text: `${
             this.quay.profileAccessibleScore.rampMinHeightRating === 3
@@ -314,15 +312,7 @@ export default {
           id: "rampRoomWidth",
           title: "Haltebreedte voor oprijplank",
           rating: this.quay.profileAccessibleScore.rampRoomWidthRating,
-          icon: !this.quay.transportmode
-            ? require("@/assets/icons/quayRamp.svg")
-            : this.quay.transportmode === "tram"
-            ? require("@/assets/icons/quayRampTram.svg")
-            : this.quay.transportmode === "bus"
-            ? require("@/assets/icons/quayRampBus.svg")
-            : this.quay.transportmode === "metro"
-            ? require("@/assets/icons/quayRampMetro.svg")
-            : require("@/assets/icons/quayRamp.svg"),
+          icon: require("@/assets/icons/rampRoomWidth.svg"),
           text: `${
             this.quay.profileAccessibleScore.rampRoomWidthRating === 3
               ? "Halte <strong>breed genoeg</strong> voor oprijplank"
