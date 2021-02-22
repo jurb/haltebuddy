@@ -57,6 +57,26 @@ export const store = new Vuex.Store({
     quaysAll: quays,
     quaysFiltered: quays,
     GVBdata: [],
+    userReviews: [
+      {
+        showEverywhere: true,
+        quaycode: "",
+        name: "Sjoerd",
+        stars: 3,
+        text:
+          "Halte op komen lukt gemakkelijk, maar weinig ruimte voor oprijplank. De plank is best steil en ik kan er met mijn elektrische rolstoel net opdraaien.",
+        timestamp: 1613986114197,
+      },
+      {
+        showEverywhere: true,
+        quaycode: "",
+        name: "Faye",
+        stars: 4,
+        text:
+          "Je moet de weg oversteken in een bocht om op de halte te kunnen komen. Dat is niet gevaarlijk voor mij als slechtziend persoon.",
+        timestamp: 1613986114197,
+      },
+    ],
   },
   getters: {
     enhancedQuays: (state, getters) => {
@@ -91,6 +111,11 @@ export const store = new Vuex.Store({
             : true)
       );
     },
+    reviews: (state) => (quaycode) => {
+      return state.userReviews.filter(
+        (d) => d.showEverywhere || d.quaycode === quaycode
+      );
+    },
   },
   //TODO: use $store.commit to call the mutations, so you can remove these actions
   actions: {
@@ -105,6 +130,9 @@ export const store = new Vuex.Store({
     },
     changelastSelectedQuay({ commit }, e) {
       commit("changelastSelectedQuay", e);
+    },
+    addReview({ commit }, e) {
+      commit("addReview", e);
     },
     changeCurrentLocation({ commit }, e) {
       commit("changeCurrentLocation", e);
@@ -182,6 +210,9 @@ export const store = new Vuex.Store({
     },
     changelastSelectedQuay(state, val) {
       state.lastSelectedQuay = val;
+    },
+    addReview(state, val) {
+      state.userReviews = [...state.userReviews, val];
     },
     changeCurrentLocation(state, val) {
       state.currentLocation = val;

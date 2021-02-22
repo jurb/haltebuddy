@@ -133,7 +133,7 @@
       :formatDistancePass="formatDistancePass"
     />
 
-    <reviews />
+    <reviews :numberOfReviews="3" :quaycode="quay.quaycode" />
   </div>
 </template>
 
