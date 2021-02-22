@@ -2,10 +2,14 @@
   <div>
     <rating-explanation-sheet
       :rating-explanation-open="ratingExplanationOpen"
-      :title="getRatingExplanation('threshold').title"
-      :text="getRatingExplanation('threshold').text"
-      :table-header="getRatingExplanation('threshold').tableHeader"
-      :rating-explanations="getRatingExplanation('threshold').scoreTable"
+      :title="getRatingExplanation(ratingExplanationSelected).title"
+      :text="getRatingExplanation(ratingExplanationSelected).text"
+      :table-header="
+        getRatingExplanation(ratingExplanationSelected).tableHeader
+      "
+      :rating-explanations="
+        getRatingExplanation(ratingExplanationSelected).scoreTable
+      "
       @close="ratingExplanationOpen = false"
     />
 
@@ -239,7 +243,7 @@ export default {
               },
               {
                 score: 0,
-                text: "meer dan 2cm hoger dan de waarde in je reisprofiel",
+                text: "meer dan 2 cm hoger dan de waarde in je reisprofiel",
               },
             ],
           },
@@ -259,6 +263,27 @@ export default {
               ? `Smalste doorgang: ${this.quay.profileAccessibleScore.quayNarrowestWidth} m`
               : `Smalste doorgang onbekend`
           }`,
+          explanation: {
+            title: "Is de halte breed genoeg?",
+            text:
+              "Niet iedere halte is breed genoeg om doorheen te kunnen met een rolstoel of ander hulpmiddel. Zo berekenen we de score:",
+            tableHeader: "De breedte van de halte is:",
+            scoreTable: [
+              { score: 3, text: "5 cm breder dan de waarde in je reisprofiel" },
+              {
+                score: 2,
+                text: "0-5 cm breder dan de waarde in je reisprofiel",
+              },
+              {
+                score: 1,
+                text: "tot 5 cm smaller dan de waarde in je reisprofiel",
+              },
+              {
+                score: 0,
+                text: "meer dan 5 cm hoger dan de waarde in je reisprofiel",
+              },
+            ],
+          },
         },
         {
           id: "vehicleThreshold",
@@ -287,6 +312,27 @@ export default {
               : ""
           }`,
           overlay: this.profile.ramp && this.quay.transportmode !== "metro",
+          explanation: {
+            title: "Het voertuig instappen",
+            text:
+              "We kijken naar de hoogte van het perron en de voertuigen om te bepalen of je het voertuig in kan stappen. We kijken hiervoor naar de drempelwaarde in je profiel.",
+            tableHeader: "De hoogte naar het voertuig is:",
+            scoreTable: [
+              { score: 3, text: "lager dan de waarde in je reisprofiel" },
+              {
+                score: 2,
+                text: "0–1 cm hoger dan de waarde in je reisprofiel",
+              },
+              {
+                score: 1,
+                text: "1–2 cm lager dan de waarde in je reisprofiel",
+              },
+              {
+                score: 0,
+                text: "meer dan 2 cm hoger dan de waarde in je reisprofiel",
+              },
+            ],
+          },
         },
         {
           id: "rampMinHeight",
@@ -312,6 +358,25 @@ export default {
           }`,
           overlay: !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
+          explanation: {
+            title: "Is de halte hoog genoeg voor de plank?",
+            text:
+              "Niet iedere halte is hoog genoeg om de oprijplank aan te laten sluiten.",
+            tableHeader: "De halte is:",
+            scoreTable: [
+              { score: 3, text: "Hoog genoeg voor de plank" },
+              {
+                score: 1,
+                text:
+                  "Misschien net hoog genoeg voor de plank, het zal erom spannen.",
+              },
+              {
+                score: 0,
+                text:
+                  "Te laag om de oprijplank aan te laten sluiten (meer dan 1 cm)",
+              },
+            ],
+          },
         },
         {
           id: "rampRoomWidth",
@@ -331,6 +396,34 @@ export default {
           }`,
           overlay: !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
+          explanation: {
+            title: "Is de halte breed genoeg om de plank op te komen?",
+            text:
+              "Niet iedere halte is breed genoeg voor het uitleggen en comfortabel oprijden van de oprijplank.",
+            tableHeader: "De breedte van de halte is:",
+            scoreTable: [
+              {
+                score: 3,
+                text:
+                  "5 cm breder dan nodig om de oprijplank op te kunnen komen",
+              },
+              {
+                score: 2,
+                text:
+                  "0-5 cm breder dan nodig om de oprijplank op te kunnen komen",
+              },
+              {
+                score: 1,
+                text:
+                  "tot 20 cm smaller dan comfortabel is om de oprijplank op te kunnen komen",
+              },
+              {
+                score: 0,
+                text:
+                  "meer dan 20 cm smaller om comfortabel de oprijplank op te kunnen komen",
+              },
+            ],
+          },
         },
       ];
     },
@@ -382,7 +475,9 @@ export default {
         .catch((error) => console.error(error.message));
     },
     getRatingExplanation: function(id) {
-      return this.ratingInfo.find((el) => el.id === id).explanation;
+      return this.ratingInfo.find((el) => el.id === id)
+        ? this.ratingInfo.find((el) => el.id === id).explanation
+        : {};
     },
     showRatingExplanationSheet: function(id) {
       if (this.getRatingExplanation(id)) {
