@@ -22,12 +22,15 @@
               v-model="profileLocal.modality"
               @change="setModalityDefaults"
             >
-              <v-radio
-                v-for="n in modalities"
-                :key="n"
-                :label="`${n}`"
-                :value="n"
-              ></v-radio>
+              <v-radio v-for="n in modalities" :key="n" :value="n">
+                <template v-slot:label>
+                  {{ n }}
+                  <img
+                    :src="require(`@/assets/icons/modalities/${n}.svg`)"
+                    class="pl-1"
+                  />
+                </template>
+              </v-radio>
             </v-radio-group>
             <p>
               We vullen alvast waarden in die passen bij de meeste mensen
@@ -173,7 +176,7 @@ export default {
   },
   data: () => ({
     modalities: [
-      "Electrische rolstoel",
+      "Elektrische rolstoel",
       "Scootmobiel",
       "Handrolstoel",
       "Rollator",
