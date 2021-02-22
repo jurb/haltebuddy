@@ -16,7 +16,10 @@
       <span>Haltes</span>
       <v-icon>mdi-format-list-bulleted-square</v-icon>
     </v-btn>
-
+    <v-btn value="map" to="/route">
+      <span>Route</span>
+      <v-icon>mdi-routes</v-icon>
+    </v-btn>
     <v-btn value="map" to="/quay-map">
       <span>Kaart</span>
       <v-icon>mdi-map-marker</v-icon>

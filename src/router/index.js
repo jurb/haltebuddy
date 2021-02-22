@@ -5,6 +5,7 @@ import Profile from "../views/Profile.vue";
 import Quays from "../views/Quays.vue";
 import QuayDetail from "../views/QuayDetail.vue";
 import QuayMap from "../views/QuayMap.vue";
+import Route from "../views/Route.vue";
 import Halteknop from "../views/Halteknop.vue";
 
 Vue.use(VueRouter);
@@ -24,6 +25,11 @@ const routes = [
     path: "/quay-map",
     name: "QuayMap",
     component: QuayMap,
+  },
+  {
+    path: "/route",
+    name: "Route",
+    component: Route,
   },
   {
     path: "/quay/:quaycode",
