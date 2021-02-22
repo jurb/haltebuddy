@@ -104,7 +104,6 @@ export default {
           `marker${vehicle}${color}-svg`,
         ])
       );
-      console.log(markers);
       return markers;
     },
   },
