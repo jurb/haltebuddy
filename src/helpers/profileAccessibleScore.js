@@ -29,7 +29,7 @@ function profileAccessibleScore(quay, profile) {
   // when using the ramp, we think wheelchair users need a quay width of at least 1.5 meters to be able to board
   const RAMPWIDTHNEEDED = 1.5;
 
-  const WHEELCHAIRMANUAL = "Electrische rolstoel";
+  const WHEELCHAIRMANUAL = "Elektrische rolstoel";
   const WHEELCHAIRELECTRIC = "Handrolstoel";
   const WALKINGAID = "Rollator";
 

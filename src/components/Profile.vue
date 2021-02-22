@@ -207,7 +207,7 @@ export default {
       this.changeProfileRamp(ramp);
     },
     setModalityDefaults: function(val) {
-      if (val === "Electrische rolstoel") {
+      if (val === "Elektrische rolstoel") {
         this.setValues(80, 2, true);
       }
       if (val === "Scootmobiel") {
