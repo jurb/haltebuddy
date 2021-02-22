@@ -52,6 +52,7 @@ export const store = new Vuex.Store({
     // initial location (center of Amsterdam according to wikipedia)
     currentLocation: [52.369, 4.9041],
     currentLocationName: "Amsterdam",
+    lastSelectedQuay: null,
     locationSet: false,
     quaysAll: quays,
     quaysFiltered: quays,
@@ -101,6 +102,9 @@ export const store = new Vuex.Store({
     },
     changeLocationSet({ commit }, e) {
       commit("changeLocationSet", e);
+    },
+    changelastSelectedQuay({ commit }, e) {
+      commit("changelastSelectedQuay", e);
     },
     changeCurrentLocation({ commit }, e) {
       commit("changeCurrentLocation", e);
@@ -175,6 +179,9 @@ export const store = new Vuex.Store({
     },
     changeLocationSet(state, val) {
       state.locationSet = val;
+    },
+    changelastSelectedQuay(state, val) {
+      state.lastSelectedQuay = val;
     },
     changeCurrentLocation(state, val) {
       state.currentLocation = val;
