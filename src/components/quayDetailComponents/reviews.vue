@@ -51,6 +51,7 @@
           outlined
           class="py-4 rounded-0"
           hide-details
+          required
         />
         <v-textarea
           v-model="feedback.text"
@@ -58,6 +59,7 @@
           outlined
           class="py-4 rounded-0"
           hide-details
+          required
         ></v-textarea>
         Jouw score
         <v-rating
@@ -69,10 +71,11 @@
           class="rating"
         ></v-rating>
         <v-btn
-          @click="addReviewAndClose()"
+          @click="addReviewLocal()"
           block
           class="text-none text-body rounded-0 mt-4"
           color="secondary"
+          :disabled="feedback.text.length === 0"
         >
           <v-icon left dark>
             mdi-share
@@ -118,7 +121,7 @@ export default {
   },
   methods: {
     ...mapActions(["addReview"]),
-    addReviewAndClose: function() {
+    addReviewLocal: function() {
       this.addReview({
         ...this.feedback,
         quaycode: this.quaycode,
