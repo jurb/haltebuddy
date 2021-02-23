@@ -46,6 +46,7 @@ export const store = new Vuex.Store({
       vehicles: ["tram", "bus", "metro", "ferry"],
       favourites: [],
       accessibleonly: true,
+      minimumRating: 2,
       favouritesonly: false,
       filterProperties: ["accessibleonly"],
     },
@@ -73,7 +74,7 @@ export const store = new Vuex.Store({
         name: "Faye",
         stars: 4,
         text:
-          "Je moet de weg oversteken in een bocht om op de halte te kunnen komen. Dat is gevaarlijk voor mij als slechtziend persoon. Verder een fijne halte.",
+          "Je moet de weg oversteken in een bocht om op de halte te kunnen komen. Dat is gevaarlijk voor mij met mijn rollator. Verder een fijne halte.",
         timestamp: 1613986114197,
       },
     ],
