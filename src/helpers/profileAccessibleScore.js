@@ -31,14 +31,18 @@ function profileAccessibleScore(quay, profile) {
 
   const WHEELCHAIRMANUAL = "Elektrische rolstoel";
   const WHEELCHAIRELECTRIC = "Handrolstoel";
+  const SCOOTMOBILE = "Scootmobiel";
   const WALKINGAID = "Rollator";
 
   // Ramp min-height values are calculated by the maximum angle the ramp can have,
   // see https://docs.google.com/spreadsheets/d/1ANc_PizZm7Eu82_2hiIWGCYqAqQ7Wi2IE11AMYkdxq0/edit?usp=sharing
+  // TODO: also add a formula for scoot mobiles
   const MINHEIGHT_MANUAL_BUS = 0.161;
+  const MINHEIGHT_SCOOTMOBILE_BUS = 0.161;
   const MINHEIGHT_ELECTRIC_BUS = 0.126;
   const MINHEIGHT_MANUAL_TRAM = 0.221;
   const MINHEIGHT_ELECTRIC_TRAM = 0.186;
+  const MINHEIGHT_SCOOTMOBILE_TRAM = 0.221;
 
   const transportMode = quay.transportmode;
 
@@ -104,12 +108,16 @@ function profileAccessibleScore(quay, profile) {
       ? MINHEIGHT_MANUAL_BUS
       : profile.modality === WHEELCHAIRELECTRIC && transportMode === "bus"
       ? MINHEIGHT_ELECTRIC_BUS
+      : profile.modality === SCOOTMOBILE && transportMode === "bus"
+      ? MINHEIGHT_SCOOTMOBILE_BUS
       : (profile.modality === WHEELCHAIRMANUAL ||
           profile.modality === WALKINGAID) &&
         transportMode === "tram"
       ? MINHEIGHT_MANUAL_TRAM
       : profile.modality === WHEELCHAIRELECTRIC && transportMode === "tram"
       ? MINHEIGHT_ELECTRIC_TRAM
+      : profile.modality === SCOOTMOBILE && transportMode === "tram"
+      ? MINHEIGHT_SCOOTMOBILE_TRAM
       : // for now we throw a null for other transportmodes, leading to a max rating
         null;
   const rampKerbHeight = quay.kerbheight || 0; // unknown kerbs are presumed to have no height
