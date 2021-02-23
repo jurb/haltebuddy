@@ -37,16 +37,15 @@ export const store = new Vuex.Store({
   state: {
     profile: {
       width: 75,
-      threshold: 15,
+      threshold: 2,
       modality: "Elektrische rolstoel",
-      ramp: false,
-      thresholdLess: false,
+      ramp: true,
     },
     filters: {
       vehicles: ["tram", "bus", "metro", "ferry"],
       favourites: [],
       accessibleonly: true,
-      minimumRating: 2,
+      minimumRating: 0,
       favouritesonly: false,
     },
     // initial location (center of Amsterdam according to wikipedia)
