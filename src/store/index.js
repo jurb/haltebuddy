@@ -48,7 +48,6 @@ export const store = new Vuex.Store({
       accessibleonly: true,
       minimumRating: 2,
       favouritesonly: false,
-      filterProperties: ["accessibleonly"],
     },
     // initial location (center of Amsterdam according to wikipedia)
     currentLocation: [52.369, 4.9041],
@@ -104,10 +103,9 @@ export const store = new Vuex.Store({
       return getters.enhancedQuays.filter(
         (quay) =>
           state.filters.vehicles.includes(quay.transportmode) &&
-          (state.filters.filterProperties.includes("accessibleonly")
-            ? quay.profileAccessibleScore.overallRating !== 0
-            : true) &&
-          (state.filters.filterProperties.includes("favouritesonly")
+          quay.profileAccessibleScore.overallRating >=
+            state.filters.minimumRating &&
+          (state.filters.favouritesonly
             ? state.filters.favourites.includes(quay.quaycode)
             : true)
       );
