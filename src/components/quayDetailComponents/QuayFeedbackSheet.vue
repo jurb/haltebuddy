@@ -14,7 +14,7 @@
       </v-card-actions>
       <v-card-text class="text-body-2 pr-8 pl-4">
         <p v-if="feedbackMode">
-          Als een meeting of de score niet klopt, horen we het graag! We sturen
+          Als een meting of de score niet klopt, horen we het graag! We sturen
           jouw bevindingen dan gelijk door naar de vervoerder.
         </p>
         <template id="feedback-form" v-if="feedbackMode">
