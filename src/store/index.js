@@ -73,7 +73,7 @@ export const store = new Vuex.Store({
         name: "Faye",
         stars: 4,
         text:
-          "Je moet de weg oversteken in een bocht om op de halte te kunnen komen. Dat is niet gevaarlijk voor mij als slechtziend persoon.",
+          "Je moet de weg oversteken in een bocht om op de halte te kunnen komen. Dat is gevaarlijk voor mij als slechtziend persoon. Verder een fijne halte.",
         timestamp: 1613986114197,
       },
     ],
