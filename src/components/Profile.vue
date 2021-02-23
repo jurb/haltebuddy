@@ -12,7 +12,13 @@
     </v-overlay>
 
     <div class="pa-2">
-      <!-- <h1>Profiel</h1> -->
+      <div class="pa-2">
+        <h3>Reisprofiel</h3>
+        <p>
+          Vul hieronder het reisprofiel in om te zien welke haltes voor jou
+          toegankelijk zijn.
+        </p>
+      </div>
       <v-form v-if="type === 'view'">
         <v-card>
           <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
