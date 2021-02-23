@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="pa-0">
+    <!-- <v-container class="pa-0">
       <v-row no-gutters>
         <v-col align-self="end">
           <h3 class="pt-10 px-3">Halteknop</h3>
@@ -23,21 +23,21 @@
         ></v-row
       >
     </v-container>
-    <v-divider />
-    <router-link v-if="!$route.params.page" to="/halteknop/02">
-      <img class="map-image" src="@/assets/halteknop01.png"
-    /></router-link>
-    <router-link v-if="$route.params.page === '02'" to="/halteknop/03">
-      <img class="map-image" src="@/assets/halteknop02.png"
-    /></router-link>
-    <router-link v-if="$route.params.page === '03'" to="/halteknop/04">
-      <img class="map-image" src="@/assets/halteknop03.png"
-    /></router-link>
-    <router-link v-if="$route.params.page === '04'" to="/halteknop">
-      <img class="map-image" src="@/assets/halteknop04.png"
-    /></router-link>
-
-    <!-- <v-btn class="halte-button">but</v-btn> -->
+    <v-divider /> -->
+    <v-container class="pa-0 mb-n4">
+      <router-link v-if="!$route.params.page" to="/halteknop/02">
+        <img class="map-image" src="@/assets/halteknop01.png"
+      /></router-link>
+      <router-link v-if="$route.params.page === '02'" to="/halteknop/03">
+        <img class="map-image" src="@/assets/halteknop02.png"
+      /></router-link>
+      <router-link v-if="$route.params.page === '03'" to="/halteknop/04">
+        <img class="map-image" src="@/assets/halteknop03.png"
+      /></router-link>
+      <router-link v-if="$route.params.page === '04'" to="/halteknop">
+        <img class="map-image" src="@/assets/halteknop04.png"
+      /></router-link>
+    </v-container>
   </div>
 </template>
 
@@ -55,12 +55,5 @@ export default {
 <style lang="scss" scoped>
 .map-image {
   width: 100%;
-}
-.halte-button {
-  position: absolute;
-  bottom: 236px;
-  left: 50%;
-  margin: auto;
-  z-index: 2;
 }
 </style>
