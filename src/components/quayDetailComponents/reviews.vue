@@ -14,7 +14,7 @@
         class="pa-2 mt-2 text-body-2"
       >
         <div>
-          <span class="grey--text">{{ review.timeDistance }}</span>
+          <span class="grey--text pr-1">{{ review.timeDistance }} geleden</span>
           <v-rating
             :value="review.stars"
             dense
