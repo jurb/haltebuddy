@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Profile from "../views/Profile.vue";
 import Quays from "../views/Quays.vue";
+import Home from "../views/Home.vue";
 import QuayDetail from "../views/QuayDetail.vue";
 import QuayMap from "../views/QuayMap.vue";
 import Route from "../views/Route.vue";
@@ -13,6 +14,11 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
+    path: "/quays",
     name: "Quays",
     component: Quays,
   },
