@@ -211,13 +211,13 @@ export default {
         this.setValues(80, 2, true);
       }
       if (val === "Scootmobiel") {
-        this.setValues(100, 2, true);
+        this.setValues(80, 2, true);
       }
       if (val === "Handrolstoel") {
-        this.setValues(70, 2, true);
+        this.setValues(75, 2, true);
       }
       if (val === "Rollator") {
-        this.setValues(60, 2, false);
+        this.setValues(70, 2, false);
       }
       if (val === "Stok of krukken") {
         this.setValues(50, 5, false);
