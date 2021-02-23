@@ -27,6 +27,7 @@ function profileAccessibleScore(quay, profile) {
   const VEHICLEBUSHEIGHT = 0.23;
 
   // when using the ramp, we think wheelchair users need a quay width of at least 1.5 meters to be able to board
+  // TODO: do scoot mobile users need more space? (one would think so)
   const RAMPWIDTHNEEDED = 1.5;
 
   const WHEELCHAIRMANUAL = "Elektrische rolstoel";
