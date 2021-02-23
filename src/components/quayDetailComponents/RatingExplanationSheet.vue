@@ -15,8 +15,8 @@
       <v-card-text class="text-body-2 pr-8 pl-4">
         {{ text }}
         <v-row class="text-body-2">
-          <v-col :cols="5"><strong>Score</strong></v-col>
-          <v-col :cols="7">
+          <v-col :cols="3"><strong>Score</strong></v-col>
+          <v-col :cols="9">
             <strong>{{ tableHeader }}</strong>
           </v-col>
         </v-row>
@@ -25,8 +25,10 @@
           v-for="row in ratingExplanations"
           :key="row.score"
         >
-          <v-col :cols="5"><rating-label :rating="row.score"/></v-col>
-          <v-col :cols="7" class="pt-2">
+          <v-col :cols="3" class="pt-0"
+            ><rating-icon :rating="row.score"
+          /></v-col>
+          <v-col :cols="9" class="pt-0">
             {{ row.text }}
           </v-col>
         </v-row>
@@ -36,9 +38,10 @@
 </template>
 
 <script>
-import RatingLabel from "@/components/RatingLabel.vue";
+import RatingIcon from "@/components/RatingIcon.vue";
+
 export default {
-  components: { RatingLabel },
+  components: { RatingIcon },
   data: () => ({}),
   computed: {
     isOpen: function() {
