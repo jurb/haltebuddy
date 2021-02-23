@@ -25,7 +25,7 @@
       @close="feedbackOpen = false"
     />
 
-    <v-btn icon to="/" class="ma-2">
+    <v-btn icon @click="$router.go(-1)" class="ma-2">
       <v-icon color="grey darken-4">mdi-arrow-left</v-icon>
     </v-btn>
 

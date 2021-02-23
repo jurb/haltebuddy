@@ -158,7 +158,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 export default {
-  name: "Profiel",
+  name: "Profile",
   props: {
     type: {
       default: "view",
@@ -190,7 +190,7 @@ export default {
       val &&
         setTimeout(() => {
           this.loading = false;
-          this.$router.push({ name: "Quays" });
+          this.$router.push({ name: "QuayMap" });
         }, 3000);
     },
   },
