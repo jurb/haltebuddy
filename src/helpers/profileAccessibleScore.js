@@ -15,6 +15,7 @@ function profileAccessibleScore(quay, profile) {
       .scaleThreshold()
       .domain(domain)
       .range(RATINGRANGE);
+
   // domain constants
   const THRESHOLDDOMAIN = [-0.02, -0.01, 0];
   const QUAYNARROWESTWIDTHDOMAIN = [-0.05, 0, 0.05];
@@ -39,11 +40,11 @@ function profileAccessibleScore(quay, profile) {
   // see https://docs.google.com/spreadsheets/d/1ANc_PizZm7Eu82_2hiIWGCYqAqQ7Wi2IE11AMYkdxq0/edit?usp=sharing
   // TODO: also add a formula for scoot mobiles
   const MINHEIGHT_MANUAL_BUS = 0.161;
-  const MINHEIGHT_SCOOTMOBILE_BUS = 0.161;
+  const MINHEIGHT_SCOOTMOBILE_BUS = 0.126;
   const MINHEIGHT_ELECTRIC_BUS = 0.126;
   const MINHEIGHT_MANUAL_TRAM = 0.221;
   const MINHEIGHT_ELECTRIC_TRAM = 0.186;
-  const MINHEIGHT_SCOOTMOBILE_TRAM = 0.221;
+  const MINHEIGHT_SCOOTMOBILE_TRAM = 0.186;
 
   const transportMode = quay.transportmode;
 
