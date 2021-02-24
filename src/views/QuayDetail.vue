@@ -421,10 +421,10 @@ export default {
             Math.sign(
               this.quay.profileAccessibleScore.rampRoomWidthDifference
             ) === 1
-              ? `${Math.round(
+              ? `Breedte die overblijft bij gebruik oprijplank: ${Math.round(
                   this.quay.profileAccessibleScore.rampRoomWidthDifference *
                     1000
-                ) / 10} cm breder dan de 150 cm die nodig is voor de plank`
+                ) / 10} cm`
               : `Halte is waarschijnlijk ${-Math.round(
                   this.quay.profileAccessibleScore.rampRoomWidthDifference *
                     1000
