@@ -31,8 +31,9 @@ function profileAccessibleScore(quay, profile) {
   // TODO: do scoot mobile users need more space? (one would think so)
   const RAMPWIDTHNEEDED = 1.5;
 
-  const WHEELCHAIRMANUAL = "Elektrische rolstoel";
-  const WHEELCHAIRELECTRIC = "Handrolstoel";
+  // TODO: pass modality as a parameter, so we can safely check if a known modality is being passed
+  const WHEELCHAIRELECTRIC = "Elektrische rolstoel";
+  const WHEELCHAIRMANUAL = "Handrolstoel";
   const SCOOTMOBILE = "Scootmobiel";
   const WALKINGAID = "Rollator";
 
