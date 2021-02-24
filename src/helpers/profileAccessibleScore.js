@@ -20,7 +20,7 @@ function profileAccessibleScore(quay, profile) {
   const THRESHOLDDOMAIN = [-0.02, -0.01, 0];
   const QUAYNARROWESTWIDTHDOMAIN = [-0.05, 0, 0.05];
   const RAMPROOMWIDTHDOMAIN = [-0.2, 0, 0.05];
-  const RAMPMINHEIGHTDOMAIN = [-0.01, 0, 0];
+  const RAMPMINHEIGHTDOMAIN = [-0.04, -0.02, 0];
   const VEHICLETHRESHOLDDOMAIN = [-0.02, -0.01, 0];
 
   // we subtract 1cm from the 30cm of a tram due to wear
