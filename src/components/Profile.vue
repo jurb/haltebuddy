@@ -160,7 +160,7 @@
         <h4>Oprijplank?</h4>
         <v-switch
           v-model="profileLocal.ramp"
-          :label="`Houd rekening met de oprijplank`"
+          :label="`Gebruik de plank als het nodig is`"
           @change="changeProfileRamp"
         ></v-switch>
       </v-form>
