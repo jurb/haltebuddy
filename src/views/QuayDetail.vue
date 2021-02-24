@@ -35,6 +35,19 @@
       :update-favourites="updateFavourites"
     />
 
+    <div
+      v-if="
+        quay.profileAccessibleScore &&
+          quay.profileAccessibleScore.vehicleThresholdRating <
+            quay.profileAccessibleScore.rampRating &&
+          quay.profileAccessibleScore.rampRating > 0
+      "
+      class="mx-4 text-body-2"
+    >
+      Maak gebruik van de oprijplank
+      <img :src="require('@/assets/icons/quayRamp.svg')" class="ramp-img" />
+    </div>
+
     <div v-if="quay.profileAccessibleScore" class="ma-4 mt-6">
       <h3>
         Toegankelijkheid
@@ -589,5 +602,8 @@ export default {
 
 .lines {
   line-height: 2rem;
+}
+.ramp-img {
+  max-height: 1.75rem;
 }
 </style>
