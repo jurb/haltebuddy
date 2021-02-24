@@ -101,6 +101,7 @@ function profileAccessibleScore(quay, profile) {
     transportMode === "metro" || transportMode === "ferry"
       ? maximumRating
       : ratingScale(RAMPROOMWIDTHDOMAIN)(rampRoomWidthDifference);
+
   // rampRoomMinHeightRating block
   // TODO: we don't take the different ramp dimensions of tram and bus into account
   // TODO: add checks for metro and ferry?
