@@ -53,7 +53,6 @@
           <v-card-title class="pb-0"
             >Hoeveel breedte heb je nodig?</v-card-title
           >
-          <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
           <v-card-text>
             <v-slider
               class="mt-14"
@@ -95,11 +94,12 @@
               @change="changeProfileThreshold"
               mandatory
             >
-              <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
-              <v-radio label="2–5 cm" :value="5"></v-radio>
-              <v-radio label="5–15 cm" :value="15"></v-radio>
+              <v-radio label="Maximaal 2 cm" :value="2"> </v-radio>
+              <v-radio label="Maximaal 5 cm" :value="5"></v-radio>
+              <v-radio label="Maximaal 10 cm" :value="10"></v-radio>
+              <v-radio label="Maximaal 15 cm" :value="15"></v-radio>
               <v-radio
-                label="De hoogte maakt niet uit"
+                label="Hoogte maakt niet uit"
                 :value="Infinity"
               ></v-radio>
             </v-radio-group> </v-card-text
@@ -151,10 +151,11 @@
           @change="changeProfileThreshold"
           mandatory
         >
-          <v-radio label="Gelijkvloers–2 cm" :value="2"> </v-radio>
-          <v-radio label="2–5 cm" :value="5"></v-radio>
-          <v-radio label="5–15 cm" :value="15"></v-radio>
-          <v-radio label="De hoogte maakt niet uit" :value="999"></v-radio>
+          <v-radio label="Maximaal 2 cm" :value="2"> </v-radio>
+          <v-radio label="Maximaal 5 cm" :value="5"></v-radio>
+          <v-radio label="Maximaal 10 cm" :value="10"></v-radio>
+          <v-radio label="Maximaal 15 cm" :value="15"></v-radio>
+          <v-radio label="Hoogte maakt niet uit" :value="Infinity"></v-radio>
         </v-radio-group>
       </v-form>
     </div>
@@ -223,10 +224,10 @@ export default {
         this.setValues(75, 2, true);
       }
       if (val === "Rollator") {
-        this.setValues(70, 2, false);
+        this.setValues(70, 5, false);
       }
       if (val === "Stok of krukken") {
-        this.setValues(50, 5, false);
+        this.setValues(50, 10, false);
       }
       if (val === "Zonder hulpmiddel") {
         this.setValues(40, 15, false);
