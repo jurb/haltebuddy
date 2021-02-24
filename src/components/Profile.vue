@@ -75,18 +75,9 @@
         </v-card>
         <div class="pb-6"></div>
         <v-card>
-          <v-card-title class="pb-0">Gebruik je de oprijplank?</v-card-title>
-          <v-card-text>
-            <v-switch
-              v-model="profileLocal.ramp"
-              :label="`Houd rekening met de oprijplank`"
-              @change="changeProfileRamp"
-            ></v-switch> </v-card-text
-        ></v-card>
-        <div class="pb-6"></div>
-        <v-card>
           <v-card-title class="pb-0"
-            >Hoe hoog mag een drempel zijn?</v-card-title
+            >Hoe hoog mag een drempel of de hoogte tot een voertuig
+            zijn?</v-card-title
           >
           <v-card-text>
             <v-radio-group
@@ -103,6 +94,21 @@
                 :value="Infinity"
               ></v-radio>
             </v-radio-group> </v-card-text
+        ></v-card>
+        <div class="pb-6"></div>
+        <v-card>
+          <img
+            :src="require('@/assets/icons/quayRamp.svg')"
+            class="float-right pt-4 pr-6 pl-3"/>
+          <v-card-title class="pb-0"
+            >Wil je bij grotere hoogtes gebruik maken van een oprijplank?
+          </v-card-title>
+          <v-card-text>
+            <v-switch
+              v-model="profileLocal.ramp"
+              :label="`Gebruik de plank als het nodig is`"
+              @change="changeProfileRamp"
+            ></v-switch> </v-card-text
         ></v-card>
       </v-form>
       <template v-if="type === 'view'">
@@ -139,12 +145,6 @@
         >
           <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
         </v-slider>
-        <h4>Oprijplank?</h4>
-        <v-switch
-          v-model="profileLocal.ramp"
-          :label="`Houd rekening met de oprijplank`"
-          @change="changeProfileRamp"
-        ></v-switch>
         <h4>Drempel</h4>
         <v-radio-group
           v-model="profileLocal.threshold"
@@ -157,6 +157,12 @@
           <v-radio label="Maximaal 15 cm" :value="15"></v-radio>
           <v-radio label="Hoogte maakt niet uit" :value="Infinity"></v-radio>
         </v-radio-group>
+        <h4>Oprijplank?</h4>
+        <v-switch
+          v-model="profileLocal.ramp"
+          :label="`Houd rekening met de oprijplank`"
+          @change="changeProfileRamp"
+        ></v-switch>
       </v-form>
     </div>
   </div>
