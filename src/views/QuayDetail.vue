@@ -410,8 +410,7 @@ export default {
           hidden: this.quay.transportmode === "metro",
           explanation: {
             title: "Is de halte hoog genoeg om de oprijplank te gebruiken?",
-            text:
-              "In bussen en trams zijn oprijplanken aanwezig. Niet iedere halte is hoog genoeg om de oprijplank te laten aansluiten op de halte.",
+            text: `<p>In de ${this.quay.transportmode} is een oprijplank aanwezig. Niet iedere halte is hoog genoeg om de oprijplank te laten aansluiten op de halte.</p><p><img src='/img/plank.jpg' style='max-width:350px' /></p>`,
             tableHeader: "De halte is:",
             scoreTable: [
               { score: 3, text: "hoog genoeg voor de oprijplank" },
@@ -466,8 +465,7 @@ export default {
           hidden: this.quay.transportmode === "metro",
           explanation: {
             title: "Is de halte breed genoeg om de oprijplank te gebruiken?",
-            text:
-              "<p>In bussen en trams zijn oprijplanken aanwezig die gebruikt kunnen worden als de 'gap' naar het voertuig te groot is om het voertuig binnen te gaan. De halte moet voldoende breed zijn om genoeg ruimte te hebben om de oprijplank uit te klappen en er ook nog op te kunnen draaien met bijvoorbeeld een rolstoel.</p><p>We weten niet precies welke oprijplanken in welk voertuig zitten. Het is daarom lastig om precies te berekenen of een halte breed genoeg is. We kunnen wel een goede inschatting maken: als een halte minimaal 150 cm is, dan is deze breed genoeg om de oprijplank te gebruiken.</p><p>Als een halte minder dan 150 cm breed is, dan zou het alsnog kunnen lukken wanneer er een brede stoeprand aanwezig is. De breedte van de stoeprand hebben we namelijk geen informatie over en deze wordt niet meegerekend in de breedte van de halte.</p>",
+            text: `<p>In de ${this.quay.transportmode} is een oprijplank aanwezig die gebruikt kan worden als de 'gap' naar het voertuig te groot is om het voertuig binnen te gaan. De halte moet voldoende breed zijn om genoeg ruimte te hebben om de oprijplank uit te klappen en er ook nog op te kunnen draaien met bijvoorbeeld een rolstoel.</p><p>We weten niet precies welke oprijplanken in welk voertuig zitten. Het is daarom lastig om precies te berekenen of een halte breed genoeg is. We kunnen wel een goede inschatting maken: als een halte minimaal 150 cm is, dan is deze breed genoeg om de oprijplank te gebruiken.</p><p>Als een halte minder dan 150 cm breed is, dan zou het alsnog kunnen lukken wanneer er een brede stoeprand aanwezig is. De breedte van de stoeprand hebben we namelijk geen informatie over en deze wordt niet meegerekend in de breedte van de halte.</p><p><img src='/img/plank.jpg' style='max-width:350px' /></p>`,
             tableHeader: "De breedte van de halte is:",
             scoreTable: [
               {
