@@ -86,7 +86,8 @@ function profileAccessibleScore(quay, profile) {
       transportMode === "metro" || transportMode === "ferry"
       ? 0
       : null;
-  const vehicleThresholdDifference = vehicleThresholdProfile - vehicleThreshold;
+  const vehicleThresholdDifference =
+    vehicleThresholdProfile - Math.abs(vehicleThreshold);
   // give this the highest rating if user needs a ramp
   const vehicleThresholdRating = ratingScale(VEHICLETHRESHOLDDOMAIN)(
     vehicleThresholdDifference
