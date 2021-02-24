@@ -35,7 +35,7 @@
                   />
                   <span
                     v-if="quay.elevatorMalfunction"
-                    class="ml-2 px-2 py-1 error white--text rounded-0 lift-label"
+                    class="ml-2 px-2 py-1 error white--text lift-label rounded"
                   >
                     <v-icon small color="white">mdi-alert</v-icon
                     ><strong> Lift kapot!</strong>
