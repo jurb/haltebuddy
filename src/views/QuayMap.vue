@@ -208,7 +208,7 @@ export default {
 <style lang="scss" scoped>
 #map {
   width: 100%;
-  height: 500px;
+  height: 80vh;
 }
 
 .top-bar {
