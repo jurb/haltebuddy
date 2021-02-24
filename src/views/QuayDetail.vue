@@ -426,7 +426,7 @@ export default {
               : `Halte is waarschijnlijk ${-Math.round(
                   this.quay.profileAccessibleScore.rampRoomWidthDifference *
                     1000
-                ) / 10} cm te kort om de plank uit te schuiven.`
+                ) / 10} cm te smal om de plank uit te schuiven.`
           }`,
           overlay: !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
