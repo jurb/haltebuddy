@@ -262,6 +262,18 @@ export default {
             this.quay.profileAccessibleScore.quayNarrowestWidth
               ? `Smalste doorgang: ${this.quay.profileAccessibleScore.quayNarrowestWidth} m`
               : `Smalste doorgang onbekend`
+          }. ${
+            Math.sign(
+              this.quay.profileAccessibleScore.quayNarrowestWidthDifference
+            ) === 1
+              ? `${Math.round(
+                  this.quay.profileAccessibleScore
+                    .quayNarrowestWidthDifference * 1000
+                ) / 10} cm breder dan de breedte in je profielwaarde.`
+              : `Halte is ${-Math.round(
+                  this.quay.profileAccessibleScore
+                    .quayNarrowestWidthDifference * 1000
+                ) / 10} cm minder dan de breedte in je profielwaarde.`
           }`,
           explanation: {
             title: "Is de halte breed genoeg?",
