@@ -15,8 +15,8 @@
       <v-card-text class="text-body-2 pr-8 pl-4">
         Op basis van afmetingen van haltes en voertuigen en jouw reisprofiel
         schatten wij de toegankelijkheid in. De totaalscore is gelijk aan de
-        laagste toegankelijkheidswaarde van een van de halteonderdelen. Klik op
-        een halteonderdeel voor meer informatie.
+        laagste toegankelijkheidswaarde van de scores die van toepassing zijn op
+        jouw situatie. Klik op een halteonderdeel voor meer informatie.
       </v-card-text>
     </v-card>
   </v-bottom-sheet>

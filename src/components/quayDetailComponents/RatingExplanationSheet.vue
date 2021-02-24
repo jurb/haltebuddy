@@ -13,7 +13,7 @@
         </h2>
       </v-card-actions>
       <v-card-text class="text-body-2 pr-8 pl-4">
-        {{ text }}
+        <span v-html="text" />
         <v-row class="text-body-2">
           <v-col :cols="3"><strong>Score</strong></v-col>
           <v-col :cols="9">

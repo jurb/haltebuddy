@@ -274,13 +274,16 @@ export default {
           explanation: {
             title: "Is de halte breed genoeg?",
             text:
-              "Niet iedere halte is breed genoeg om doorheen te kunnen met een rolstoel of ander hulpmiddel. Zo berekenen we de score:",
-            tableHeader: "De breedte van de halte is:",
+              "Niet iedere halte is breed genoeg voor een rolstoel of ander hulpmiddel. Zo berekenen we de score:",
+            tableHeader: "De smalste doorgang van de halte is:",
             scoreTable: [
-              { score: 3, text: "5 cm breder dan de waarde in je reisprofiel" },
+              {
+                score: 3,
+                text: "meer dan 5 cm breder dan de waarde in je reisprofiel",
+              },
               {
                 score: 2,
-                text: "0-5 cm breder dan de waarde in je reisprofiel",
+                text: "0 tot 5 cm breder dan de waarde in je reisprofiel",
               },
               {
                 score: 1,
@@ -288,7 +291,7 @@ export default {
               },
               {
                 score: 0,
-                text: "meer dan 5 cm hoger dan de waarde in je reisprofiel",
+                text: "meer dan 5 cm smaller dan de waarde in je reisprofiel",
               },
             ],
           },
@@ -327,10 +330,16 @@ export default {
               this.quay.profileAccessibleScore.rampRating &&
             this.quay.transportmode !== "metro",
           explanation: {
-            title: "Het voertuig instappen",
+            title: `Het voertuig instappen`,
             text:
-              "We kijken naar de hoogte van het perron en de voertuigen om te bepalen of je het voertuig in kan stappen. We kijken hiervoor naar de drempelwaarde in je profiel.",
-            tableHeader: "De hoogte naar het voertuig is:",
+              this.quay.transportmode === "bus"
+                ? "<p>Bussen in Amsterdam beschikken over een knielsysteem waardoor de vloerhoogte van de bus kan zakken tot 23 cm hoogte. De bus kan daardoor dichterbij de halte komen of soms zelfs tot dezelfde hoogte.</p><p>We vergelijken de hoogte tot het voertuig met de waarde in je reisprofiel bij ‘Hoe hoog mag een drempel zijn’.</p><p><strong>Let op</strong>: De horizontale afstand van de halte tot de bus is afhankelijk van hoe dicht de bus tot de rand van de halte kan stoppen. Hier kunnen we helaas niets over zeggen.</p><p>We berekenen de score alsvolgt:</p>"
+                : this.quay.transportmode === "tram"
+                ? "De horizontale afstand van de halte tot de tram is ongeveer 4 cm. De vloerhoogte van trams in Amsterdam is standaard 29 cm. Door deze hoogte te vergelijken met de haltehoogte bij de instapplek benaderen we de hoogte tot de tram bij het instappen."
+                : this.quay.transportmode === "metro"
+                ? "De metro ingang is standaard op de zelfde hoogte als het perron. Hier kan een kleine afwijking in zitten door bijvoorbeeld slijtage van de wielen. Er is ook altijd een kleine horizontale 'gap' tussen de metro en het perron van ongeveer 4 cm."
+                : "We kijken naar de hoogte van het perron en de voertuigen om te bepalen of je het voertuig in kan stappen. We kijken hiervoor naar de drempelwaarde in je profiel.",
+            tableHeader: "De hoogte tot het voertuig is:",
             scoreTable: [
               { score: 3, text: "lager dan de waarde in je reisprofiel" },
               {
@@ -387,21 +396,25 @@ export default {
               this.quay.profileAccessibleScore.rampRating || !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
           explanation: {
-            title: "Is de halte hoog genoeg voor de plank?",
+            title: "Is de halte hoog genoeg om de oprijplank te gebruiken?",
             text:
-              "Niet iedere halte is hoog genoeg om de oprijplank aan te laten sluiten.",
+              "In bussen en trams zijn oprijplanken aanwezig. Niet iedere halte is hoog genoeg om de oprijplank te laten aansluiten op de halte.",
             tableHeader: "De halte is:",
             scoreTable: [
-              { score: 3, text: "Hoog genoeg voor de plank" },
+              { score: 3, text: "hoog genoeg voor de oprijplank" },
+              {
+                score: 2,
+                text: "waarschijnlijk hoog genoeg voor de plank, 2 cm speling",
+              },
               {
                 score: 1,
                 text:
-                  "Misschien net hoog genoeg voor de plank, het zal erom spannen.",
+                  "misschien hoog genoeg voor de plank, tot 4 cm speling, het zal erom spannen.",
               },
               {
                 score: 0,
                 text:
-                  "Te laag om de oprijplank aan te laten sluiten (meer dan 1 cm)",
+                  "te laag om de oprijplank aan de laten sluiten (meer dan 4 cm)",
               },
             ],
           },
@@ -439,30 +452,27 @@ export default {
               this.quay.profileAccessibleScore.rampRating || !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
           explanation: {
-            title: "Is de halte breed genoeg om de plank op te komen?",
+            title: "Is de halte breed genoeg om de oprijplank te gebruiken?",
             text:
-              "Niet iedere halte is breed genoeg voor het uitleggen en comfortabel oprijden van de oprijplank.",
+              "<p>In bussen en trams zijn oprijplanken aanwezig die gebruikt kunnen worden als de 'gap' naar het voertuig te groot is om het voertuig binnen te gaan. De halte moet voldoende breed zijn om genoeg ruimte te hebben om de oprijplank uit te klappen en er ook nog op te kunnen draaien met bijvoorbeeld een rolstoel.</p><p>We weten niet precies welke oprijplanken in welk voertuig zitten. Het is daarom lastig om precies te berekenen of een halte breed genoeg is. We kunnen wel een goede inschatting maken: als een halte minimaal 150 cm is, dan is deze breed genoeg om de oprijplank te gebruiken.</p><p>Als een halte minder dan 150 cm breed is, dan zou het alsnog kunnen lukken wanneer er een brede stoeprand aanwezig is. De breedte van de stoeprand hebben we namelijk geen informatie over en deze wordt niet meegerekend in de breedte van de halte.</p>",
             tableHeader: "De breedte van de halte is:",
             scoreTable: [
               {
                 score: 3,
-                text:
-                  "5 cm breder dan nodig om de oprijplank op te kunnen komen",
+                text: "meer dan 155 cm",
               },
               {
                 score: 2,
-                text:
-                  "0-5 cm breder dan nodig om de oprijplank op te kunnen komen",
+                text: "150 tot 155 cm",
               },
               {
                 score: 1,
                 text:
-                  "tot 20 cm smaller dan comfortabel is om de oprijplank op te kunnen komen (het zou nog steeds kunnen lukken als de stoeprand breed genoeg is, want die wordt bij de breedte van het perron niet meegerekend)",
+                  "130 - 150 cm (misschien lukt het alsnog om de oprijplank te gebruiken als er een brede stoeprand aanwezig is)",
               },
               {
                 score: 0,
-                text:
-                  "meer dan 20 cm smaller om comfortabel de oprijplank op te kunnen komen",
+                text: "smaller dan 130 cm",
               },
             ],
           },
