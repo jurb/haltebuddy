@@ -206,15 +206,11 @@ export default {
           text: this.quay.elevatorMalfunction
             ? "Halte mogelijk niet bereikbaar met lift"
             : this.quay.ramp
-            ? `Hellingbaan aanwezig, hoogte halte ${Math.round(
-                this.quay.profileAccessibleScore.rampKerbHeight * 100
-              )} cm`
+            ? `Hellingbaan aanwezig`
             : this.quay.lift
             ? `Halte bereikbaar met lift`
             : this.quay.stopplaceaccessroute
-            ? `Halte bereikbaar vanaf omgeving, hoogte ${Math.round(
-                this.quay.profileAccessibleScore.rampKerbHeight * 100
-              )} cm`
+            ? `Halte bereikbaar vanaf omgeving`
             : this.quay.profileAccessibleScore.quayThreshold
             ? `Drempel: ${Math.round(
                 this.quay.profileAccessibleScore.quayThreshold * 100
@@ -310,7 +306,9 @@ export default {
             : this.quay.transportmode === "metro"
             ? require("@/assets/icons/quayThresholdToVehicleMetro.svg")
             : require("@/assets/icons/quayThresholdToVehicle.svg"),
-          text: `${
+          text: `Hoogte halte: ${Math.round(
+            this.quay.profileAccessibleScore.rampKerbHeight * 100
+          )} cm <br />${
             this.quay.transportmode === "metro"
               ? "Metro ingang is gelijkvloers"
               : this.quay.profileAccessibleScore.vehicleThreshold
