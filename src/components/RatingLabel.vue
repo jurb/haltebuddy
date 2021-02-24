@@ -1,8 +1,8 @@
 <template>
-  <span class="px-1" :class="scoreColor">
+  <span class="px-2 py-1 rating-label" :class="scoreColor">
     <strong>{{ scoreText }}</strong
     ><span v-if="rating === 3"
-      >&nbsp; <v-icon x-small color="white">mdi-thumb-up-outline</v-icon></span
+      >&nbsp; <v-icon small color="white">mdi-thumb-up-outline</v-icon></span
     >
   </span>
 </template>
@@ -37,3 +37,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.rating-label {
+  display: inline-block;
+}
+</style>

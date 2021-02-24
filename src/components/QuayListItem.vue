@@ -35,10 +35,11 @@
                   />
                   <span
                     v-if="quay.elevatorMalfunction"
-                    class="px-1 ml-2 error white--text rounded"
-                    ><v-icon size="medium" color="white">mdi-alert</v-icon
-                    ><strong> Lift kapot!</strong></span
+                    class="ml-2 px-2 py-1 error white--text rounded-0 lift-label"
                   >
+                    <v-icon small color="white">mdi-alert</v-icon
+                    ><strong> Lift kapot!</strong>
+                  </span>
                   <v-icon v-if="favourite" right class="pb-1" color="secondary"
                     >mdi-star</v-icon
                   >
@@ -84,5 +85,8 @@ export default {
 }
 a {
   text-decoration: none;
+}
+.lift-label {
+  display: inline-block;
 }
 </style>
