@@ -76,23 +76,23 @@
       mandatory
       class="pl-5 py-2 grey lighten-4"
     >
-      <v-chip filter :ripple="false" value="tram" class="primary">
+      <v-chip filter :ripple="false" value="tram" class="secondary rounded-0">
         Tram
       </v-chip>
-      <v-chip filter :ripple="false" value="bus" class="primary">
+      <v-chip filter :ripple="false" value="bus" class="secondary rounded-0">
         Bus
       </v-chip>
-      <v-chip filter :ripple="false" value="metro" class="primary">
+      <v-chip filter :ripple="false" value="metro" class="secondary rounded-0">
         Metro
       </v-chip>
-      <v-chip filter :ripple="false" value="ferry" class="primary">
+      <v-chip filter :ripple="false" value="ferry" class="secondary rounded-0">
         Pont
       </v-chip>
     </v-chip-group>
     <div v-if="settingsMenu" class="pl-5 py-2 grey lighten-4">
       <v-btn
         tile
-        color="secondary"
+        :color="favouritesonly ? 'secondary' : 'white'"
         class="mb-4 mt-1"
         @click="favouritesonly = !favouritesonly"
       >

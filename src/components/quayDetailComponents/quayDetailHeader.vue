@@ -17,9 +17,9 @@
         <p class="mb-0">
           <v-chip-group column>
             <v-btn
-              color="secondary"
-              depressed
-              class="text-none text-body mt-1 mr-2 rounded-0"
+              :color="isFavourite ? 'secondary' : 'white'"
+              tile
+              class="text-none text-body mt-1 mr-2"
               height="32px"
               @click="updateFavourites"
               :value="isFavourite"
