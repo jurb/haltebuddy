@@ -83,7 +83,7 @@
               @click="showRatingExplanationSheet(row.id)"
             >
               <v-col :cols="1">
-                <rating-icon :disabled="row.overlay" :rating="row.rating" />
+                <rating-icon :rating="row.rating" />
               </v-col>
               <v-col :cols="2" class="ml-2">
                 <img :src="row.icon" />
