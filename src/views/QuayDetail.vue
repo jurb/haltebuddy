@@ -318,10 +318,14 @@ export default {
               : `Hoogte halte onbekend`
           } ${
             this.quay.transportmode && this.quay.transportmode === "tram"
-              ? `<br /> Diepte tot tram: 2-5 cm`
+              ? `<br /> Afstand tot tram: 2-5 cm`
               : ""
           }`,
-          overlay: this.profile.ramp && this.quay.transportmode !== "metro",
+          overlay:
+            this.profile.ramp &&
+            this.quay.profileAccessibleScore.vehicleThresholdRating <
+              this.quay.profileAccessibleScore.rampRating &&
+            this.quay.transportmode !== "metro",
           explanation: {
             title: "Het voertuig instappen",
             text:
@@ -378,7 +382,9 @@ export default {
                     1000
                 ) / 10} cm te laag.`
           }`,
-          overlay: !this.profile.ramp,
+          overlay:
+            this.quay.profileAccessibleScore.vehicleThresholdRating >
+              this.quay.profileAccessibleScore.rampRating || !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
           explanation: {
             title: "Is de halte hoog genoeg voor de plank?",
@@ -428,7 +434,9 @@ export default {
                     1000
                 ) / 10} cm te smal om de plank uit te schuiven.`
           }`,
-          overlay: !this.profile.ramp,
+          overlay:
+            this.quay.profileAccessibleScore.vehicleThresholdRating >
+              this.quay.profileAccessibleScore.rampRating || !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
           explanation: {
             title: "Is de halte breed genoeg om de plank op te komen?",
