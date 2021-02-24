@@ -354,7 +354,19 @@ export default {
               ? `Halte <strong>waarschijnlijk niet hoog genoeg</strong> voor oprijplank`
               : this.quay.profileAccessibleScore.rampMinHeightRating === 0
               ? `Halte <strong>niet hoog genoeg</strong> voor oprijplank`
-              : `Hoogte halte onbekend`
+              : `Hoogte halte onbekend, we gaan uit van een hoogte van 0 cm`
+          }. ${
+            Math.sign(
+              this.quay.profileAccessibleScore.rampMinHeightDifference
+            ) === 1
+              ? `${Math.round(
+                  this.quay.profileAccessibleScore.rampMinHeightDifference *
+                    1000
+                ) / 10} cm hoger dan nodig.`
+              : `Halte is ${-Math.round(
+                  this.quay.profileAccessibleScore.rampMinHeightDifference *
+                    1000
+                ) / 10} cm te laag.`
           }`,
           overlay: !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
@@ -389,10 +401,22 @@ export default {
               : this.quay.profileAccessibleScore.rampRoomWidthRating === 2
               ? `Halte <strong>net breed genoeg</strong> voor oprijplank`
               : this.quay.profileAccessibleScore.rampRoomWidthRating === 1
-              ? `Halte <strong>waarschijnlijk niet breed genoeg</strong> voor oprijplank`
+              ? `Halte <strong>waarschijnlijk niet breed genoeg</strong> voor oprijplank, al zou het met een brede stoeprand nog kunnen lukken`
               : this.quay.profileAccessibleScore.rampRoomWidthRating === 0
               ? `Halte <strong>niet breed genoeg</strong> voor oprijplank`
-              : `Plank breedte onbekend`
+              : `Halte breedte onbekend, 0 cm breedte aangehouden.`
+          }. ${
+            Math.sign(
+              this.quay.profileAccessibleScore.rampRoomWidthDifference
+            ) === 1
+              ? `${Math.round(
+                  this.quay.profileAccessibleScore.rampRoomWidthDifference *
+                    1000
+                ) / 10} cm breder dan de 150 cm die nodig is voor de plank`
+              : `Halte is waarschijnlijk ${-Math.round(
+                  this.quay.profileAccessibleScore.rampRoomWidthDifference *
+                    1000
+                ) / 10} cm te kort om de plank uit te schuiven.`
           }`,
           overlay: !this.profile.ramp,
           hidden: this.quay.transportmode === "metro",
@@ -415,7 +439,7 @@ export default {
               {
                 score: 1,
                 text:
-                  "tot 20 cm smaller dan comfortabel is om de oprijplank op te kunnen komen",
+                  "tot 20 cm smaller dan comfortabel is om de oprijplank op te kunnen komen (het zou nog steeds kunnen lukken als de stoeprand breed genoeg is, want die wordt bij de breedte van het perron niet meegerekend)",
               },
               {
                 score: 0,
