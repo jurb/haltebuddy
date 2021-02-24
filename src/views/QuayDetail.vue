@@ -334,7 +334,7 @@ export default {
               : `Hoogte halte onbekend`
           } ${
             this.quay.transportmode && this.quay.transportmode === "tram"
-              ? `<br /> Afstand tot tram: 2-5 cm`
+              ? `<br /> Horizontale gap tot tram: ongeveer 4 cm`
               : ""
           }`,
           overlay:
