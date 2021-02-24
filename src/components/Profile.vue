@@ -187,7 +187,7 @@ export default {
       "Scootmobiel",
       "Handrolstoel",
       "Rollator",
-      "Stok of krukken",
+      "Wandelstok of krukken",
       "Zonder hulpmiddel",
     ],
     loading: false,
