@@ -52,6 +52,11 @@ const routes = [
     name: "Halteknop",
     component: Halteknop,
   },
+  {
+    path: "/route/:page",
+    name: "Route",
+    component: Route,
+  },
 ];
 
 const router = new VueRouter({
