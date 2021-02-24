@@ -14,7 +14,8 @@
               </v-list-item-title>
               <v-list-item-subtitle>
                 <div class="mb-2">
-                  Richting {{ quay.directionfull }} {{ quay.direction }}
+                  Richting op de kaart: {{ quay.directionfull }}
+                  {{ quay.direction }}
                 </div>
                 <div class="mb-2">
                   <v-chip

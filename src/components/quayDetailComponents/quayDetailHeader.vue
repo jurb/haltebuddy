@@ -12,7 +12,7 @@
       </h2>
       <div>
         <div class="mb-2">
-          Richting {{ quay.directionfull }} {{ quay.direction }}
+          Richting op de kaart: {{ quay.directionfull }} {{ quay.direction }}
         </div>
         <p class="mb-0">
           <v-chip-group column>
