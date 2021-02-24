@@ -156,9 +156,15 @@ function profileAccessibleScore(quay, profile) {
     vehicleThresholdRating,
   ];
 
-  // the overall rating is the lowest rating of ramp dependent ratings
+  // TODO: enable ramp row overlays when vehicleThresholdRating > rampRating
+
+  // if the vehiclethreshold rating is ok, disregard the ramp from the rating.
+  // If profile cannot get in the vehicle without ramp,
+  // take the lowest of the ramp related ratings.
   const overallRating = profile.ramp
-    ? Math.min(...rampRatings)
+    ? vehicleThresholdRating > rampRating
+      ? Math.min(...noRampRatings)
+      : Math.min(...rampRatings)
     : Math.min(...noRampRatings);
 
   // to return all calculated constands, we construct them in an object here
