@@ -46,7 +46,7 @@
           <v-icon left>
             {{ settingsMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
           </v-icon>
-          <span class="chip-text"> Haltes</span>
+          <span class="chip-text"> Filters</span>
 
           <v-icon right> mdi-tune </v-icon>
         </v-chip>
@@ -106,11 +106,11 @@
       </v-btn>
       <br />
       <!-- <v-switch label="Alleen opgeslagen haltes" v-model="favouritesonly" /> -->
-      <strong>Beoordeling halte</strong> -
+      <strong>Jouw halteadvies</strong> -
       {{
         minimumRating === 0
-          ? `alle beoordelingen`
-          : `minimaal ${ratingLabels[minimumRating]}`
+          ? `laat alles zien`
+          : `tenminste ${ratingLabels[minimumRating]}`
       }}
       <br />
       <v-btn-toggle v-model="minimumRating" mandatory group class="mb-4">
