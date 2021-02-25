@@ -1,9 +1,9 @@
 <template>
   <div>
-    <v-overlay :value="loading" color="white" opacity="1">
+    <v-overlay :value="loading" color="white" opacity="1" class="text-center">
       <img :src="require('@/assets/icons/spinner.svg')" class="rotate" />
       <div class="black--text">
-        <h1>Eén moment.</h1>
+        <h1>Persoonlijk advies.</h1>
         <p>
           We berekenen welke OV-haltes<br />
           voor jou toegankelijk zijn.
@@ -51,7 +51,8 @@
         <div class="pb-6"></div>
         <v-card>
           <v-card-title class="pb-0"
-            >Hoeveel breedte heb je nodig?</v-card-title
+            >Hoe breed moet een halte<br />
+            tenminste voor jou zijn?</v-card-title
           >
           <v-card-text>
             <v-slider
@@ -62,7 +63,7 @@
               thumb-label="always"
               @click:prepend="profileLocal.width--"
               @click:append="profileLocal.width++"
-              min="30"
+              min="40"
               max="150"
               thumb-size="40"
               @end="changeProfileWidth"
@@ -101,12 +102,12 @@
             :src="require('@/assets/icons/quayRamp.svg')"
             class="float-right pt-4 pr-6 pl-3"/>
           <v-card-title class="pb-0"
-            >Wil je bij grotere hoogtes gebruik maken van een oprijplank?
+            >Wil je gebruik maken van een oprijplank bij hogere drempels?
           </v-card-title>
           <v-card-text>
             <v-switch
               v-model="profileLocal.ramp"
-              :label="`Gebruik de plank als het nodig is`"
+              :label="`Ja`"
               @change="changeProfileRamp"
             ></v-switch> </v-card-text
         ></v-card>
@@ -123,7 +124,7 @@
           <v-icon left dark>
             mdi-content-save
           </v-icon>
-          <strong>Sla je profiel op</strong>
+          <strong>Sla je reisprofiel op</strong>
         </v-btn>
         <div class="pb-12"></div>
       </template>
