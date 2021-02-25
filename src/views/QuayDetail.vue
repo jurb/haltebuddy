@@ -61,7 +61,7 @@
       <v-row no-gutters class="mt-3 text-body-2">
         <v-col>
           <div class="my-1 content">
-            Totaal beoordeling:
+            Persoonlijk halteadvies:
             <rating-label :rating="quay.profileAccessibleScore.overallRating" />
             <template>
               <br />
