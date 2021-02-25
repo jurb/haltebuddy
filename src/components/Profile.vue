@@ -51,8 +51,7 @@
         <div class="pb-6"></div>
         <v-card>
           <v-card-title class="pb-0"
-            >Hoe breed moet een halte<br />
-            tenminste voor jou zijn?</v-card-title
+            >Hoeveel breedte heb je nodig?</v-card-title
           >
           <v-card-text>
             <v-slider
