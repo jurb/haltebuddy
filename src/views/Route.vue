@@ -7,7 +7,9 @@
       <router-link v-if="$route.params.page === '02'" to="/route/03">
         <img class="routes-img" src="@/assets/Route_2.png"
       /></router-link>
-      <img class="routes-img" src="@/assets/Route_3.png" />
+      <router-link v-if="$route.params.page === '03'" to="/quay/NL:Q:30008055">
+        <img class="routes-img" src="@/assets/Route_3.png" />
+      </router-link>
     </v-container>
   </div>
 </template>
