@@ -1,8 +1,12 @@
 <template>
-  <v-container class="pa-0 ma-0 error darken-4">
-    <router-link to="/profile">
-      <img class="landingpage" src="@/assets/landing.png" />
-    </router-link>
+  <v-container class="pa-0 ma-0">
+    <v-row justify="center">
+      <v-col cols="auto">
+        <router-link to="/profile">
+          <img class="landingpage" src="@/assets/landing.png" />
+        </router-link>
+      </v-col>
+    </v-row>
   </v-container>
 </template>
 
@@ -16,7 +20,7 @@ export default {
 
 <style lang="scss" scoped>
 .landingpage {
-  width: 100%;
-  height: 812px;
+  max-width: 375px;
+  max-height: 812px;
 }
 </style>
