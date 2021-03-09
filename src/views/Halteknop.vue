@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-container class="pa-0 mb-n4">
-      <router-link v-if="!$route.params.page === '01'" to="/halteknop/02">
+      <router-link v-if="$route.params.page === '01'" to="/halteknop/02">
         <img class="map-image" src="@/assets/halteknop01.png"
       /></router-link>
       <router-link v-if="$route.params.page === '02'" to="/halteknop/03">
@@ -10,7 +10,11 @@
       <router-link v-if="$route.params.page === '03'" to="/halteknop/04">
         <img class="map-image" src="@/assets/halteknop03.png"
       /></router-link>
-      <img class="map-image" src="@/assets/halteknop04.png" />
+      <img
+        class="map-image"
+        v-if="$route.params.page === '04'"
+        src="@/assets/halteknop04.png"
+      />
     </v-container>
   </div>
 </template>
