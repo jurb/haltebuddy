@@ -26,7 +26,7 @@
     <v-btn
       value="halteknop"
       :input-value="value === 'halteknop'"
-      to="/halteknop"
+      to="/halteknop/01"
     >
       <span>Halteknop</span>
       <v-icon>mdi-lifebuoy</v-icon>
