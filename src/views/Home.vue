@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0 ma-0">
-    <v-row justify="center">
+    <v-row justify="center" no-gutters>
       <v-col cols="auto">
         <router-link to="/profile">
           <img class="landingpage" src="@/assets/landing.png" />
