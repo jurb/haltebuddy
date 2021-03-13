@@ -22,5 +22,6 @@ export default {
 .landingpage {
   max-width: 375px;
   max-height: 812px;
+  display: block;
 }
 </style>
