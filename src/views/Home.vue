@@ -3,7 +3,7 @@
     <v-row justify="center" no-gutters>
       <v-col cols="auto">
         <router-link to="/profile">
-          <img class="landingpage" src="@/assets/landing.png" />
+          <img class="landingpage" src="@/assets/landing2.png" />
         </router-link>
       </v-col>
     </v-row>
