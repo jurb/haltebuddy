@@ -6,6 +6,14 @@
     <div class="mx-n4">
       <v-divider />
     </div>
+    <v-alert
+      dense
+      dismissible
+      type="secondary"
+      class="mx-n4 rounded-0 ticket-alert"
+    >
+      Schrijf een review en spaar voor <a href="#">gratis GVB tickets</a>!
+    </v-alert>
     <template v-if="!feedbackMode">
       <v-card
         v-for="review in quayReviews"
@@ -136,5 +144,8 @@ export default {
 <style lang="scss" scoped>
 .rating {
   display: inline;
+}
+.ticket-alert a {
+  color: white;
 }
 </style>
