@@ -67,7 +67,7 @@
               <br />
               <div class="feedback-text-link text-body-2">
                 <a @click="feedbackOpen = !feedbackOpen"
-                  >↪ dit klopt niet volgens mij</a
+                  >↪ dit klopt niet voor mij</a
                 >
               </div>
             </template>
