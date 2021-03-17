@@ -8,6 +8,7 @@ import QuayDetail from "../views/QuayDetail.vue";
 import QuayMap from "../views/QuayMap.vue";
 import Route from "../views/Route.vue";
 import Halteknop from "../views/Halteknop.vue";
+import LandingPage from "../views/LandingPage.vue";
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,11 @@ const routes = [
     path: "/route/:page",
     name: "Route",
     component: Route,
+  },
+  {
+    path: "/landingpage",
+    name: "LandingPage",
+    component: LandingPage,
   },
 ];
 

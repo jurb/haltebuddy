@@ -6,7 +6,9 @@
       </v-container>
     </v-main>
     <!-- TODO: removed footer element here because it produced a ghost element on flipping open the profile menu in the top filter, investigate if we can bring it back since it's semantically better to keep it -->
-    <bottom-navigation v-if="$route.name !== 'Home'" />
+    <bottom-navigation
+      v-if="$route.name !== 'Home' && $route.name !== 'LandingPage'"
+    />
   </v-app>
 </template>
 <script>
