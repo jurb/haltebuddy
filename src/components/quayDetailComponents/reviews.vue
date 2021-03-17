@@ -7,10 +7,9 @@
       <v-divider />
     </div>
     <v-alert
-      dense
       dismissible
-      type="secondary"
-      class="mx-n4 rounded-0 ticket-alert"
+      type="info"
+      class="mx-n4 rounded-0 ticket-alert text-body-2"
     >
       Schrijf een review en spaar voor <a href="#">gratis GVB tickets</a>!
     </v-alert>
@@ -19,7 +18,7 @@
         v-for="review in quayReviews"
         :key="review.id"
         elevation="2"
-        class="pa-2 mt-2 text-body-2"
+        class="px-4 py-3 mt-2 text-body-2"
       >
         <div>
           <span class="grey--text pr-1">{{ review.timeDistance }} geleden</span>
