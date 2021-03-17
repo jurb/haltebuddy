@@ -1,29 +1,27 @@
 <template>
   <div class="parent primary secondary">
     <div class="box white--text">
-      <div class="demo-callout-box">
+      <div class="demo-callout-box" v-if="$vuetify.breakpoint.mdAndUp">
         <img
           :src="require('@/assets/demo-callout.svg')"
-          alt="interactieve demo aanwijzer"
+          alt="pijltje naar demo"
           class="demo-callout-image"
         />
       </div>
-      <p class="title demo-callout-text">
-        Met Haltebuddy weet je precies welke haltes er
-        <strong>voor jou</strong> toegankelijk zijn. Vul je reisprofiel in, en
-        zie precies waar je op moet letten voordat je de bus, tram, of metro in
-        stapt!
-      </p>
-      <p class="text-center text-body-2 mt-16">
-        meer weten?<br />
-        <v-icon x-large color="white">mdi-chevron-down</v-icon>
-      </p>
+      <div class="demo-callout-text">
+        <p class="title">
+          Met Haltebuddy weet je precies welke haltes er
+          <strong>voor jou</strong> toegankelijk zijn. Vul je reisprofiel in, en
+          zie precies waar je op moet letten voordat je de bus, tram, of metro
+          in stapt!
+        </p>
+        <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
+          Bekijk <a href="/">de demo op je mobiel</a>.
+        </p>
+      </div>
     </div>
-    <div class="box">
+    <div class="iframe-demo-box">
       <IPhoneX v-if="$vuetify.breakpoint.smAndUp" />
-      <p v-if="$vuetify.breakpoint.xsOnly">
-        Op mobiel laten we alleen een link zien
-      </p>
     </div>
   </div>
 </template>
@@ -49,15 +47,26 @@ export default {
 }
 
 .demo-callout-box {
-  position: relative;
+  // position: relative;
+  // top: 125px;
   text-align: right;
-  margin-top: 75px;
 }
 .demo-callout-image {
   width: 175px;
 }
 
 .demo-callout-text {
-  padding-top: 96px;
+  // position: relative;
+  // top: 175px;
+  padding-top: 50px;
+  margin-bottom: 96px;
+}
+
+.iframe-demo-box {
+  padding: 32px;
+}
+
+a {
+  color: white !important;
 }
 </style>
