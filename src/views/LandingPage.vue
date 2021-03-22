@@ -32,7 +32,7 @@
       </div>
     </section>
     <section class="explanation-section primary pa-2 white--text">
-      <div class="mt-8 explanation-section-text">
+      <div class="mt-16 explanation-section-text">
         <div class="title">
           <p>
             <img
@@ -52,7 +52,7 @@
             uitvoeringsprogramma inclusieve mobiliteit.
           </p>
         </div>
-        <div class="mt-8">
+        <div class="mt-16">
           <p>
             <v-btn
               color="secondary"
