@@ -11,9 +11,14 @@
           </p> -->
           <p class="mb-16">
             Met Haltebuddy weet je precies welke haltes er
-            <strong>voor jou</strong> toegankelijk zijn. Vul je reisprofiel in,
-            en zie precies waar je op moet letten voordat je de bus, tram, of
-            metro in stapt!
+            <strong>voor jou</strong> toegankelijk zijn. Vul je wensen voor
+            toegankelijkheid in, en zie waar je op moet letten voordat je de
+            bus, tram, of metro in stapt.
+          </p>
+          <p>
+            Ook kun je via de app het OV-personeel laten weten dat je er aan
+            komt en bijvoorbeeld extra hulp of tijd nodig hebt bij het
+            instappen.
           </p>
           <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
             Bekijk <a href="/">de demo</a>.
@@ -41,15 +46,21 @@
             />
           </p>
           <p>
-            Haltebuddy is een prototype van het focusteam van het innovatieteam
-            van de gemeente Amsterdam, in samenwerking met de VRA en de GVB.
+            Haltebuddy is een prototype van het focusteam van het CTO
+            innovatieteam van de gemeente Amsterdam, in samenwerking met de
+            Vervoerregio Amsterdam (VRA) en de GVB.
           </p>
           <p>
-            We hebben Haltebuddy ontwikkeld om aan te tonen dat reisadvies voor
-            mensen met een beperking persoonlijker kan. Dit doen we door een
-            reisprofiel te koppelen aan de informatie in het Centraal
-            Haltebestand. Het experiment Haltebuddy is onderdeel van het
-            uitvoeringsprogramma inclusieve mobiliteit.
+            We hebben Haltebuddy ontwikkeld met als doel reizen met het OV
+            (mentaal) toegankelijker te maken. We tonen met het prototype aan
+            dat reisadvies voor mensen met een beperking persoonlijker kan. Dit
+            doen we door een reisprofiel te koppelen aan de informatie in het
+            Centraal Haltebestand. Ook introduceren we het idee van een digitale
+            Halteknop om instappen gemakkelijker en minder stressvol te maken.
+          </p>
+          <p>
+            Het experiment Haltebuddy is onderdeel van het uitvoeringsprogramma
+            inclusieve mobiliteit van de VRA.
           </p>
         </div>
         <div class="mt-16">
