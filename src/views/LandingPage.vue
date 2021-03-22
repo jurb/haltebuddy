@@ -2,14 +2,14 @@
   <div>
     <section class="hero-section primary secondary pa-2 white--text">
       <div>
-        <div class="demo-callout-text title">
+        <div class="demo-callout-text title mb-16">
           <!-- <p>
             <img
               :src="require('@/assets/haltebuddy-logo.svg')"
               alt="logo haltebuddy"
             />
           </p> -->
-          <p class="mb-16">
+          <p>
             Met Haltebuddy weet je precies welke haltes er
             <strong>voor jou</strong> toegankelijk zijn. Vul je wensen voor
             toegankelijkheid in, en zie waar je op moet letten voordat je de
