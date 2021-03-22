@@ -1,4 +1,12 @@
-# haltebuddy
+# Haltebuddy
+
+Haltebuddy is een prototype van het focusteam van het innovatieteam van de gemeente Amsterdam, in samenwerking met de VRA en de GVB.
+
+We hebben Haltebuddy ontwikkeld om aan te tonen dat reisadvies voor mensen met een beperking persoonlijker kan. Dit doen we door een reisprofiel te koppelen aan de informatie in het Centraal Haltebestand. Het experiment Haltebuddy is onderdeel van het uitvoeringsprogramma inclusieve mobiliteit.
+
+* Ga naar https://haltebuddy.focustest.nl/landingpage om Haltebuddy uit te proberen.
+
+* Technische documentatie vind je hier: https://observablehq.com/@jurb/haltebuddy-aanbevelingen-techniek
 
 ## Project setup
 ```
