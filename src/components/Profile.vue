@@ -203,7 +203,7 @@ export default {
       val &&
         setTimeout(() => {
           this.loading = false;
-          this.$router.push({ name: "QuayMap" });
+          this.$router.push({ name: "Quays" });
         }, 3000);
     },
   },
