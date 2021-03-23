@@ -51,6 +51,17 @@ iframe {
   z-index: 1;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.device-frame::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.device-frame {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .device .device-content {
   background-color: #fff;
   background-position: center center;
