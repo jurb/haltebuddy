@@ -1,7 +1,7 @@
 <template>
   <div class="device device-spacegray device-iphone-8">
     <div class="device-frame">
-      <iframe src="/" frameborder="0" scrolling="no" />
+      <iframe src="/" frameborder="0" />
     </div>
     <div class="device-stripe"></div>
     <div class="device-header"></div>
