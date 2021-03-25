@@ -8,6 +8,8 @@ We hebben Haltebuddy ontwikkeld om aan te tonen dat reisadvies voor mensen met e
 
 * Technische documentatie vind je hier: https://observablehq.com/@jurb/haltebuddy-aanbevelingen-techniek
 
+* De data pipeline voor het werken van de CHB halte vind je hier: https://github.com/jurb/NDOV-CHB-to-JSON
+
 ## Project setup
 ```
 yarn install
