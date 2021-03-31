@@ -50,24 +50,6 @@
 
           <v-icon right> mdi-tune </v-icon>
         </v-chip>
-        <!-- Uncomment this to access profile in filter bar -->
-        <!-- <v-chip
-          pill
-          @click="
-            profileMenu = !profileMenu;
-            vehicleMenu = false;
-            settingsMenu = false;
-          "
-          color="secondary"
-          active-class="primary"
-        >
-          <v-icon left>
-            {{ profileMenu ? "mdi-chevron-up" : "mdi-chevron-down" }}
-          </v-icon>
-          <span class="chip-text">Profiel</span>
-
-          <v-icon> mdi-account </v-icon>
-        </v-chip> -->
       </div>
     </v-chip-group>
     <v-chip-group
@@ -129,34 +111,14 @@
         </v-btn>
       </v-btn-toggle>
     </div>
-    <div v-if="profileMenu">
-      <div class="px-3 grey lighten-4">
-        <!-- <h3 class="pa-2">Profiel</h3> -->
-        <profile type="inline" />
-        <v-btn
-          color="secondary"
-          block
-          depressed
-          class="text-none text-body rounded-0"
-          @click="profileMenu = false"
-        >
-          <v-icon left dark>
-            mdi-content-save
-          </v-icon>
-          <strong>Sla je profiel op</strong>
-        </v-btn>
-        <div class="pb-4"></div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import Profile from "@/components/Profile.vue";
 import RatingIcon from "@/components/RatingIcon.vue";
 export default {
-  components: { Profile, RatingIcon },
+  components: { RatingIcon },
   name: "QuayFilters",
   data: () => ({
     vehicleMenu: false,
