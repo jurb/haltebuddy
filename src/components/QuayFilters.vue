@@ -50,7 +50,8 @@
 
           <v-icon right> mdi-tune </v-icon>
         </v-chip>
-        <v-chip
+        <!-- Uncomment this to access profile in filter bar -->
+        <!-- <v-chip
           pill
           @click="
             profileMenu = !profileMenu;
@@ -66,7 +67,7 @@
           <span class="chip-text">Profiel</span>
 
           <v-icon> mdi-account </v-icon>
-        </v-chip>
+        </v-chip> -->
       </div>
     </v-chip-group>
     <v-chip-group
