@@ -11,15 +11,7 @@
       </div>
     </v-overlay>
 
-    <div class="pa-2">
-      <div class="pa-2">
-        <h3>Reisprofiel</h3>
-        <p>
-          Vul hieronder het reisprofiel in om te zien welke haltes voor jou
-          toegankelijk zijn.
-        </p>
-      </div>
-      <v-form v-if="type === 'view'">
+    <div class="pa-2 profile-wrapper">
         <v-card>
           <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
           <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
@@ -252,6 +244,11 @@ export default {
 </script>
 
 <style lang="scss">
+.profile-wrapper {
+  max-width: 375px;
+  margin: auto;
+}
+
 .v-slider__thumb:after {
   transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
   content: "";
@@ -278,7 +275,8 @@ export default {
   }
 }
 
-.v-btn {
-  letter-spacing: 0;
+.v-btn,
+.v-card__title {
+  letter-spacing: 0 !important;
 }
 </style>
