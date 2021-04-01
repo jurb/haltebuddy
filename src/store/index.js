@@ -120,6 +120,9 @@ export const store = new Vuex.Store({
     changeFilter({ commit }, e) {
       commit("changeFilter", e);
     },
+    changeProfile({ commit }, e) {
+      commit("changeProfile", e);
+    },
     changeQuays({ commit }, e) {
       commit("changeQuays", e);
     },
@@ -137,21 +140,6 @@ export const store = new Vuex.Store({
     },
     changeCurrentLocationName({ commit }, e) {
       commit("changeCurrentLocationName", e);
-    },
-    changeProfile({ commit }, e) {
-      commit("changeProfile", e);
-    },
-    changeProfileWidth({ commit }, e) {
-      commit("changeProfileWidth", e);
-    },
-    changeProfileThreshold({ commit }, e) {
-      commit("changeProfileThreshold", e);
-    },
-    changeProfileRamp({ commit }, e) {
-      commit("changeProfileRamp", e);
-    },
-    changeProfileModality({ commit }, e) {
-      commit("changeProfileModality", e);
     },
     fetchGVBpage({ commit }, e) {
       const zip = (arr, ...arrs) => {
@@ -217,21 +205,6 @@ export const store = new Vuex.Store({
     },
     changeCurrentLocationName(state, val) {
       state.currentLocationName = val;
-    },
-    changeProfile(state, val) {
-      state.profile = val;
-    },
-    changeProfileWidth(state, val) {
-      state.profile.width = val;
-    },
-    changeProfileThreshold(state, val) {
-      state.profile.threshold = val;
-    },
-    changeProfileRamp(state, val) {
-      state.profile.ramp = val;
-    },
-    changeProfileModality(state, val) {
-      state.profile.modality = val;
     },
     setGVBdata(state, val) {
       state.GVBdata = val;

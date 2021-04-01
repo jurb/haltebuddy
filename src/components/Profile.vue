@@ -60,12 +60,24 @@
               prepend-icon=" mdi-chevron-double-left"
               append-icon=" mdi-chevron-double-right"
               thumb-label="always"
-              @click:prepend="profileLocal.width--"
-              @click:append="profileLocal.width++"
+              @click:prepend="
+                (v) =>
+                  changeProfile({
+                    prop: 'width',
+                    value: profileLocal.width - 1,
+                  })
+              "
+              @click:append="
+                (v) =>
+                  changeProfile({
+                    prop: 'width',
+                    value: profileLocal.width + 1,
+                  })
+              "
               min="40"
               max="150"
               thumb-size="40"
-              @end="changeProfileWidth"
+              @end="(v) => changeProfile({ prop: 'width', value: v })"
             >
               <template v-slot:thumb-label="{ value }">
                 {{ value }}cm
@@ -82,7 +94,7 @@
           <v-card-text>
             <v-radio-group
               v-model="profileLocal.threshold"
-              @change="changeProfileThreshold"
+              @change="(v) => changeProfile({ prop: 'threshold', value: v })"
               mandatory
             >
               <v-radio label="Maximaal 2 cm" :value="2"> </v-radio>
@@ -107,11 +119,11 @@
             <v-switch
               v-model="profileLocal.ramp"
               :label="`Ja`"
-              @change="changeProfileRamp"
+              @change="(v) => changeProfile({ prop: 'ramp', value: v })"
             ></v-switch> </v-card-text
         ></v-card>
       </v-form>
-      <template v-if="type === 'view'">
+      <template>
         <div class="pb-6"></div>
         <v-btn
           color="secondary"
@@ -208,18 +220,14 @@ export default {
     },
   },
   methods: {
-    ...mapActions([
-      "changeProfileWidth",
-      "changeProfileThreshold",
-      "changeProfileRamp",
-      "changeProfileModality",
-    ]),
+    ...mapActions(["changeProfile"]),
     setValues: function(width, threshold, ramp) {
-      this.changeProfileWidth(width);
-      this.changeProfileThreshold(threshold);
-      this.changeProfileRamp(ramp);
+      this.changeProfile({ prop: "width", value: width });
+      this.changeProfile({ prop: "threshold", value: threshold });
+      this.changeProfile({ prop: "ramp", value: ramp });
     },
     setModalityDefaults: function(val) {
+      this.changeProfile({ prop: "modality", value: val });
       if (val === "Elektrische rolstoel") {
         this.setValues(80, 2, true);
       }
