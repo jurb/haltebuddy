@@ -44,6 +44,11 @@ const routes = [
     name: "QuayDetail",
   },
   {
+    path: "/quaylink/:quaycode",
+    component: QuayDetail,
+    name: "QuayDetailLinked",
+  },
+  {
     path: "/halteknop",
     name: "HalteknopPage",
     component: Halteknop,
