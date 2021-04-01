@@ -188,6 +188,9 @@ export const store = new Vuex.Store({
     changeFilter(state, payload) {
       state.filters[payload.prop] = payload.value;
     },
+    changeProfile(state, payload) {
+      state.profile[payload.prop] = payload.value;
+    },
     changeQuays(state, val) {
       state.quaysFiltered = val;
     },
