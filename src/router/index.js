@@ -45,7 +45,7 @@ const routes = [
   },
   {
     path: "/halteknop",
-    name: "Halteknop",
+    name: "HalteknopPage",
     component: Halteknop,
   },
   {
@@ -55,7 +55,7 @@ const routes = [
   },
   {
     path: "/route/:page",
-    name: "Route",
+    name: "RoutePage",
     component: Route,
   },
   {
