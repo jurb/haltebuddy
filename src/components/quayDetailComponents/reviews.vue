@@ -6,13 +6,13 @@
     <div class="mx-n4">
       <v-divider />
     </div>
-    <v-alert
+    <!-- <v-alert
       dismissible
       type="info"
       class="mx-n4 rounded-0 ticket-alert text-body-2"
     >
       Schrijf een review en spaar voor <a href="#">gratis GVB tickets</a>!
-    </v-alert>
+    </v-alert> -->
     <template v-if="!feedbackMode">
       <v-card
         v-for="review in quayReviews"
