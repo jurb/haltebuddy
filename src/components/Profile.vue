@@ -122,7 +122,12 @@
           block
           depressed
           class="text-none text-body rounded-0"
-          @click="loading = !loading"
+          @click="
+            () => {
+              loading = !loading;
+              changeProfileSet(true);
+            }
+          "
         >
           <v-icon left dark>
             mdi-content-save
@@ -175,7 +180,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["changeProfile"]),
+    ...mapActions(["changeProfile", "changeProfileSet"]),
     setValues: function(width, threshold, ramp) {
       this.changeProfile({ prop: "width", value: width });
       this.changeProfile({ prop: "threshold", value: threshold });
