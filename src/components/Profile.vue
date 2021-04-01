@@ -12,9 +12,9 @@
     </v-overlay>
 
     <div class="pa-2 profile-wrapper">
+      <v-form>
         <v-card>
           <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
-          <!-- <v-card-subtitle>Vul minstens iets in</v-card-subtitle> -->
           <v-card-text
             ><v-radio-group
               v-model="profileLocal.modality"
@@ -131,43 +131,6 @@
         </v-btn>
         <div class="pb-12"></div>
       </template>
-
-      <v-form v-if="type === 'inline'">
-        <h4>Hoeveel breedte heb je nodig?</h4>
-        <v-slider
-          class="mt-14"
-          v-model="profileLocal.width"
-          prepend-icon=" mdi-chevron-double-left"
-          append-icon=" mdi-chevron-double-right"
-          thumb-label="always"
-          @click:prepend="profileLocal.width--"
-          @click:append="profileLocal.width++"
-          min="30"
-          max="150"
-          thumb-size="40"
-          @dragleave="changeProfileWidth"
-        >
-          <template v-slot:thumb-label="{ value }"> {{ value }}cm </template>
-        </v-slider>
-        <h4>Drempel</h4>
-        <v-radio-group
-          v-model="profileLocal.threshold"
-          @change="changeProfileThreshold"
-          mandatory
-        >
-          <v-radio label="Maximaal 2 cm" :value="2"> </v-radio>
-          <v-radio label="Maximaal 5 cm" :value="5"></v-radio>
-          <v-radio label="Maximaal 10 cm" :value="10"></v-radio>
-          <v-radio label="Maximaal 15 cm" :value="15"></v-radio>
-          <v-radio label="Hoogte maakt niet uit" :value="Infinity"></v-radio>
-        </v-radio-group>
-        <h4>Oprijplank?</h4>
-        <v-switch
-          v-model="profileLocal.ramp"
-          :label="`Gebruik de plank als het nodig is`"
-          @change="changeProfileRamp"
-        ></v-switch>
-      </v-form>
     </div>
   </div>
 </template>
