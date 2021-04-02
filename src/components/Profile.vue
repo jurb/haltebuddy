@@ -14,9 +14,10 @@
     <div class="pa-2 profile-wrapper">
       <v-form>
         <v-card>
-          <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title>
-          <v-card-text
-            ><v-radio-group
+          <!-- <v-card-title class="pb-0">Hoe verplaats je je?</v-card-title> -->
+          <v-card-text>
+            <h2>Hoe verplaats je je?</h2>
+            <v-radio-group
               v-model="profileLocal.modality"
               @change="setModalityDefaults"
             >
@@ -42,10 +43,11 @@
         </v-card>
         <div class="pb-6"></div>
         <v-card>
-          <v-card-title class="pb-0"
+          <!-- <v-card-title class="pb-0"
             >Hoeveel breedte heb je nodig?</v-card-title
-          >
+          > -->
           <v-card-text>
+            <h2>Hoeveel breedte heb je nodig?</h2>
             <v-slider
               class="mt-14"
               v-model="profileLocal.width"
@@ -79,11 +81,14 @@
         </v-card>
         <div class="pb-6"></div>
         <v-card>
-          <v-card-title class="pb-0"
+          <!-- <v-card-title class="pb-0"
             >Hoe hoog mag een drempel of de hoogte tot een voertuig
             zijn?</v-card-title
-          >
+          > -->
           <v-card-text>
+            <h2>
+              Hoe hoog mag een drempel of de hoogte tot een voertuig zijn?
+            </h2>
             <v-radio-group
               v-model="profileLocal.threshold"
               @change="(v) => changeProfile({ prop: 'threshold', value: v })"
@@ -104,10 +109,13 @@
           <img
             :src="require('@/assets/icons/quayRamp.svg')"
             class="float-right pt-4 pr-6 pl-3"/>
-          <v-card-title class="pb-0"
+          <!-- <v-card-title class="pb-0"
             >Wil je gebruik maken van een oprijplank bij hogere drempels?
-          </v-card-title>
+          </v-card-title> -->
           <v-card-text>
+            <h2>
+              Wil je gebruik maken van een oprijplank bij hogere drempels?
+            </h2>
             <v-switch
               v-model="profileLocal.ramp"
               :label="`Ja`"
@@ -122,12 +130,7 @@
           block
           depressed
           class="text-none text-body rounded-0"
-          @click="
-            () => {
-              loading = !loading;
-              changeProfileSet(true);
-            }
-          "
+          @click="saveProfile()"
         >
           <v-icon left dark>
             mdi-content-save
@@ -151,7 +154,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["profile"]),
+    ...mapState(["profile", "profileSet"]),
     profileLocal() {
       return this.profile;
     },
@@ -170,17 +173,20 @@ export default {
     ],
     loading: false,
   }),
-  watch: {
-    loading(val) {
-      val &&
+  watch: {},
+  methods: {
+    ...mapActions(["changeProfile", "changeProfileSet"]),
+    saveProfile: function() {
+      if (this.$route.name === "QuayDetail") {
+        this.changeProfileSet(true);
+      } else {
+        this.loading = true;
         setTimeout(() => {
           this.loading = false;
           this.$router.push({ name: "Quays" });
         }, 3000);
+      }
     },
-  },
-  methods: {
-    ...mapActions(["changeProfile", "changeProfileSet"]),
     setValues: function(width, threshold, ramp) {
       this.changeProfile({ prop: "width", value: width });
       this.changeProfile({ prop: "threshold", value: threshold });
@@ -213,8 +219,13 @@ export default {
 
 <style lang="scss">
 .profile-wrapper {
-  max-width: 375px;
-  margin: auto;
+  // max-width: 375px;
+  // margin: auto;
+}
+
+.v-card__text,
+.theme--light.v-label {
+  color: rgba(0, 0, 0, 0.87) !important;
 }
 
 .v-slider__thumb:after {

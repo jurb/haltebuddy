@@ -1,5 +1,11 @@
 <template>
   <div>
+    <profile-sheet
+      v-if="!profileSet"
+      :profile-open="profileOpen"
+      :quay="quay"
+    />
+
     <rating-explanation-sheet
       :rating-explanation-open="ratingExplanationOpen"
       :title="getRatingExplanation(ratingExplanationSelected).title"
@@ -25,7 +31,7 @@
       @close="feedbackOpen = false"
     />
 
-    <v-btn icon @click="$router.go(-1)" class="ma-2">
+    <v-btn icon @click="$router.go(-1)" class="ma-2" v-if="profileSet">
       <v-icon color="grey darken-4">mdi-arrow-left</v-icon>
     </v-btn>
 
@@ -172,6 +178,7 @@ import RatingExplanationSheet from "@/components/quayDetailComponents/RatingExpl
 import QuayTimeTable from "@/components/quayDetailComponents/QuayTimeTable.vue";
 import GeneralExplanationSheet from "@/components/quayDetailComponents/GeneralExplanationSheet.vue";
 import QuayFeedbackSheet from "@/components/quayDetailComponents/QuayFeedbackSheet.vue";
+import ProfileSheet from "@/components/quayDetailComponents/profileSheet.vue";
 import Reviews from "../components/quayDetailComponents/reviews.vue";
 import QuayDetailHeader from "@/components/quayDetailComponents/quayDetailHeader.vue";
 
@@ -189,6 +196,7 @@ export default {
     feedbackOpen: false,
     ratingExplanationOpen: false,
     generalExplanationOpen: false,
+    profileOpen: true,
   }),
   components: {
     RatingLabel,
@@ -199,10 +207,11 @@ export default {
     QuayFeedbackSheet,
     Reviews,
     QuayDetailHeader,
+    ProfileSheet,
   },
   computed: {
     ...mapGetters(["enhancedQuays"]),
-    ...mapState(["profile", "filters"]),
+    ...mapState(["profile", "filters", "profileSet"]),
     quay: function() {
       const foundQuay = this.enhancedQuays.find(
         (quay) => quay.quaycode === this.$route.params.quaycode

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Profile from "../components/Profile.vue";
+import Profile from "@/components/Profile.vue";
 export default {
   components: { Profile },
 };
