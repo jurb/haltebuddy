@@ -182,6 +182,7 @@ export default {
       } else {
         this.loading = true;
         setTimeout(() => {
+          this.changeProfileSet(true);
           this.loading = false;
           this.$router.push({ name: "Quays" });
         }, 3000);
