@@ -184,7 +184,6 @@ export const store = new Vuex.Store({
     },
   },
   mutations: {
-    // TODO: refactor the profile mutations into one mutation, like below with filters
     changeFilter(state, payload) {
       state.filters[payload.prop] = payload.value;
     },
