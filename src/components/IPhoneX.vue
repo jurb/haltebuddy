@@ -1,7 +1,7 @@
 <template>
   <div class="device device-spacegray device-iphone-8">
     <div class="device-frame">
-      <iframe src="/" frameborder="0" />
+      <iframe :src="iframeUrl" frameborder="0" />
     </div>
     <div class="device-stripe"></div>
     <div class="device-header"></div>
@@ -14,6 +14,7 @@
 <script>
 export default {
   name: "IPhoneX",
+  props: ["iframeUrl"],
 };
 </script>
 
