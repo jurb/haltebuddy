@@ -1,30 +1,12 @@
 <template>
   <div>
     <v-container class="pa-0 mb-n4">
-      <router-link
-        v-if="$route.params.page === '01'"
-        to="/halteknop-landing/02"
-      >
-        <img class="map-image" src="@/assets/halteknop01.png"
-      /></router-link>
-      <router-link
-        v-if="$route.params.page === '02'"
-        to="/halteknop-landing/03"
-      >
-        <img class="map-image" src="@/assets/halteknop02.png"
-      /></router-link>
-      <router-link
-        v-if="$route.params.page === '03'"
-        to="/halteknop-landing/04"
-      >
-        <img class="map-image" src="@/assets/halteknop03.png"
-      /></router-link>
-      <router-link
-        v-if="$route.params.page === '04'"
-        to="/halteknop-landing/01"
-      >
-        <img class="map-image" src="@/assets/halteknop04.png" />
-      </router-link>
+      <v-carousel height="675" cycle interval="3000" show-arrows-on-hover>
+        <v-carousel-item src="@/assets/halteknop01.png"></v-carousel-item>
+        <v-carousel-item src="@/assets/halteknop02.png"></v-carousel-item>
+        <v-carousel-item src="@/assets/halteknop03.png"></v-carousel-item>
+        <v-carousel-item src="@/assets/halteknop04.png"></v-carousel-item>
+      </v-carousel>
     </v-container>
   </div>
 </template>
@@ -38,5 +20,9 @@ export default {
 <style lang="scss" scoped>
 .map-image {
   width: 100%;
+}
+
+.halteknop-image {
+  height: 667px;
 }
 </style>
