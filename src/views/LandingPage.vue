@@ -72,6 +72,23 @@
             <img :src="require('@/assets/colofon.svg')" alt="logo colofon" />
           </p>
           <p>
+            <img
+              src="@/assets/gvb-logo.png"
+              alt="gvb logo"
+              class="colofon-logo"
+            />
+            <img
+              src="@/assets/vra-logo.png"
+              alt="gvb logo"
+              class="colofon-logo"
+            />
+            <img
+              src="@/assets/gemeente-logo.png"
+              alt="gvb logo"
+              class="colofon-logo"
+            />
+          </p>
+          <p>
             Haltebuddy en Halteknop zijn prototypes van het focusteam van het
             CTO innovatieteam van de gemeente Amsterdam, in samenwerking met de
             Vervoerregio Amsterdam (VRA) en de GVB. We hebben Haltebuddy en
@@ -185,6 +202,14 @@ export default {
 
 .iframe-demo-box {
   padding: 32px;
+}
+
+.colofon-logo {
+  width: 33%;
+  vertical-align: top;
+  padding-top: 48px;
+  padding-right: 10%;
+  padding-bottom: 24px;
 }
 
 a {
