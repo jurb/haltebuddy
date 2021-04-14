@@ -156,6 +156,9 @@ export default {
   data: () => ({
     value: "",
   }),
+  created: function() {
+    document.title = "Haltebuddy en Halteknop";
+  },
 };
 </script>
 
