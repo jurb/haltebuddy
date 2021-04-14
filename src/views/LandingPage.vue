@@ -65,7 +65,7 @@
       </div>
     </section>
 
-    <section class="explanation-section accent pa-2 white--text">
+    <section class="explanation-section error pa-2 white--text">
       <div class="mt-16 explanation-section-text">
         <div class="title">
           <p>
@@ -98,8 +98,7 @@
         <div class="mt-16">
           <p>
             <v-btn
-              color="secondary"
-              depressed
+              color="white black--text"
               class="text-none text-body rounded-0"
               x-large
               href="https://docs.google.com/presentation/d/18z1kKqbTW5bTGFxQfOwhL4FDkDlxv4yhTpL-jijnobo/edit?usp=sharing"
@@ -113,8 +112,7 @@
           </p>
           <p>
             <v-btn
-              color="secondary"
-              depressed
+              color="white black--text"
               class="text-none text-body rounded-0"
               x-large
               href="https://github.com/jurb/haltebuddy"
@@ -128,8 +126,7 @@
           </p>
           <p>
             <v-btn
-              color="secondary"
-              depressed
+              color="white black--text"
               class="text-none text-body rounded-0"
               x-large
               href="https://observablehq.com/@jurb/haltebuddy-aanbevelingen-techniek"
