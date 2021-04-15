@@ -16,7 +16,7 @@
             bus, tram, of metro in stapt.
           </p>
           <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
-            Bekijk <a href="/">de demo</a>.
+            Bekijk <a href="/">het prototype</a>.
           </p>
         </div>
         <div class="demo-callout-box-buddy" v-if="$vuetify.breakpoint.mdAndUp">
@@ -56,7 +56,7 @@
             en bijvoorbeeld extra hulp of tijd nodig hebt bij het instappen.
           </p>
           <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
-            Bekijk <a href="/">de demo</a>.
+            Bekijk <a href="/">het prototype</a>.
           </p>
         </div>
         <div class="demo-callout-box" v-if="$vuetify.breakpoint.mdAndUp">
