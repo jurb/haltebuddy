@@ -10,7 +10,7 @@
             />
           </p>
           <p>
-            Met Haltebuddy weet je precies welke haltes er
+            Met Haltebuddy weet je precies welke Amsterdamse haltes er
             <strong>voor jou</strong> toegankelijk zijn. Vul je wensen voor
             toegankelijkheid in, en zie waar je op moet letten voordat je de
             bus, tram, of metro in stapt.
@@ -48,6 +48,9 @@
             />
           </p>
           <p>
+            Voor reizigers met een beperking is instappen vaak een stressvol moment.
+          </p>
+          <p>
             Met Halteknop kun je het OV-personeel laten weten dat je er aan komt
             en bijvoorbeeld extra hulp of tijd nodig hebt bij het instappen.
           </p>
@@ -78,6 +81,11 @@
               class="colofon-logo"
             />
             <img
+              src="@/assets/gvb-logo.png"
+              alt="clientenbelang logo"
+              class="colofon-logo"
+            />
+            <img
               src="@/assets/vra-logo.png"
               alt="gvb logo"
               class="colofon-logo"
@@ -91,7 +99,7 @@
           <p>
             Haltebuddy en Halteknop zijn prototypes van het focusteam van het
             CTO innovatieteam van de gemeente Amsterdam, in samenwerking met de
-            Vervoerregio Amsterdam (VRA) en de GVB. We hebben Haltebuddy en
+            Vervoerregio Amsterdam (VRA), Clientenbelang Amsterdam en de GVB. We hebben Haltebuddy en
             Halteknop ontwikkeld met als doel reizen met het OV (mentaal)
             toegankelijker te maken.
           </p>
@@ -110,6 +118,9 @@
           <p>
             De experimenten zijn overgedragen aan de GVB en VRA als onderdeel
             van het uitvoeringsprogramma inclusieve mobiliteit van de VRA.
+          </p>
+          <p>
+            <strong>Meer weten?</strong> Mail <a href="mailto:h.faber@amsterdam.nl">Heike Faber</a> en <a href="mailto:j.baas@amsterdam.nl">Jurian Baas</a>
           </p>
         </div>
         <div class="mt-16">
