@@ -132,13 +132,27 @@
               color="white black--text"
               class="text-none text-body rounded-0"
               x-large
-              href="https://docs.google.com/presentation/d/18z1kKqbTW5bTGFxQfOwhL4FDkDlxv4yhTpL-jijnobo/edit?usp=sharing"
+              href="/files/haltebuddy_evaluatie_en_aanbevelingen_maart_2021.pdf"
               target="_blank"
             >
               <v-icon left dark>
                 mdi-download
               </v-icon>
-              <strong>Download de evaluatie</strong>
+              <strong>Haltebuddy evaluatie</strong>
+            </v-btn>
+          </p>
+          <p>
+            <v-btn
+              color="white black--text"
+              class="text-none text-body rounded-0"
+              x-large
+              href="/files/Halteknop - conceptuitwerking en evaluatie - april 2021.pdf"
+              target="_blank"
+            >
+              <v-icon left dark>
+                mdi-download
+              </v-icon>
+              <strong>Halteknop conceptuitwerking</strong>
             </v-btn>
           </p>
           <p>
