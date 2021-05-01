@@ -122,7 +122,8 @@
           </p>
           <p>
             <strong>Meer weten?</strong> Mail
-            <a href="mailto:h.faber@amsterdam.nl">Heike Faber</a> en
+            <a href="mailto:h.faber@amsterdam.nl">Heike Faber</a>,
+            <a href="mailto:w.nieuwboer@amsterdam.nl">Wieteke Nieuwboer</a> en
             <a href="mailto:j.baas@amsterdam.nl">Jurian Baas</a>
           </p>
         </div>
