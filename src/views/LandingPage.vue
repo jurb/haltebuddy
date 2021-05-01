@@ -56,7 +56,7 @@
             en bijvoorbeeld extra hulp of tijd nodig hebt bij het instappen.
           </p>
           <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
-            Bekijk <a href="/">de demo</a>.
+            Bekijk <a href="/halteknop/01">de demo</a>.
           </p>
         </div>
         <div class="demo-callout-box" v-if="$vuetify.breakpoint.mdAndUp">
