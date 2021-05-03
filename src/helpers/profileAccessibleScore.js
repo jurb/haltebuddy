@@ -50,7 +50,7 @@ function profileAccessibleScore(quay, profile) {
   const transportMode = quay.transportmode;
 
   // Threshold rating block
-  const threshold = !quay.ramp && !quay.lift && !quay.stopplaceaccessroute;
+  const threshold = !quay.ramp && !quay.lift && !quay.stopplaceaccessroute && quay.heightwithenvironment !== 0;
   const quayThresholdProfile = profile.threshold / 100;
   const quayThreshold = threshold ? quay.kerbheight : undefined;
   const quayThresholdDifference = quayThresholdProfile - quayThreshold;
