@@ -17,11 +17,11 @@ function profileAccessibleScore(quay, profile) {
       .range(RATINGRANGE);
 
   // domain constants
-  const THRESHOLDDOMAIN = [-0.02, -0.01, 0];
+  const THRESHOLDDOMAIN = [-0.021, -0.011, 0]; // adding a bit to the thresholds so we can cover all scores with the slider step of 1 cm
   const QUAYNARROWESTWIDTHDOMAIN = [-0.05, 0, 0.05];
   const RAMPROOMWIDTHDOMAIN = [-0.2, 0, 0.05];
   const RAMPMINHEIGHTDOMAIN = [-0.04, -0.02, 0];
-  const VEHICLETHRESHOLDDOMAIN = [-0.02, -0.01, 0];
+  const VEHICLETHRESHOLDDOMAIN = [-0.021, -0.011, 0];
 
   // we subtract 1cm from the 30cm of a tram due to wear
   const VEHICLETRAMHEIGHT = 0.29;
