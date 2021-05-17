@@ -44,6 +44,7 @@
     <div
       v-if="
         quay.profileAccessibleScore &&
+          profile.ramp &&
           quay.profileAccessibleScore.vehicleThresholdRating <
             quay.profileAccessibleScore.rampRating &&
           quay.profileAccessibleScore.rampRating > 0
