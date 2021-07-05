@@ -83,9 +83,9 @@
             />
           </p>
           <p>
-            Wij hebben 24 juni 2021 Haltebuddy en Halteknop kort mogen laten
-            zien op het Inclusive Mobility Lab van het ministerie van
-            Volksgezondheid, Welzijn en Sport.
+            Wij mochten Haltebuddy en Halteknop kort laten zien op het Inclusive
+            Mobility Lab 2021 van het ministerie van Volksgezondheid, Welzijn en
+            Sport.
           </p>
           <div class="video-wrapper">
             <iframe
