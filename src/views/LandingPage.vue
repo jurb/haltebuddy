@@ -1,7 +1,7 @@
 <template>
   <div>
     <section class="hero-section primary secondary pa-2 white--text">
-      <div>
+      <div class="block">
         <div class="demo-callout-text title mb-16">
           <p>
             <img
@@ -19,7 +19,7 @@
             Bekijk <a href="/">het prototype</a>.
           </p>
         </div>
-        <div class="demo-callout-box-buddy" v-if="$vuetify.breakpoint.mdAndUp">
+        <div class="demo-callout-box-buddy" v-if="$vuetify.breakpoint.lgAndUp">
           <img
             :src="require('@/assets/demo-callout-bottom.svg')"
             alt="pijltje naar demo haltebuddy"
@@ -27,19 +27,23 @@
           />
         </div>
       </div>
-      <div class="iframe-demo-box">
-        <IPhoneX iframe-url="/" v-if="$vuetify.breakpoint.smAndUp" />
+      <div class="block">
+        <div class="iframe-demo-box">
+          <IPhoneX iframe-url="/" v-if="$vuetify.breakpoint.smAndUp" />
+        </div>
       </div>
     </section>
 
     <section class="hero-section primary pa-2 white--text">
-      <div class="iframe-demo-box">
-        <IPhoneX
-          iframe-url="/halteknop-landing/01"
-          v-if="$vuetify.breakpoint.smAndUp"
-        />
+      <div class="block">
+        <div class="iframe-demo-box">
+          <IPhoneX
+            iframe-url="/halteknop-landing/01"
+            v-if="$vuetify.breakpoint.smAndUp"
+          />
+        </div>
       </div>
-      <div>
+      <div class="block">
         <div class="demo-callout-text title mb-16">
           <p>
             <img
@@ -59,12 +63,41 @@
             Bekijk <a href="/halteknop/01">de demo</a>.
           </p>
         </div>
-        <div class="demo-callout-box" v-if="$vuetify.breakpoint.mdAndUp">
+        <div class="demo-callout-box" v-if="$vuetify.breakpoint.lgAndUp">
           <img
             :src="require('@/assets/demo-callout-knop-bottom.svg')"
             alt="pijltje naar demo halteknop"
             class="demo-callout-image"
           />
+        </div>
+      </div>
+    </section>
+
+    <section class="explanation-section accent pa-2 white--text">
+      <div class="mt-16 mb-8 explanation-section-text">
+        <div class="title">
+          <p>
+            <img
+              :src="require('@/assets/landing-demo-video.svg')"
+              alt="logo demo video"
+            />
+          </p>
+          <p>
+            Wij hebben 24 juni 2021 Haltebuddy en Halteknop kort mogen laten
+            zien op het Inclusive Mobility Lab van het ministerie van
+            Volksgezondheid, Welzijn en Sport.
+          </p>
+          <div class="video-wrapper">
+            <iframe
+              width="560"
+              height="315"
+              src="https://www.youtube-nocookie.com/embed/L02q9eNYlbY"
+              title="YouTube video player"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -243,5 +276,18 @@ export default {
 
 a {
   color: white !important;
+}
+
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 </style>
