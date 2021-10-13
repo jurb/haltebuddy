@@ -207,7 +207,7 @@ export default {
       if (val === "Rollator") {
         this.setValues(70, 5, false);
       }
-      if (val === "Stok of krukken") {
+      if (val === "Wandelstok of krukken") {
         this.setValues(50, 10, false);
       }
       if (val === "Zonder hulpmiddel") {
