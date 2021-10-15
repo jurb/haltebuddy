@@ -173,7 +173,7 @@ export const store = new Vuex.Store({
                 .replaceAll("\n", " ")
                 .replaceAll("                 ", " | ")
                 .replaceAll(" Richting", "richting")
-            )
+            ).slice(1)
           );
           const GVBdataObject = zip(gvbLabels, gvbContent).map((el) =>
             zipObject(el[0], el[1])
