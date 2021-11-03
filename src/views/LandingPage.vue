@@ -154,10 +154,23 @@
             van het uitvoeringsprogramma inclusieve mobiliteit van de VRA.
           </p>
           <p>
-            <strong>Meer weten?</strong> Mail
-            <a href="mailto:h.faber@amsterdam.nl">Heike Faber</a>,
-            <a href="mailto:w.nieuwboer@amsterdam.nl">Wieteke Nieuwboer</a> en
-            <a href="mailto:j.baas@amsterdam.nl">Jurian Baas</a>
+            <strong
+              >Bespreken wat jouw vervoersbedrijf of gemeente kan met dit
+              concept?</strong
+            >
+            Mail
+            <a href="mailto:w.passmore@vervoerregio.nl">Willeke Passmore</a>,
+            Projectleider Haltebuddy en Halteknop bij de Vervoerregio Amsterdam.
+          </p>
+          <p>
+            <strong>Meer weten over het originele prototype?</strong> Mail
+            <a href="mailto:h.faber@amsterdam.nl">Heike Faber</a>
+            en
+            <a href="mailto:j.baas@amsterdam.nl">Jurian Baas</a>.
+          </p>
+          <p>
+            Gemaakt door Heike Faber, Jurian Baas, Wieteke Nieuwboer en Lino
+            Miltenburg van het CTO Innovatieteam van de gemeente Amsterdam.
           </p>
         </div>
         <div class="mt-16">
