@@ -30,6 +30,8 @@
       <div class="block">
         <div class="iframe-demo-box">
           <IPhoneX iframe-url="/" v-if="$vuetify.breakpoint.smAndUp" />
+          <br />
+          <p>Data laatst geupdate op 15 februari 2022</p>
         </div>
       </div>
     </section>
@@ -277,6 +279,8 @@ export default {
 
 .iframe-demo-box {
   padding: 32px;
+  text-align: center;
+  font-size: 0.75rem;
 }
 
 .colofon-logo {
