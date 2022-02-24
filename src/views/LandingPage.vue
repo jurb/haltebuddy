@@ -15,6 +15,15 @@
             toegankelijkheid in, en zie waar je op moet letten voordat je de
             bus, tram, of metro in stapt.
           </p>
+          <p class="callout">
+            Update: de
+            <a
+              href="https://www.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
+              >GVB app</a
+            >
+            heeft nu <strong>Haltehulp</strong>: een implementatie van de ideeën
+            van Haltebuddy!
+          </p>
           <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
             Bekijk <a href="/">het prototype</a>.
           </p>
@@ -138,6 +147,15 @@
             Vervoerregio Amsterdam (VRA), Clientenbelang Amsterdam en de GVB. We
             hebben Haltebuddy en Halteknop ontwikkeld met als doel reizen met
             het OV (mentaal) toegankelijker te maken.
+          </p>
+          <p>
+            De GVB heeft Haltebuddy als concept met gebruikers verder onderzocht
+            en uitgewerkt tot een onderdeel van de
+            <a
+              href="https://www.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
+              >GVB app</a
+            >
+            onder de naam <strong>Haltehulp</strong>.
           </p>
           <p>
             We tonen met Haltebuddy aan dat reisadvies voor mensen met een
@@ -306,5 +324,15 @@ a {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.callout {
+  background-color: rgb(255, 255, 83);
+  color: black;
+  padding: 10px;
+}
+
+.callout a {
+  color: black !important;
 }
 </style>
