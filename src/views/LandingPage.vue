@@ -15,15 +15,24 @@
             toegankelijkheid in, en zie waar je op moet letten voordat je de
             bus, tram, of metro in stapt.
           </p>
-          <p class="callout">
-            Update: de
-            <a
-              href="https://www.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
-              >GVB app</a
-            >
-            heeft nu <strong>Haltehulp</strong>: een implementatie van de ideeën
-            van Haltebuddy!
-          </p>
+          <div class="callout">
+            <p>
+              De
+              <a
+                href="https://www.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
+                >GVB app</a
+              >
+              heeft nu <strong>Haltehulp</strong>: een implementatie van de
+              ideeën van Haltebuddy!
+            </p>
+            <p>
+              Lees er alles over in
+              <a
+                href="https://over.gvb.nl/nieuws/haltehulp-in-gvb-app-voor-reizigers-met-mobiliteitsbeperking/"
+                >het nieuwsbericht</a
+              >.
+            </p>
+          </div>
           <p v-if="$vuetify.breakpoint.xsOnly" class="white--text">
             Bekijk <a href="/">het prototype</a>.
           </p>
@@ -155,7 +164,11 @@
               href="https://www.gvb.nl/klantenservice/reizen-met-de-gvb-reisapp-0"
               >GVB app</a
             >
-            onder de naam <strong>Haltehulp</strong>.
+            onder de naam <strong>Haltehulp</strong>. Lees er alles over in
+            <a
+              href="https://over.gvb.nl/nieuws/haltehulp-in-gvb-app-voor-reizigers-met-mobiliteitsbeperking/"
+              >het nieuwsbericht van de GVB</a
+            >.
           </p>
           <p>
             We tonen met Haltebuddy aan dat reisadvies voor mensen met een
