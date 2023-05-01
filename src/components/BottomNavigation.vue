@@ -1,12 +1,5 @@
 <template>
-  <v-bottom-navigation
-    v-model="value"
-    background-color="primary"
-    dark
-    grow
-    app
-    fixed
-  >
+  <v-bottom-navigation v-model="value" background-color="primary" dark grow app fixed>
     <v-btn value="profile" :input-value="value === 'profile'" to="/profile">
       <span>Reisprofiel</span>
       <v-icon>mdi-account</v-icon>
@@ -23,11 +16,7 @@
       <span>Kaart</span>
       <v-icon>mdi-map-marker</v-icon>
     </v-btn>
-    <v-btn
-      value="halteknop"
-      :input-value="value === 'halteknop'"
-      to="/halteknop/01"
-    >
+    <v-btn value="halteknop" :input-value="value === 'halteknop'" to="/halteknop/01">
       <span>Halteknop</span>
       <v-icon>mdi-lifebuoy</v-icon>
     </v-btn>
@@ -50,5 +39,9 @@ export default {
   /* TODO Already wrote the first !important :) remove! */
   height: inherit !important;
   letter-spacing: 0em;
+}
+
+.theme--dark.v-btn.v-btn--has-bg {
+  background-color: #009ee3;
 }
 </style>
