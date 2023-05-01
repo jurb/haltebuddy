@@ -49,7 +49,7 @@
         <div class="iframe-demo-box">
           <IPhoneX iframe-url="/" v-if="$vuetify.breakpoint.smAndUp" />
           <br />
-          <p>Data laatst geupdate op 15 februari 2022</p>
+          <p>Data laatst geupdate op 1 mei 2023</p>
         </div>
       </div>
     </section>
